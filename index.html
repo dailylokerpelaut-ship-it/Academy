@@ -5,953 +5,2062 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Daily Loker Pelaut Academy — Quiz Pelaut Harian</title>
   <meta name="description" content="Quiz edukasi harian untuk pelaut Indonesia. Latihan 5 soal setiap hari, pilih jalur Deck Officer, Engineer Officer, atau Rating." />
-  <meta name="theme-color" content="#0f2f3f" />
+  <meta name="theme-color" content="#052e63" />
 
   <style>
     :root {
-      --bg: #f7f9f8;
+      --bg: #f6fbfd;
       --surface: #ffffff;
-      --surface-soft: #eef5f2;
-      --ink: #10242f;
-      --muted: #60727b;
-      --line: #dfe8e5;
-      --brand: #0f3a4a;
-      --brand-2: #1f6f78;
-      --accent: #f2b84b;
-      --accent-soft: #fff4d8;
-      --ok: #177a4d;
-      --ok-soft: #e7f7ee;
-      --bad: #b42318;
+      --surface-soft: #f1f8fb;
+      --navy: #052e63;
+      --navy-2: #073b77;
+      --teal: #05aeb8;
+      --teal-2: #17c7c3;
+      --aqua: #e8fbfb;
+      --ink: #082448;
+      --muted: #62758d;
+      --line: #dce8f0;
+      --soft-line: #edf3f7;
+      --warm: #ff8a2a;
+      --warm-soft: #fff3e7;
+      --ok: #0aa873;
+      --ok-soft: #e7fbf4;
+      --bad: #d14335;
       --bad-soft: #fff0ee;
-      --shadow: 0 18px 50px rgba(16, 36, 47, 0.08);
+      --shadow: 0 18px 45px rgba(5, 46, 99, 0.10);
+      --shadow-soft: 0 10px 28px rgba(5, 46, 99, 0.07);
       --radius-xl: 28px;
-      --radius-lg: 20px;
-      --radius-md: 14px;
-      --max: 1120px;
+      --radius-lg: 22px;
+      --radius-md: 16px;
+      --max: 980px;
     }
 
-    * {
-      box-sizing: border-box;
-    }
-
-    html {
-      scroll-behavior: smooth;
-    }
-
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
     body {
       margin: 0;
-      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      min-height: 100vh;
+      font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, Arial, sans-serif;
       color: var(--ink);
       background:
-        radial-gradient(circle at top left, rgba(31, 111, 120, 0.12), transparent 34rem),
-        linear-gradient(180deg, #fbfcfb 0%, var(--bg) 45%, #f3f7f6 100%);
-      min-height: 100vh;
+        radial-gradient(circle at 12% 0%, rgba(23, 199, 195, 0.18), transparent 30rem),
+        radial-gradient(circle at 92% 18%, rgba(5, 46, 99, 0.08), transparent 22rem),
+        linear-gradient(180deg, #fbfeff 0%, var(--bg) 48%, #ffffff 100%);
     }
 
-    a {
-      color: inherit;
-      text-decoration: none;
-    }
+    button, input { font: inherit; }
+    button { -webkit-tap-highlight-color: transparent; }
+    a { color: inherit; text-decoration: none; }
 
-    button {
-      font: inherit;
-    }
-
-    .page-shell {
+    .app-shell {
       width: min(100%, var(--max));
       margin: 0 auto;
-      padding: 18px 16px 36px;
+      padding: 0 14px 36px;
     }
 
-    .site-header {
+    .hero-top {
+      margin: 0 -14px 18px;
+      min-height: 196px;
+      padding: 22px 18px 58px;
+      color: #fff;
+      background:
+        radial-gradient(circle at 72% 18%, rgba(23, 199, 195, 0.55), transparent 21rem),
+        linear-gradient(135deg, #031b42 0%, #063a79 52%, #05aeb8 100%);
+      border-bottom-left-radius: 34px;
+      border-bottom-right-radius: 34px;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 16px 36px rgba(5, 46, 99, 0.18);
+    }
+
+    .hero-top::before,
+    .hero-top::after {
+      content: "";
+      position: absolute;
+      pointer-events: none;
+      opacity: 0.4;
+      background-repeat: no-repeat;
+      background-size: contain;
+    }
+
+    .hero-top::before {
+      width: 210px;
+      height: 92px;
+      right: 14px;
+      bottom: 22px;
+      background-image: url("data:image/svg+xml,%3Csvg width='260' height='100' viewBox='0 0 260 100' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M42 64c20 0 20-10 40-10s20 10 40 10 20-10 40-10 20 10 40 10' stroke='%23BFF9F8' stroke-width='3' stroke-linecap='round'/%3E%3Cpath d='M80 48h90l-18 24H98L80 48Z' stroke='%23BFF9F8' stroke-width='3' stroke-linejoin='round'/%3E%3Cpath d='M112 48V24h34v24M123 24V10M103 38h54M126 36h8M144 36h8M107 58h10M126 58h10M145 58h10' stroke='%23BFF9F8' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'/%3E%3Cpath d='M6 82c20 0 20-10 40-10s20 10 40 10 20-10 40-10 20 10 40 10 20-10 40-10 20 10 40 10' stroke='%23BFF9F8' stroke-width='2' stroke-linecap='round' opacity='.7'/%3E%3C/svg%3E");
+    }
+
+    .hero-top::after {
+      width: 100%;
+      height: 78px;
+      left: 0;
+      bottom: -1px;
+      background-image: url("data:image/svg+xml,%3Csvg width='900' height='90' viewBox='0 0 900 90' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 38C112 76 203 14 319 45C447 80 540 25 666 45C760 60 825 45 900 20V90H0V38Z' fill='white'/%3E%3C/svg%3E");
+      background-size: 100% 100%;
+      opacity: 1;
+    }
+
+    .brand-row {
+      position: relative;
+      z-index: 2;
       display: flex;
       align-items: center;
       justify-content: space-between;
       gap: 14px;
-      padding: 10px 4px 18px;
     }
 
     .brand {
       display: inline-flex;
       align-items: center;
-      gap: 10px;
-      font-weight: 850;
-      letter-spacing: -0.03em;
-      color: var(--brand);
+      gap: 12px;
+      line-height: 1.05;
+      font-weight: 900;
+      letter-spacing: -0.035em;
     }
 
     .brand-mark {
-      width: 38px;
-      height: 38px;
+      width: 48px;
+      height: 48px;
+      flex: 0 0 auto;
       display: grid;
       place-items: center;
-      border: 1px solid rgba(15, 58, 74, 0.12);
-      border-radius: 14px;
-      background: rgba(255, 255, 255, 0.78);
-      box-shadow: 0 8px 24px rgba(15, 58, 74, 0.08);
+      border: 2px solid rgba(255,255,255,0.78);
+      border-radius: 999px;
+      background: rgba(255,255,255,0.11);
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,0.15);
     }
 
-    .brand small {
+    .brand-main { display: block; font-size: 1.02rem; }
+    .brand-accent { display: block; margin-top: 2px; color: #5bf1ec; font-size: 1.08rem; }
+
+    .hamburger {
+      width: 44px;
+      height: 44px;
+      display: grid;
+      place-items: center;
+      border: 1px solid rgba(255,255,255,0.24);
+      border-radius: 16px;
+      background: rgba(255,255,255,0.08);
+      color: #fff;
+    }
+
+
+
+    .nav-wrap {
+      position: relative;
+      z-index: 20;
+      flex: 0 0 auto;
+    }
+
+    .top-menu {
+      position: absolute;
+      top: 54px;
+      right: 0;
+      width: min(310px, calc(100vw - 32px));
+      display: none;
+      flex-direction: column;
+      gap: 8px;
+      padding: 10px;
+      border: 1px solid rgba(5, 46, 99, 0.10);
+      border-radius: 20px;
+      background: rgba(255, 255, 255, 0.98);
+      color: var(--ink);
+      box-shadow: 0 22px 50px rgba(5, 46, 99, 0.22);
+      backdrop-filter: blur(12px);
+    }
+
+    .top-menu.open {
+      display: flex;
+      animation: menuPop 150ms ease-out;
+    }
+
+    .top-menu::before {
+      content: "";
+      position: absolute;
+      top: -8px;
+      right: 16px;
+      width: 16px;
+      height: 16px;
+      background: rgba(255, 255, 255, 0.98);
+      border-left: 1px solid rgba(5, 46, 99, 0.08);
+      border-top: 1px solid rgba(5, 46, 99, 0.08);
+      transform: rotate(45deg);
+    }
+
+    .top-menu a,
+    .top-menu button {
+      width: 100%;
+      display: grid;
+      grid-template-columns: 34px 1fr;
+      align-items: center;
+      gap: 10px;
+      padding: 12px;
+      border: 0;
+      border-radius: 15px;
+      background: transparent;
+      color: var(--ink);
+      text-align: left;
+      cursor: pointer;
+    }
+
+    .top-menu a:hover,
+    .top-menu button:hover {
+      background: var(--surface-soft);
+    }
+
+    .top-menu a > span:first-child,
+    .top-menu button > span:first-child {
+      width: 34px;
+      height: 34px;
+      display: grid;
+      place-items: center;
+      border-radius: 12px;
+      background: var(--aqua);
+      font-size: 1rem;
+    }
+
+    .top-menu a > span:last-child,
+    .top-menu button > span:last-child {
       display: block;
-      margin-top: -2px;
+      min-width: 0;
+      font-size: 0.92rem;
+      font-weight: 900;
+      line-height: 1.18;
+    }
+
+    .top-menu small {
+      display: block;
+      margin-top: 3px;
       color: var(--muted);
       font-size: 0.72rem;
-      letter-spacing: 0;
       font-weight: 700;
+      line-height: 1.25;
+      white-space: normal;
     }
 
-    .top-link {
+    @keyframes menuPop {
+      from { opacity: 0; transform: translateY(-6px) scale(0.98); }
+      to { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    .hero-copy {
+      position: relative;
+      z-index: 2;
+      max-width: 560px;
+      margin-top: 30px;
+    }
+
+    .hero-kicker {
       display: inline-flex;
       align-items: center;
       gap: 8px;
-      padding: 9px 12px;
-      border: 1px solid var(--line);
+      padding: 7px 11px;
+      border: 1px solid rgba(255,255,255,0.2);
       border-radius: 999px;
-      background: rgba(255, 255, 255, 0.72);
-      color: var(--brand);
-      font-size: 0.85rem;
-      font-weight: 750;
-      white-space: nowrap;
+      background: rgba(255,255,255,0.09);
+      color: #d7ffff;
+      font-size: 0.78rem;
+      font-weight: 800;
     }
 
-    .hero {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 18px;
-      align-items: stretch;
-      padding: 24px;
-      border: 1px solid rgba(15, 58, 74, 0.08);
-      border-radius: var(--radius-xl);
-      background: rgba(255, 255, 255, 0.78);
-      box-shadow: var(--shadow);
-      overflow: hidden;
-      position: relative;
-    }
-
-    .hero::after {
-      content: "";
-      position: absolute;
-      width: 220px;
-      height: 220px;
-      right: -80px;
-      top: -90px;
-      border-radius: 999px;
-      background: rgba(242, 184, 75, 0.16);
-      pointer-events: none;
-    }
-
-    .eyebrow {
-      margin: 0 0 10px;
-      color: var(--brand-2);
-      font-size: 0.84rem;
-      font-weight: 850;
-      text-transform: uppercase;
-      letter-spacing: 0.09em;
-    }
-
-    h1 {
-      margin: 0;
-      color: var(--ink);
-      font-size: clamp(2rem, 8vw, 4.7rem);
-      line-height: 0.94;
+    .hero-title {
+      margin: 13px 0 0;
+      max-width: 560px;
+      font-size: clamp(1.8rem, 8vw, 3.35rem);
+      line-height: 0.98;
       letter-spacing: -0.07em;
-      max-width: 820px;
     }
 
-    .hero-subtitle {
-      max-width: 680px;
-      margin: 18px 0 0;
-      color: var(--muted);
-      font-size: 1.02rem;
-      line-height: 1.7;
+    .hero-text {
+      margin: 14px 0 0;
+      max-width: 540px;
+      color: rgba(255,255,255,0.82);
+      line-height: 1.62;
+      font-size: 0.98rem;
     }
 
-    .hero-card {
-      position: relative;
-      z-index: 1;
-      padding: 18px;
-      border: 1px solid var(--line);
-      border-radius: 24px;
-      background:
-        linear-gradient(180deg, rgba(255,255,255,0.96), rgba(248,251,250,0.96));
-      min-height: 180px;
-    }
-
-    .mini-label {
-      margin: 0 0 8px;
-      color: var(--muted);
-      font-size: 0.82rem;
-      font-weight: 750;
-    }
-
-    .mini-number {
-      margin: 0;
-      font-size: 2.4rem;
-      line-height: 1;
-      font-weight: 900;
-      letter-spacing: -0.06em;
-      color: var(--brand);
-    }
-
-    .mini-copy {
-      margin: 10px 0 0;
-      color: var(--muted);
-      font-size: 0.92rem;
-      line-height: 1.6;
+    .panel {
+      border: 1px solid rgba(5, 46, 99, 0.08);
+      border-radius: var(--radius-xl);
+      background: rgba(255,255,255,0.92);
+      box-shadow: var(--shadow-soft);
     }
 
     .section {
-      margin-top: 18px;
-      padding: 22px;
-      border: 1px solid rgba(15, 58, 74, 0.08);
-      border-radius: var(--radius-xl);
-      background: rgba(255, 255, 255, 0.86);
-      box-shadow: 0 12px 36px rgba(16, 36, 47, 0.05);
-    }
-
-    .section-head {
-      display: flex;
-      align-items: flex-start;
-      justify-content: space-between;
-      gap: 18px;
-      margin-bottom: 16px;
+      padding: 20px;
+      margin-top: 16px;
     }
 
     .section-title {
       margin: 0;
-      font-size: 1.25rem;
-      letter-spacing: -0.04em;
+      color: var(--ink);
+      font-size: 1.55rem;
+      line-height: 1.12;
+      letter-spacing: -0.055em;
+    }
+
+    .section-title::after {
+      content: "";
+      display: block;
+      width: 42px;
+      height: 4px;
+      margin-top: 10px;
+      border-radius: 999px;
+      background: linear-gradient(90deg, var(--teal), var(--teal-2));
     }
 
     .section-copy {
-      margin: 6px 0 0;
+      margin: 14px 0 0;
       color: var(--muted);
-      line-height: 1.6;
-      font-size: 0.95rem;
+      line-height: 1.65;
     }
 
-    .track-grid {
+    .track-list {
       display: grid;
-      grid-template-columns: 1fr;
       gap: 12px;
+      margin-top: 18px;
     }
 
     .track-card {
       width: 100%;
-      text-align: left;
+      min-height: 96px;
+      display: grid;
+      grid-template-columns: 62px 1fr 34px;
+      align-items: center;
+      gap: 14px;
+      padding: 14px;
       border: 1px solid var(--line);
       border-radius: 22px;
       background: #fff;
-      padding: 18px;
+      box-shadow: 0 8px 24px rgba(5, 46, 99, 0.04);
+      color: var(--ink);
       cursor: pointer;
-      transition: transform 0.18s ease, border-color 0.18s ease, box-shadow 0.18s ease;
+      text-align: left;
+      transition: transform 0.18s ease, border-color 0.18s ease, background 0.18s ease, box-shadow 0.18s ease;
     }
 
     .track-card:hover {
-      transform: translateY(-2px);
-      border-color: rgba(31, 111, 120, 0.35);
-      box-shadow: 0 14px 32px rgba(16, 36, 47, 0.08);
+      transform: translateY(-1px);
+      border-color: rgba(5, 174, 184, 0.38);
+      box-shadow: 0 13px 30px rgba(5, 46, 99, 0.08);
     }
 
     .track-card.active {
-      border-color: rgba(31, 111, 120, 0.7);
-      background: linear-gradient(180deg, #ffffff, #f2f9f7);
-      box-shadow: 0 14px 32px rgba(31, 111, 120, 0.13);
+      border-color: rgba(5, 174, 184, 0.85);
+      background: linear-gradient(180deg, #ffffff, #effefe);
+      box-shadow: 0 16px 32px rgba(5, 174, 184, 0.13);
     }
 
     .track-icon {
-      display: inline-grid;
+      width: 58px;
+      height: 58px;
+      display: grid;
       place-items: center;
-      width: 42px;
-      height: 42px;
-      margin-bottom: 12px;
-      border-radius: 16px;
-      background: var(--surface-soft);
-      font-size: 1.2rem;
+      border-radius: 50%;
+      background: linear-gradient(180deg, #effbff, #e8fbfb);
+      color: var(--teal);
     }
 
     .track-name {
       display: block;
-      font-weight: 850;
-      letter-spacing: -0.03em;
       font-size: 1.05rem;
+      font-weight: 900;
+      letter-spacing: -0.035em;
     }
 
     .track-desc {
       display: block;
-      margin-top: 6px;
+      margin-top: 5px;
       color: var(--muted);
-      line-height: 1.55;
-      font-size: 0.92rem;
+      font-size: 0.87rem;
+      line-height: 1.45;
     }
+
+    .radio-indicator {
+      width: 28px;
+      height: 28px;
+      display: grid;
+      place-items: center;
+      border: 2px solid #bdd0dd;
+      border-radius: 50%;
+      color: #fff;
+      font-weight: 900;
+    }
+
+    .track-card.active .radio-indicator {
+      border-color: var(--teal);
+      background: linear-gradient(135deg, var(--teal), var(--teal-2));
+    }
+
+    .notice {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      margin-top: 14px;
+      padding: 13px 14px;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      background: linear-gradient(180deg, #fff, #f7fcfe);
+      color: var(--muted);
+      line-height: 1.45;
+      font-size: 0.9rem;
+    }
+
+    .notice-icon {
+      width: 38px;
+      height: 38px;
+      display: grid;
+      place-items: center;
+      flex: 0 0 auto;
+      border-radius: 16px;
+      background: #e9fbfb;
+      color: var(--teal);
+    }
+
+    .btn-row { display: grid; gap: 10px; margin-top: 18px; }
+
+    .btn {
+      width: 100%;
+      min-height: 56px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      border: 0;
+      border-radius: 18px;
+      cursor: pointer;
+      font-weight: 900;
+      letter-spacing: -0.025em;
+      transition: transform 0.18s ease, box-shadow 0.18s ease, opacity 0.18s ease;
+    }
+
+    .btn:hover:not(:disabled) { transform: translateY(-1px); }
+    .btn:disabled { cursor: not-allowed; opacity: 0.62; }
+
+    .btn-primary {
+      color: #fff;
+      background: linear-gradient(135deg, var(--navy) 0%, #063d84 45%, var(--teal) 100%);
+      box-shadow: 0 14px 28px rgba(5, 46, 99, 0.22);
+    }
+
+    .btn-secondary {
+      color: var(--navy);
+      background: #fff;
+      border: 1px solid var(--line);
+      box-shadow: 0 8px 18px rgba(5, 46, 99, 0.04);
+    }
+
+    .btn-teal {
+      color: #fff;
+      background: linear-gradient(135deg, #079da9, var(--teal-2));
+      box-shadow: 0 14px 24px rgba(5, 174, 184, 0.24);
+    }
+
+    .hidden { display: none !important; }
+
+    .compact-track {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 12px;
+      margin-top: -34px;
+      position: relative;
+      z-index: 5;
+    }
+
+    .compact-left {
+      display: flex;
+      align-items: center;
+      min-width: 0;
+      gap: 10px;
+      font-weight: 900;
+      color: var(--ink);
+    }
+
+    .compact-icon {
+      width: 42px;
+      height: 42px;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      color: var(--teal);
+      background: #e8fbfb;
+      flex: 0 0 auto;
+    }
+
+    .compact-meta {
+      display: grid;
+      line-height: 1.25;
+    }
+
+    .compact-meta small {
+      color: var(--muted);
+      font-size: 0.73rem;
+      font-weight: 800;
+    }
+
+    .link-btn {
+      border: 0;
+      background: transparent;
+      padding: 8px;
+      color: var(--teal);
+      cursor: pointer;
+      font-weight: 900;
+      white-space: nowrap;
+    }
+
+    .link-btn:disabled { color: #97a9b7; cursor: not-allowed; }
 
     .dashboard-grid {
       display: grid;
-      grid-template-columns: 1fr;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
       gap: 12px;
+      margin-top: 18px;
     }
 
     .dash-card {
       padding: 16px;
       border: 1px solid var(--line);
-      border-radius: 20px;
+      border-radius: 22px;
       background: #fff;
+      box-shadow: 0 8px 20px rgba(5, 46, 99, 0.04);
     }
 
-    .dash-title {
-      margin: 0 0 8px;
+    .dash-label {
+      display: flex;
+      align-items: center;
+      gap: 7px;
       color: var(--muted);
       font-size: 0.82rem;
-      font-weight: 800;
+      font-weight: 850;
     }
 
     .dash-value {
-      margin: 0;
-      color: var(--brand);
+      margin: 8px 0 0;
+      color: var(--navy);
       font-size: 1.5rem;
+      line-height: 1;
+      font-weight: 950;
+      letter-spacing: -0.055em;
+    }
+
+    .dash-note {
+      margin: 6px 0 0;
+      color: var(--muted);
+      font-size: 0.78rem;
+      line-height: 1.35;
+    }
+
+    .activity-wrap { margin-top: 18px; }
+    .small-head {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      margin: 0 0 10px;
+      font-size: 0.94rem;
       font-weight: 900;
-      letter-spacing: -0.04em;
+      letter-spacing: -0.025em;
     }
 
     .activity-strip {
       display: grid;
       grid-template-columns: repeat(7, 1fr);
       gap: 7px;
-      margin-top: 12px;
+      align-items: center;
     }
 
-    .day-dot {
+    .day-item {
       min-height: 52px;
-      border: 1px solid var(--line);
-      border-radius: 14px;
       display: grid;
       place-items: center;
+      gap: 4px;
+      border: 1px solid var(--line);
+      border-radius: 16px;
       background: #fff;
       color: var(--muted);
-      font-size: 0.72rem;
-      font-weight: 800;
+      font-size: 0.68rem;
+      font-weight: 850;
     }
 
-    .day-dot.done {
-      color: var(--ok);
-      border-color: rgba(23, 122, 77, 0.28);
+    .day-symbol {
+      width: 22px;
+      height: 22px;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      border: 2px solid #bcd0dc;
+      color: transparent;
+      font-size: 0.77rem;
+    }
+
+    .day-item.done .day-symbol {
+      border-color: var(--teal);
+      background: linear-gradient(135deg, var(--teal), var(--teal-2));
+      color: #fff;
+    }
+
+    .day-item.today {
+      border-color: rgba(5, 174, 184, 0.45);
+      background: #f7ffff;
+    }
+
+    .progress-line {
+      height: 9px;
+      border-radius: 999px;
+      background: #e6eef4;
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      width: 0%;
+      height: 100%;
+      border-radius: inherit;
+      background: linear-gradient(90deg, var(--teal), #063d84);
+      transition: width 0.28s ease;
+    }
+
+    .quiz-card { overflow: hidden; padding: 0; }
+    .quiz-head {
+      padding: 18px;
+      border-bottom: 1px solid var(--soft-line);
+      background: linear-gradient(180deg, #ffffff, #f8fcfe);
+    }
+
+    .quiz-meta-line {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 12px;
+      color: var(--muted);
+      font-size: 0.88rem;
+      font-weight: 850;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      padding: 7px 10px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: #fff;
+      color: var(--navy);
+      font-size: 0.8rem;
+      font-weight: 850;
+      white-space: nowrap;
+    }
+
+    .quiz-body { padding: 20px; }
+
+    .question-card {
+      padding: 18px;
+      border: 1px solid var(--line);
+      border-radius: 24px;
+      background: #fff;
+      box-shadow: 0 8px 22px rgba(5, 46, 99, 0.04);
+    }
+
+    .question-label {
+      margin: 0 0 10px;
+      color: var(--teal);
+      font-size: 0.78rem;
+      font-weight: 950;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .question-text {
+      margin: 0;
+      color: var(--ink);
+      font-size: clamp(1.17rem, 5vw, 1.65rem);
+      line-height: 1.35;
+      letter-spacing: -0.045em;
+      font-weight: 900;
+    }
+
+    .options { display: grid; gap: 10px; margin-top: 16px; }
+
+    .option-btn {
+      width: 100%;
+      min-height: 58px;
+      display: grid;
+      grid-template-columns: 38px 1fr 24px;
+      align-items: center;
+      gap: 10px;
+      border: 1px solid var(--line);
+      border-radius: 17px;
+      background: #fff;
+      color: var(--ink);
+      cursor: pointer;
+      padding: 10px 12px;
+      text-align: left;
+      transition: border-color 0.15s ease, background 0.15s ease, transform 0.15s ease;
+    }
+
+    .option-btn:hover:not(:disabled) {
+      transform: translateY(-1px);
+      border-color: rgba(5,174,184,0.42);
+      background: #fbffff;
+    }
+
+    .option-btn:disabled { cursor: not-allowed; opacity: 0.98; }
+
+    .option-letter {
+      width: 34px;
+      height: 34px;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      color: var(--navy);
+      background: #edf6fb;
+      font-weight: 950;
+      font-size: 0.9rem;
+    }
+
+    .option-text { line-height: 1.4; font-weight: 700; color: #203b5d; }
+    .option-state { color: transparent; font-weight: 950; }
+
+    .option-btn.selected {
+      border-color: rgba(5, 174, 184, 0.75);
+      background: #effefe;
+    }
+
+    .option-btn.selected .option-letter {
+      color: #fff;
+      background: linear-gradient(135deg, var(--teal), var(--teal-2));
+    }
+
+    .option-btn.correct {
+      border-color: rgba(10, 168, 115, 0.48);
       background: var(--ok-soft);
     }
 
-    .day-dot.today {
-      outline: 2px solid rgba(242, 184, 75, 0.45);
-      outline-offset: 2px;
+    .option-btn.correct .option-letter { background: var(--ok); color: #fff; }
+    .option-btn.correct .option-state { color: var(--ok); }
+
+    .option-btn.wrong {
+      border-color: rgba(209, 67, 53, 0.38);
+      background: var(--bad-soft);
+    }
+
+    .option-btn.wrong .option-letter { background: var(--bad); color: #fff; }
+    .option-btn.wrong .option-state { color: var(--bad); }
+
+    .feedback {
+      margin-top: 14px;
+      padding: 14px;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      background: #fff;
+    }
+
+    .feedback.correct { border-color: rgba(10,168,115,0.32); background: var(--ok-soft); }
+    .feedback.wrong { border-color: rgba(209,67,53,0.25); background: var(--bad-soft); }
+
+    .feedback h3 {
+      margin: 0 0 8px;
+      font-size: 1rem;
+      letter-spacing: -0.025em;
+    }
+
+    .feedback p {
+      margin: 0;
+      color: #435970;
+      line-height: 1.65;
+      font-size: 0.94rem;
+    }
+
+    .source-note {
+      margin-top: 10px;
+      color: var(--muted);
+      font-size: 0.82rem;
+      line-height: 1.45;
+    }
+
+    .quiz-actions {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-top: 16px;
     }
 
     .category-chips {
       display: flex;
       flex-wrap: wrap;
       gap: 8px;
-      margin-top: 12px;
+      margin-top: 14px;
     }
 
-    .chip {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      padding: 7px 10px;
-      border-radius: 999px;
-      background: var(--surface-soft);
-      color: var(--brand);
-      font-size: 0.78rem;
-      font-weight: 800;
-    }
-
-    .quiz-card {
-      padding: 0;
+    .result-card {
+      padding: 22px 18px;
+      text-align: center;
       overflow: hidden;
+      position: relative;
     }
 
-    .quiz-top {
-      padding: 18px;
-      border-bottom: 1px solid var(--line);
-      background: linear-gradient(180deg, #fff, #fbfdfc);
+    .result-card::before {
+      content: "✦  ✦  ✦";
+      position: absolute;
+      top: 32px;
+      left: 16px;
+      color: rgba(5, 174, 184, 0.28);
+      font-size: 1.2rem;
+      letter-spacing: 8px;
     }
 
-    .progress-wrap {
-      height: 10px;
-      border-radius: 999px;
-      overflow: hidden;
-      background: #e8efec;
-    }
-
-    .progress-bar {
-      width: 0%;
-      height: 100%;
-      border-radius: inherit;
-      background: linear-gradient(90deg, var(--brand-2), var(--accent));
-      transition: width 0.25s ease;
-    }
-
-    .quiz-meta {
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      gap: 8px;
-      margin-top: 13px;
-      color: var(--muted);
-      font-size: 0.84rem;
-      font-weight: 760;
-    }
-
-    .quiz-body {
-      padding: 22px;
-    }
-
-    .question-label {
-      color: var(--brand-2);
-      font-weight: 900;
-      font-size: 0.83rem;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-    }
-
-    .question-text {
-      margin: 10px 0 18px;
-      font-size: 1.32rem;
-      line-height: 1.35;
-      letter-spacing: -0.04em;
-      font-weight: 850;
-    }
-
-    .options {
-      display: grid;
-      gap: 10px;
-    }
-
-    .option-btn {
-      width: 100%;
-      min-height: 58px;
-      display: grid;
-      grid-template-columns: 42px 1fr;
-      align-items: center;
-      gap: 12px;
-      border: 1px solid var(--line);
-      border-radius: 18px;
-      background: #fff;
-      padding: 11px 14px;
-      cursor: pointer;
-      text-align: left;
-      color: var(--ink);
-      transition: transform 0.15s ease, border-color 0.15s ease, background 0.15s ease;
-    }
-
-    .option-btn:hover:not(:disabled) {
-      transform: translateY(-1px);
-      border-color: rgba(31, 111, 120, 0.4);
-      background: #fbfdfc;
-    }
-
-    .option-btn:disabled {
-      cursor: not-allowed;
-      opacity: 0.96;
-    }
-
-    .option-letter {
-      width: 38px;
-      height: 38px;
+    .score-ring {
+      width: 190px;
+      height: 190px;
       display: grid;
       place-items: center;
-      border-radius: 14px;
-      background: var(--surface-soft);
-      font-weight: 900;
-      color: var(--brand);
+      margin: 18px auto 14px;
+      border-radius: 50%;
+      background: conic-gradient(var(--teal) var(--score-deg, 0deg), #e5eef4 0deg);
+      box-shadow: 0 18px 34px rgba(5, 174, 184, 0.14);
+      position: relative;
     }
 
-    .option-btn.selected {
-      border-color: rgba(31, 111, 120, 0.5);
-      background: #f4fbf9;
-    }
-
-    .option-btn.correct {
-      border-color: rgba(23, 122, 77, 0.42);
-      background: var(--ok-soft);
-    }
-
-    .option-btn.wrong {
-      border-color: rgba(180, 35, 24, 0.35);
-      background: var(--bad-soft);
-    }
-
-    .feedback {
-      margin-top: 16px;
-      padding: 16px;
-      border-radius: 18px;
-      border: 1px solid var(--line);
+    .score-ring::after {
+      content: "";
+      position: absolute;
+      inset: 14px;
+      border-radius: 50%;
       background: #fff;
+      box-shadow: inset 0 0 0 1px var(--soft-line);
     }
 
-    .feedback.correct {
-      border-color: rgba(23, 122, 77, 0.28);
-      background: var(--ok-soft);
-    }
-
-    .feedback.wrong {
-      border-color: rgba(180, 35, 24, 0.25);
-      background: var(--bad-soft);
-    }
-
-    .feedback-title {
-      margin: 0 0 8px;
-      font-weight: 900;
-      letter-spacing: -0.02em;
-    }
-
-    .feedback p {
-      margin: 0;
-      color: #405660;
-      line-height: 1.65;
-    }
-
-    .source-note {
-      margin-top: 10px;
-      color: var(--muted);
-      font-size: 0.83rem;
-      line-height: 1.5;
-    }
-
-    .quiz-actions {
-      display: flex;
-      gap: 10px;
-      justify-content: flex-end;
-      margin-top: 18px;
-    }
-
-    .btn {
-      border: 0;
-      border-radius: 999px;
-      padding: 12px 16px;
-      background: var(--brand);
-      color: #fff;
-      font-weight: 850;
-      cursor: pointer;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      transition: transform 0.15s ease, opacity 0.15s ease;
-    }
-
-    .btn:hover:not(:disabled) {
-      transform: translateY(-1px);
-    }
-
-    .btn:disabled {
-      opacity: 0.48;
-      cursor: not-allowed;
-    }
-
-    .btn.secondary {
-      color: var(--brand);
-      background: var(--surface-soft);
-    }
-
-    .btn.whatsapp {
-      background: #168b53;
-    }
-
-    .result-hero {
+    .score-inner {
+      position: relative;
+      z-index: 1;
       display: grid;
-      grid-template-columns: 1fr;
-      gap: 14px;
-      align-items: center;
+      gap: 4px;
+      color: var(--navy);
     }
 
-    .score-circle {
-      width: 148px;
-      height: 148px;
-      border-radius: 999px;
-      display: grid;
-      place-items: center;
-      background:
-        radial-gradient(circle at center, #fff 0%, #fff 56%, transparent 57%),
-        conic-gradient(var(--brand-2) var(--score-deg, 0deg), #e6eeeb 0deg);
-      justify-self: center;
-      border: 1px solid var(--line);
-    }
-
-    .score-circle strong {
-      font-size: 2.6rem;
+    .score-main {
+      font-size: 3.8rem;
+      line-height: 1;
+      font-weight: 950;
       letter-spacing: -0.08em;
-      color: var(--brand);
+    }
+
+    .score-percent {
+      color: var(--teal);
+      font-size: 1.25rem;
+      font-weight: 950;
     }
 
     .result-title {
       margin: 0;
-      font-size: 1.75rem;
+      color: var(--navy);
+      font-size: 1.7rem;
       line-height: 1.1;
-      letter-spacing: -0.06em;
+      font-weight: 950;
+      letter-spacing: -0.055em;
     }
 
     .result-copy {
-      margin: 8px 0 0;
+      margin: 10px auto 0;
+      max-width: 420px;
       color: var(--muted);
-      line-height: 1.65;
+      line-height: 1.55;
     }
 
-    .result-actions {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-      margin-top: 16px;
-    }
+    .explanation-list { display: grid; gap: 10px; margin-top: 14px; }
 
-    .review-list {
+    .explanation-item {
       display: grid;
+      grid-template-columns: 34px 1fr;
       gap: 10px;
-      margin-top: 18px;
-    }
-
-    .review-item {
+      align-items: start;
+      padding: 13px;
       border: 1px solid var(--line);
       border-radius: 18px;
       background: #fff;
-      padding: 14px;
     }
 
-    .review-item.correct {
-      border-color: rgba(23, 122, 77, 0.24);
+    .explanation-num {
+      width: 30px;
+      height: 30px;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      color: #fff;
+      background: linear-gradient(135deg, var(--teal), var(--teal-2));
+      font-weight: 950;
+      font-size: 0.86rem;
     }
 
-    .review-item.wrong {
-      border-color: rgba(180, 35, 24, 0.24);
+    .explanation-item strong { display: block; margin-bottom: 4px; color: var(--ink); }
+    .explanation-item p { margin: 0; color: var(--muted); line-height: 1.55; font-size: 0.9rem; }
+
+    .share-status-card {
+      margin-top: 16px;
+      border: 1px solid rgba(5, 46, 99, 0.08);
+      border-radius: 26px;
+      background: #fff;
+      overflow: hidden;
+      box-shadow: var(--shadow-soft);
+      text-align: left;
     }
 
-    .review-top {
+    .share-status-top {
+      padding: 18px;
+      color: #fff;
+      background:
+        radial-gradient(circle at 84% 20%, rgba(23,199,195,0.6), transparent 13rem),
+        linear-gradient(135deg, #031b42, #063d84 56%, var(--teal));
+      position: relative;
+      overflow: hidden;
+    }
+
+    .share-status-top::after {
+      content: "";
+      position: absolute;
+      right: 12px;
+      bottom: 7px;
+      width: 132px;
+      height: 52px;
+      opacity: 0.38;
+      background-repeat: no-repeat;
+      background-size: contain;
+      background-image: url("data:image/svg+xml,%3Csvg width='180' height='70' viewBox='0 0 180 70' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M34 42h78L97 60H49L34 42Z' stroke='%23BFF9F8' stroke-width='3' stroke-linejoin='round'/%3E%3Cpath d='M64 42V20h28v22M73 20V9M56 33h45M73 31h8M88 31h8' stroke='%23BFF9F8' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'/%3E%3Cpath d='M0 62c16 0 16-8 32-8s16 8 32 8 16-8 32-8 16 8 32 8 16-8 32-8' stroke='%23BFF9F8' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E");
+    }
+
+    .share-brand {
       display: flex;
-      justify-content: space-between;
-      gap: 12px;
-      color: var(--muted);
-      font-weight: 850;
-      font-size: 0.82rem;
-      margin-bottom: 8px;
+      align-items: center;
+      gap: 10px;
+      position: relative;
+      z-index: 1;
+      font-weight: 950;
+      letter-spacing: -0.03em;
+      line-height: 1.1;
     }
 
-    .review-question {
-      margin: 0 0 8px;
-      font-weight: 850;
+    .share-brand span:last-child { color: #5bf1ec; display: block; }
+
+    .share-status-body {
+      display: grid;
+      grid-template-columns: 110px 1fr;
+      gap: 14px;
+      align-items: center;
+      padding: 18px;
+    }
+
+    .share-mini-score {
+      width: 108px;
+      height: 108px;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      background: conic-gradient(var(--teal) var(--score-deg, 0deg), #e5eef4 0deg);
+      position: relative;
+    }
+
+    .share-mini-score::after {
+      content: "";
+      position: absolute;
+      inset: 9px;
+      border-radius: 50%;
+      background: #fff;
+    }
+
+    .share-mini-score strong {
+      position: relative;
+      z-index: 1;
+      color: var(--navy);
+      font-size: 2rem;
+      letter-spacing: -0.07em;
+    }
+
+    .share-status-body h3 {
+      margin: 0;
+      color: var(--navy);
+      font-size: 1.18rem;
+      line-height: 1.12;
+      letter-spacing: -0.045em;
+    }
+
+    .share-status-body p {
+      margin: 8px 0 0;
+      color: var(--muted);
+      line-height: 1.45;
+      font-size: 0.9rem;
+    }
+
+    .share-url {
+      margin-top: 10px;
+      color: var(--teal);
+      font-weight: 900;
+      font-size: 0.88rem;
+    }
+
+    .status-note {
+      margin: 10px 0 0;
+      color: var(--muted);
+      text-align: center;
+      font-size: 0.83rem;
       line-height: 1.45;
     }
 
-    .review-explanation {
-      margin: 0;
-      color: #405660;
-      line-height: 1.6;
+    .toast {
+      position: fixed;
+      left: 50%;
+      bottom: 20px;
+      transform: translateX(-50%) translateY(20px);
+      width: min(calc(100% - 28px), 520px);
+      padding: 13px 15px;
+      border-radius: 18px;
+      background: rgba(3, 27, 66, 0.94);
+      color: #fff;
+      box-shadow: 0 18px 40px rgba(3,27,66,0.25);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.22s ease, transform 0.22s ease;
+      z-index: 50;
+      text-align: center;
+      font-weight: 800;
       font-size: 0.92rem;
     }
 
-    .empty-state,
-    .error-state {
-      padding: 18px;
-      border: 1px dashed rgba(15, 58, 74, 0.22);
-      border-radius: 20px;
-      background: #fff;
-      color: var(--muted);
-      line-height: 1.65;
+    .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+    .error-box {
+      padding: 15px;
+      border: 1px solid rgba(209, 67, 53, 0.22);
+      border-radius: 18px;
+      background: var(--bad-soft);
+      color: #812019;
+      line-height: 1.55;
+      font-size: 0.94rem;
     }
 
-    .error-state {
-      border-color: rgba(180, 35, 24, 0.25);
-      background: var(--bad-soft);
-      color: #6a2b26;
+    .loading {
+      display: grid;
+      place-items: center;
+      gap: 10px;
+      min-height: 220px;
+      color: var(--muted);
+      text-align: center;
+      font-weight: 800;
     }
+
+    .spinner {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      border: 4px solid #dfeef4;
+      border-top-color: var(--teal);
+      animation: spin 0.85s linear infinite;
+    }
+
+    @keyframes spin { to { transform: rotate(360deg); } }
 
     .footer {
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
       margin-top: 22px;
-      padding: 18px 4px 0;
+      padding: 18px 8px 0;
+      text-align: center;
       color: var(--muted);
       font-size: 0.86rem;
       line-height: 1.6;
     }
 
-    .footer a {
-      color: var(--brand);
-      font-weight: 800;
+    .footer a { color: var(--navy); font-weight: 900; }
+
+    @media (min-width: 760px) {
+      .app-shell { padding: 0 22px 48px; }
+      .hero-top { margin-left: -22px; margin-right: -22px; padding: 28px 34px 70px; min-height: 252px; }
+  
+
+    .nav-wrap {
+      position: relative;
+      z-index: 20;
+      flex: 0 0 auto;
     }
 
-    .hidden {
-      display: none !important;
+    .top-menu {
+      position: absolute;
+      top: 54px;
+      right: 0;
+      width: min(310px, calc(100vw - 32px));
+      display: none;
+      flex-direction: column;
+      gap: 8px;
+      padding: 10px;
+      border: 1px solid rgba(5, 46, 99, 0.10);
+      border-radius: 20px;
+      background: rgba(255, 255, 255, 0.98);
+      color: var(--ink);
+      box-shadow: 0 22px 50px rgba(5, 46, 99, 0.22);
+      backdrop-filter: blur(12px);
     }
 
-    @media (min-width: 720px) {
-      .page-shell {
-        padding: 24px 24px 46px;
-      }
+    .top-menu.open {
+      display: flex;
+      animation: menuPop 150ms ease-out;
+    }
 
-      .hero {
-        grid-template-columns: minmax(0, 1.45fr) minmax(280px, 0.55fr);
-        padding: 34px;
-      }
+    .top-menu::before {
+      content: "";
+      position: absolute;
+      top: -8px;
+      right: 16px;
+      width: 16px;
+      height: 16px;
+      background: rgba(255, 255, 255, 0.98);
+      border-left: 1px solid rgba(5, 46, 99, 0.08);
+      border-top: 1px solid rgba(5, 46, 99, 0.08);
+      transform: rotate(45deg);
+    }
 
-      .track-grid {
-        grid-template-columns: repeat(3, 1fr);
-      }
+    .top-menu a,
+    .top-menu button {
+      width: 100%;
+      display: grid;
+      grid-template-columns: 34px 1fr;
+      align-items: center;
+      gap: 10px;
+      padding: 12px;
+      border: 0;
+      border-radius: 15px;
+      background: transparent;
+      color: var(--ink);
+      text-align: left;
+      cursor: pointer;
+    }
 
-      .dashboard-grid {
-        grid-template-columns: 0.8fr 0.8fr 1.4fr;
-      }
+    .top-menu a:hover,
+    .top-menu button:hover {
+      background: var(--surface-soft);
+    }
 
-      .result-hero {
-        grid-template-columns: 180px 1fr;
-      }
+    .top-menu a > span:first-child,
+    .top-menu button > span:first-child {
+      width: 34px;
+      height: 34px;
+      display: grid;
+      place-items: center;
+      border-radius: 12px;
+      background: var(--aqua);
+      font-size: 1rem;
+    }
 
-      .score-circle {
-        justify-self: start;
-      }
+    .top-menu a > span:last-child,
+    .top-menu button > span:last-child {
+      display: block;
+      min-width: 0;
+      font-size: 0.92rem;
+      font-weight: 900;
+      line-height: 1.18;
+    }
 
-      .result-actions {
-        flex-direction: row;
-        flex-wrap: wrap;
-      }
+    .top-menu small {
+      display: block;
+      margin-top: 3px;
+      color: var(--muted);
+      font-size: 0.72rem;
+      font-weight: 700;
+      line-height: 1.25;
+      white-space: normal;
+    }
 
-      .footer {
-        flex-direction: row;
-        justify-content: space-between;
-        align-items: center;
-      }
+    @keyframes menuPop {
+      from { opacity: 0; transform: translateY(-6px) scale(0.98); }
+      to { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    .hero-copy { margin-top: 42px; }
+      .main-grid { display: grid; grid-template-columns: 0.92fr 1.08fr; gap: 18px; align-items: start; }
+      .section { padding: 24px; }
+      .track-list { gap: 14px; }
+      .dashboard-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .share-status-body { grid-template-columns: 140px 1fr; }
+      .share-mini-score { width: 132px; height: 132px; }
+      .share-mini-score strong { font-size: 2.35rem; }
+    }
+
+    @media (max-width: 420px) {
+      .hero-top { min-height: 178px; }
+  
+
+    .nav-wrap {
+      position: relative;
+      z-index: 20;
+      flex: 0 0 auto;
+    }
+
+    .top-menu {
+      position: absolute;
+      top: 54px;
+      right: 0;
+      width: min(310px, calc(100vw - 32px));
+      display: none;
+      flex-direction: column;
+      gap: 8px;
+      padding: 10px;
+      border: 1px solid rgba(5, 46, 99, 0.10);
+      border-radius: 20px;
+      background: rgba(255, 255, 255, 0.98);
+      color: var(--ink);
+      box-shadow: 0 22px 50px rgba(5, 46, 99, 0.22);
+      backdrop-filter: blur(12px);
+    }
+
+    .top-menu.open {
+      display: flex;
+      animation: menuPop 150ms ease-out;
+    }
+
+    .top-menu::before {
+      content: "";
+      position: absolute;
+      top: -8px;
+      right: 16px;
+      width: 16px;
+      height: 16px;
+      background: rgba(255, 255, 255, 0.98);
+      border-left: 1px solid rgba(5, 46, 99, 0.08);
+      border-top: 1px solid rgba(5, 46, 99, 0.08);
+      transform: rotate(45deg);
+    }
+
+    .top-menu a,
+    .top-menu button {
+      width: 100%;
+      display: grid;
+      grid-template-columns: 34px 1fr;
+      align-items: center;
+      gap: 10px;
+      padding: 12px;
+      border: 0;
+      border-radius: 15px;
+      background: transparent;
+      color: var(--ink);
+      text-align: left;
+      cursor: pointer;
+    }
+
+    .top-menu a:hover,
+    .top-menu button:hover {
+      background: var(--surface-soft);
+    }
+
+    .top-menu a > span:first-child,
+    .top-menu button > span:first-child {
+      width: 34px;
+      height: 34px;
+      display: grid;
+      place-items: center;
+      border-radius: 12px;
+      background: var(--aqua);
+      font-size: 1rem;
+    }
+
+    .top-menu a > span:last-child,
+    .top-menu button > span:last-child {
+      display: block;
+      min-width: 0;
+      font-size: 0.92rem;
+      font-weight: 900;
+      line-height: 1.18;
+    }
+
+    .top-menu small {
+      display: block;
+      margin-top: 3px;
+      color: var(--muted);
+      font-size: 0.72rem;
+      font-weight: 700;
+      line-height: 1.25;
+      white-space: normal;
+    }
+
+    @keyframes menuPop {
+      from { opacity: 0; transform: translateY(-6px) scale(0.98); }
+      to { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    .hero-copy { margin-top: 22px; }
+      .hero-title { font-size: 1.95rem; }
+      .hero-text { display: none; }
+      .track-card { grid-template-columns: 54px 1fr 30px; padding: 12px; min-height: 88px; }
+      .track-icon { width: 52px; height: 52px; }
+      .dashboard-grid { grid-template-columns: 1fr; }
+      .activity-strip { gap: 5px; }
+      .day-item { border-radius: 13px; font-size: 0.62rem; }
+      .quiz-actions { grid-template-columns: 1fr; }
+      .score-ring { width: 172px; height: 172px; }
+      .share-status-body { grid-template-columns: 1fr; text-align: center; }
+      .share-mini-score { margin: 0 auto; }
     }
   </style>
 </head>
-
 <body>
-  <div class="page-shell">
-    <header class="site-header">
-      <a class="brand" href="https://academy.dailylokerpelaut.com/" aria-label="Daily Loker Pelaut Academy">
-        <span class="brand-mark">⚓</span>
-        <span>
-          Daily Loker Pelaut
-          <small>Academy</small>
-        </span>
+  <header class="hero-top">
+    <div class="brand-row">
+      <a class="brand" href="#" aria-label="Daily Loker Pelaut Academy">
+        <span class="brand-mark" aria-hidden="true">⚓</span>
+        <span><span class="brand-main">Daily Loker Pelaut</span><span class="brand-accent">Academy</span></span>
       </a>
-
-      <a class="top-link" href="https://vacancy.dailylokerpelaut.com/" target="_blank" rel="noopener">
-        Loker Harian
-      </a>
-    </header>
-
-    <main>
-      <section class="hero" aria-labelledby="heroTitle">
-        <div>
-          <p class="eyebrow">Quiz edukasi harian untuk pelaut Indonesia</p>
-          <h1 id="heroTitle">5 soal singkat. Skill tetap tajam.</h1>
-          <p class="hero-subtitle">
-            Pilih jalurmu, kerjakan quiz hari ini, baca pembahasannya, lalu jaga streak.
-            Bukan cuma cari loker — kemampuan juga harus diasah pelan-pelan setiap hari.
-          </p>
-        </div>
-
-        <aside class="hero-card" aria-label="Ringkasan Academy">
-          <p class="mini-label">Target harian</p>
-          <p class="mini-number">5 soal</p>
-          <p class="mini-copy">
-            Ringan untuk dibuka setiap hari, cukup serius untuk bantu refresh pengetahuan kerja di kapal.
-          </p>
-        </aside>
-      </section>
-
-      <section class="section" id="trackSection" aria-labelledby="trackTitle">
-        <div class="section-head">
-          <div>
-            <h2 class="section-title" id="trackTitle">Pilih jalur quiz</h2>
-            <p class="section-copy">
-              Pilihan ini disimpan di browser kamu. Bisa diganti kapan saja tanpa login.
-            </p>
-          </div>
-        </div>
-
-        <div class="track-grid" role="list">
-          <button class="track-card" type="button" data-track="Deck Officer">
-            <span class="track-icon">🧭</span>
-            <span class="track-name">Deck Officer</span>
-            <span class="track-desc">Untuk Mualim, calon officer deck, navigasi, safety, PSC, cargo, dan bridge operation.</span>
+      <div class="nav-wrap">
+        <button class="hamburger" id="menuBtn" type="button" aria-label="Menu" aria-expanded="false" aria-controls="topMenu">☰</button>
+        <nav class="top-menu" id="topMenu" aria-label="Menu utama academy">
+          <a href="https://dailylokerpelaut.com/" target="_blank" rel="noopener">
+            <span aria-hidden="true">🏠</span>
+            <span>Menu Utama<small>Ke dailylokerpelaut.com</small></span>
+          </a>
+          <a href="https://vacancy.dailylokerpelaut.com/" target="_blank" rel="noopener">
+            <span aria-hidden="true">⚓</span>
+            <span>Loker Harian<small>Lowongan pelaut terbaru</small></span>
+          </a>
+          <button type="button" id="menuChangeTrack">
+            <span aria-hidden="true">🧭</span>
+            <span>Ubah Jalur<small>Deck Officer, Engineer, atau Rating</small></span>
           </button>
+        </nav>
+      </div>
+    </div>
+    <div class="hero-copy" id="heroCopy">
+      <span class="hero-kicker">⚡ Quiz pelaut harian</span>
+      <h1 class="hero-title">Belajar 5 soal. Jaga streak. Naik level.</h1>
+      <p class="hero-text">Pilih jalur yang sesuai, kerjakan quiz harian, baca pembahasan, lalu bagikan score ke teman pelautmu.</p>
+    </div>
+  </header>
 
-          <button class="track-card" type="button" data-track="Engineer Officer">
-            <span class="track-icon">⚙️</span>
-            <span class="track-name">Engineer Officer</span>
-            <span class="track-desc">Untuk Masinis, calon engineer, engine basic, machinery, maintenance, safety, dan troubleshooting.</span>
-          </button>
+  <main class="app-shell">
+    <section id="compactTrack" class="compact-track panel hidden" aria-live="polite"></section>
 
-          <button class="track-card" type="button" data-track="Rating">
-            <span class="track-icon">🦺</span>
-            <span class="track-name">Rating</span>
-            <span class="track-desc">Untuk AB, Oiler, OS, Wiper, Fitter, dan crew rating yang ingin upgrade kesiapan kerja.</span>
-          </button>
-        </div>
-      </section>
-
-      <section class="section hidden" id="dashboardSection" aria-labelledby="dashboardTitle">
-        <div class="section-head">
-          <div>
-            <h2 class="section-title" id="dashboardTitle">Dashboard harian</h2>
-            <p class="section-copy" id="dashboardCopy">Memuat quiz hari ini...</p>
-          </div>
-        </div>
-
-        <div class="dashboard-grid">
-          <div class="dash-card">
-            <p class="dash-title">Current streak</p>
-            <p class="dash-value"><span id="streakValue">0</span> hari</p>
-          </div>
-
-          <div class="dash-card">
-            <p class="dash-title">Status hari ini</p>
-            <p class="dash-value" id="todayStatus">Belum mulai</p>
-          </div>
-
-          <div class="dash-card">
-            <p class="dash-title">Aktivitas 7 hari</p>
-            <div class="activity-strip" id="activityStrip" aria-label="7-day activity strip"></div>
-          </div>
-        </div>
-
-        <div class="category-chips" id="categoryMix"></div>
-      </section>
-
-      <section class="section quiz-card hidden" id="quizSection" aria-labelledby="quizTitle">
-        <div class="quiz-top">
-          <div class="progress-wrap" aria-label="Progress quiz">
-            <div class="progress-bar" id="progressBar"></div>
-          </div>
-          <div class="quiz-meta">
-            <span id="quizCounter">Soal 1/5</span>
-            <span>•</span>
-            <span id="quizTrackLabel">Track</span>
-            <span>•</span>
-            <span id="quizDateLabel">Hari ini</span>
-          </div>
-        </div>
-
-        <div class="quiz-body" id="quizBody">
-          <div class="empty-state">Pilih jalur quiz untuk mulai.</div>
-        </div>
-      </section>
-
-      <section class="section hidden" id="resultSection" aria-labelledby="resultTitle">
-        <div id="resultBody"></div>
-      </section>
-    </main>
+    <div id="mainContent" class="main-content"></div>
 
     <footer class="footer">
-      <span>© Daily Loker Pelaut Academy — edukasi ringan untuk pelaut Indonesia.</span>
-      <span><a href="https://vacancy.dailylokerpelaut.com/" target="_blank" rel="noopener">Cek loker pelaut harian</a></span>
+      <p><strong>Daily Loker Pelaut Academy</strong><br />Quiz edukasi harian. Tanpa login. Tanpa paywall.</p>
+      <p>
+        <a href="https://dailylokerpelaut.com/" target="_blank" rel="noopener">Menu Utama</a>
+        &nbsp;•&nbsp;
+        <a href="https://vacancy.dailylokerpelaut.com/" target="_blank" rel="noopener">Lihat lowongan pelaut harian</a>
+      </p>
     </footer>
-  </div>
+  </main>
+
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
 
   <script>
-    /************************************************************
-     * DAILY LOKER PELAUT ACADEMY — FRONTEND CONFIG
-     ************************************************************/
+    /**************************************************************
+     * Daily Loker Pelaut Academy — Option A Minimal Gradient UI
+     * Replace API_URL and GA_MEASUREMENT_ID before launch.
+     **************************************************************/
 
-    // 1) Ganti dengan Web App URL dari Google Apps Script.
     const API_URL = "https://script.google.com/macros/s/AKfycbyQBcRZntHA_vL-Gv9GJY43jAKVGc6uLhasbwvJE51rdExk1kRqVfjDmVYCT89A6DrfJQ/exec";
+    const GA_MEASUREMENT_ID = "G-G4YTZPWFCQ";
 
-    // 2) Ganti dengan GA4 Measurement ID, contoh: G-ABCD123456.
-    //    Kalau belum siap, biarkan placeholder ini. Website tetap jalan.
-    const GA_MEASUREMENT_ID = "G-XXXXXXXXXX";
+    const SITE_URL = "https://academy.dailylokerpelaut.com/";
+    const APP_VERSION = "academy-option-a-1.1.1";
 
-    const ACADEMY_URL = "https://academy.dailylokerpelaut.com/";
-    const APP_VERSION = "academy-mvp-1.0.0";
-    const ALLOWED_TRACKS = ["Deck Officer", "Engineer Officer", "Rating"];
+    const TRACKS = [
+      {
+        id: "Deck Officer",
+        title: "Deck Officer",
+        desc: "Untuk Cadet Deck, 3/O, 2/O, C/O, Master",
+        icon: "helm"
+      },
+      {
+        id: "Engineer Officer",
+        title: "Engineer Officer",
+        desc: "Untuk Cadet Engine, 4/E, 3/E, 2/E, Chief Engineer",
+        icon: "engine"
+      },
+      {
+        id: "Rating",
+        title: "Rating",
+        desc: "Untuk AB, OS, Oiler, Fitter, Cook, Wiper, Bosun",
+        icon: "anchor"
+      }
+    ];
 
-    const LS = {
-      track: "dlpa_selected_track",
-      visited: "dlpa_visited",
+    const STORAGE = {
+      selectedTrack: "dlpa_selected_track",
+      selectedTrackDraft: "dlpa_selected_track_draft",
       streak: "dlpa_streak",
-      lastCompletedDate: "dlpa_last_completed_date",
-      completedDates: "dlpa_completed_dates",
-      completionPrefix: "dlpa_completion_"
+      firstVisit: "dlpa_first_visit",
+      lastVisit: "dlpa_last_visit"
     };
 
     const state = {
-      selectedTrack: "",
-      quiz: null,
-      currentIndex: 0,
-      answers: [],
+      selectedTrack: null,
+      draftTrack: null,
+      quizDate: getLocalDateKey(),
+      progress: null,
       loading: false,
-      quizStarted: false,
-      quizCache: {}
+      activeQuestionIndex: 0
     };
 
-    /************************************************************
-     * GA4
-     ************************************************************/
+    const $ = (selector) => document.querySelector(selector);
 
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){ dataLayer.push(arguments); }
-
-    (function loadGA4() {
-      if (!GA_MEASUREMENT_ID || GA_MEASUREMENT_ID === "G-XXXXXXXXXX") return;
-
-      const script = document.createElement("script");
-      script.async = true;
-      script.src = "https://www.googletagmanager.com/gtag/js?id=" + encodeURIComponent(GA_MEASUREMENT_ID);
-      document.head.appendChild(script);
-
-      gtag("js", new Date());
-      gtag("config", GA_MEASUREMENT_ID, {
-        send_page_view: false
-      });
-    })();
-
-    function trackEvent(eventName, params = {}) {
-      if (typeof gtag !== "function") return;
-      gtag("event", eventName, {
-        app_name: "Daily Loker Pelaut Academy",
-        app_version: APP_VERSION,
-        ...params
-      });
+    function iconSvg(name) {
+      const common = "width='30' height='30' viewBox='0 0 32 32' fill='none' xmlns='http://www.w3.org/2000/svg'";
+      if (name === "helm") {
+        return `<svg ${common} aria-hidden="true"><circle cx="16" cy="16" r="8.5" stroke="currentColor" stroke-width="2.2"/><circle cx="16" cy="16" r="2.2" fill="currentColor"/><path d="M16 2.8v6M16 23.2v6M2.8 16h6M23.2 16h6M6.6 6.6l4.3 4.3M21.1 21.1l4.3 4.3M25.4 6.6l-4.3 4.3M10.9 21.1l-4.3 4.3" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg>`;
+      }
+      if (name === "engine") {
+        return `<svg ${common} aria-hidden="true"><path d="M7 14h4l2-3h6v3h3l3 3v6h-4l-2-3h-8v3H7v-9Z" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><path d="M13 8h7M16 8v3M25 19h3M4 17v4" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/><circle cx="13" cy="17" r="1.2" fill="currentColor"/><circle cx="18" cy="17" r="1.2" fill="currentColor"/></svg>`;
+      }
+      if (name === "anchor") {
+        return `<svg ${common} aria-hidden="true"><path d="M16 4v19" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/><circle cx="16" cy="6" r="3" stroke="currentColor" stroke-width="2.2"/><path d="M9 12h14M6 20c1.8 4.4 5.3 7 10 7s8.2-2.6 10-7M6 20l-3 2M26 20l3 2" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
+      }
+      if (name === "shield") {
+        return `<svg ${common} aria-hidden="true"><path d="M16 4 7 7v7c0 5.6 3.6 10.7 9 12 5.4-1.3 9-6.4 9-12V7l-9-3Z" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round"/><path d="m11.5 15.5 3 3 6-7" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
+      }
+      if (name === "book") {
+        return `<svg ${common} aria-hidden="true"><path d="M6 7.5h8c1.1 0 2 .9 2 2v17c0-1.1-.9-2-2-2H6V7.5ZM26 7.5h-8c-1.1 0-2 .9-2 2v17c0-1.1.9-2 2-2h8V7.5Z" stroke="currentColor" stroke-width="2.1" stroke-linejoin="round"/></svg>`;
+      }
+      return `<svg ${common} aria-hidden="true"><circle cx="16" cy="16" r="10" stroke="currentColor" stroke-width="2.2"/></svg>`;
     }
 
-    /************************************************************
-     * HELPERS
-     ************************************************************/
-
-    const $ = (selector) => document.querySelector(selector);
-    const $$ = (selector) => Array.from(document.querySelectorAll(selector));
-
-    function safeGet(key, fallback = "") {
+    function safeGet(key, fallback = null) {
       try {
         const value = localStorage.getItem(key);
         return value === null ? fallback : value;
-      } catch (err) {
+      } catch (error) {
         return fallback;
       }
     }
 
     function safeSet(key, value) {
-      try {
-        localStorage.setItem(key, value);
-      } catch (err) {
-        // localStorage may be blocked in some browsers. Website still works without persistence.
-      }
+      try { localStorage.setItem(key, value); } catch (error) {}
     }
 
-    function safeJsonGet(key, fallback) {
+    function safeGetJson(key, fallback) {
       try {
         const raw = localStorage.getItem(key);
-        if (!raw) return fallback;
-        return JSON.parse(raw);
-      } catch (err) {
+        return raw ? JSON.parse(raw) : fallback;
+      } catch (error) {
         return fallback;
       }
     }
 
-    function safeJsonSet(key, value) {
-      try {
-        localStorage.setItem(key, JSON.stringify(value));
-      } catch (err) {}
+    function safeSetJson(key, value) {
+      try { localStorage.setItem(key, JSON.stringify(value)); } catch (error) {}
     }
 
-    function escapeHTML(value) {
+    function getLocalDateKey(date = new Date()) {
+      const year = date.getFullYear();
+      const month = String(date.getMonth() + 1).padStart(2, "0");
+      const day = String(date.getDate()).padStart(2, "0");
+      return `${year}-${month}-${day}`;
+    }
+
+    function addDays(dateKey, offset) {
+      const [year, month, day] = dateKey.split("-").map(Number);
+      const date = new Date(year, month - 1, day);
+      date.setDate(date.getDate() + offset);
+      return getLocalDateKey(date);
+    }
+
+    function getDayLabel(dateKey) {
+      const [year, month, day] = dateKey.split("-").map(Number);
+      const date = new Date(year, month - 1, day);
+      return ["Min", "Sen", "Sel", "Rab", "Kam", "Jum", "Sab"][date.getDay()];
+    }
+
+    function progressKey(dateKey, track) {
+      return `dlpa_progress_${dateKey}_${track}`;
+    }
+
+    function getProgress(dateKey = state.quizDate, track = state.selectedTrack) {
+      if (!track) return null;
+      return safeGetJson(progressKey(dateKey, track), null);
+    }
+
+    function saveProgress(progress) {
+      safeSetJson(progressKey(progress.quiz_date, progress.track), progress);
+      state.progress = progress;
+    }
+
+    function getStreak() {
+      return safeGetJson(STORAGE.streak, { current: 0, last_completed_date: null, completed_dates: [] });
+    }
+
+    function saveStreak(streak) {
+      safeSetJson(STORAGE.streak, streak);
+    }
+
+    function updateStreakOnComplete(dateKey) {
+      const streak = getStreak();
+      if (!Array.isArray(streak.completed_dates)) streak.completed_dates = [];
+
+      if (streak.completed_dates.includes(dateKey)) {
+        return { streak, changed: false, started: false, continued: false };
+      }
+
+      const yesterday = addDays(dateKey, -1);
+      const continued = streak.last_completed_date === yesterday;
+      const started = !continued || !streak.current;
+      streak.current = continued ? Number(streak.current || 0) + 1 : 1;
+      streak.last_completed_date = dateKey;
+      streak.completed_dates.push(dateKey);
+      streak.completed_dates = [...new Set(streak.completed_dates)].sort().slice(-60);
+      saveStreak(streak);
+      return { streak, changed: true, started, continued };
+    }
+
+    function fireEvent(eventName, params = {}) {
+      if (typeof window.gtag === "function") {
+        window.gtag("event", eventName, {
+          app_version: APP_VERSION,
+          page_location: window.location.href,
+          ...params
+        });
+      }
+    }
+
+    function loadGA() {
+      if (!GA_MEASUREMENT_ID || GA_MEASUREMENT_ID === "G-XXXXXXXXXX") return;
+      window.dataLayer = window.dataLayer || [];
+      window.gtag = function(){ window.dataLayer.push(arguments); };
+      const script = document.createElement("script");
+      script.async = true;
+      script.src = "https://www.googletagmanager.com/gtag/js?id=" + encodeURIComponent(GA_MEASUREMENT_ID);
+      document.head.appendChild(script);
+      window.gtag("js", new Date());
+      window.gtag("config", GA_MEASUREMENT_ID, { send_page_view: false });
+    }
+
+    function hasApiUrl() {
+      return API_URL && API_URL !== "PASTE_APPS_SCRIPT_WEB_APP_URL_HERE";
+    }
+
+    async function fetchJson(params) {
+      if (!hasApiUrl()) {
+        throw new Error("API_URL belum dipasang. Paste URL Web App Apps Script ke konstanta API_URL di index.html.");
+      }
+      const url = API_URL + "?" + new URLSearchParams(params).toString();
+      const response = await fetch(url, { method: "GET", cache: "no-store" });
+      const text = await response.text();
+      let json;
+      try { json = JSON.parse(text); }
+      catch (error) { throw new Error("Response API bukan JSON valid: " + text.slice(0, 160)); }
+      if (!response.ok || json.ok === false) {
+        throw new Error(json.error || json.message || "API gagal memproses request.");
+      }
+      return json;
+    }
+
+    function showToast(message) {
+      const toast = $("#toast");
+      toast.textContent = message;
+      toast.classList.add("show");
+      clearTimeout(showToast._timer);
+      showToast._timer = setTimeout(() => toast.classList.remove("show"), 2200);
+    }
+
+    function render() {
+      state.selectedTrack = safeGet(STORAGE.selectedTrack, null);
+      state.draftTrack = safeGet(STORAGE.selectedTrackDraft, state.selectedTrack || TRACKS[0].id);
+      const savedProgress = getProgress();
+      state.progress = savedProgress;
+
+      if (!state.selectedTrack) {
+        renderTrackSelection();
+        renderCompactTrack(false);
+        return;
+      }
+
+      renderCompactTrack(true);
+      if (savedProgress?.completed) {
+        renderResult(savedProgress);
+      } else if (savedProgress?.questions?.length) {
+        renderQuiz(savedProgress);
+      } else {
+        renderDashboard();
+      }
+    }
+
+    function renderCompactTrack(visible) {
+      const node = $("#compactTrack");
+      if (!visible || !state.selectedTrack) {
+        node.classList.add("hidden");
+        node.innerHTML = "";
+        return;
+      }
+      const track = TRACKS.find(t => t.id === state.selectedTrack) || TRACKS[0];
+      const progress = getProgress();
+      const isLocked = Boolean(progress?.started_at || progress?.completed);
+      node.classList.remove("hidden");
+      node.innerHTML = `
+        <div class="compact-left">
+          <span class="compact-icon">${iconSvg(track.icon)}</span>
+          <span class="compact-meta"><small>Jalur kamu</small>${track.title}</span>
+        </div>
+        <button class="link-btn" type="button" id="changeTrackBtn" ${isLocked ? "disabled" : ""}>${isLocked ? "Terkunci hari ini" : "Ubah Jalur ✎"}</button>
+      `;
+      const btn = $("#changeTrackBtn");
+      if (btn && !isLocked) {
+        btn.addEventListener("click", () => {
+          safeSet(STORAGE.selectedTrackDraft, state.selectedTrack);
+          localStorage.removeItem(STORAGE.selectedTrack);
+          state.selectedTrack = null;
+          fireEvent("track_selected", { action_type: "change_track_open" });
+          render();
+        });
+      }
+    }
+
+    function renderTrackSelection() {
+      const content = $("#mainContent");
+      const draft = state.draftTrack || TRACKS[0].id;
+      content.innerHTML = `
+        <section class="section panel" id="trackSection">
+          <h2 class="section-title">Pilih Jalur Quiz Kamu</h2>
+          <p class="section-copy">Agar soal lebih sesuai, pilih jalur yang paling cocok dengan posisi atau tujuan kariermu.</p>
+          <div class="track-list" role="radiogroup" aria-label="Pilih jalur quiz">
+            ${TRACKS.map(track => `
+              <button class="track-card ${draft === track.id ? "active" : ""}" type="button" data-track="${track.id}" role="radio" aria-checked="${draft === track.id}">
+                <span class="track-icon">${iconSvg(track.icon)}</span>
+                <span><span class="track-name">${track.title}</span><span class="track-desc">${track.desc}</span></span>
+                <span class="radio-indicator">✓</span>
+              </button>
+            `).join("")}
+          </div>
+          <div class="notice"><span class="notice-icon">${iconSvg("shield")}</span><span>Pilihan ini akan dipakai untuk quiz harian kamu. Setelah quiz dimulai, jalur akan terkunci untuk hari ini.</span></div>
+          <div class="btn-row">
+            <button class="btn btn-primary" type="button" id="startWithTrackBtn">➜ Lanjut Mulai Quiz</button>
+            <button class="btn btn-secondary" type="button" id="laterBtn">Nanti Saja</button>
+          </div>
+        </section>
+      `;
+
+      content.querySelectorAll(".track-card").forEach(btn => {
+        btn.addEventListener("click", () => {
+          const track = btn.dataset.track;
+          safeSet(STORAGE.selectedTrackDraft, track);
+          state.draftTrack = track;
+          fireEvent("track_selected", { track, selection_stage: "draft" });
+          renderTrackSelection();
+        });
+      });
+
+      $("#startWithTrackBtn").addEventListener("click", async () => {
+        const track = safeGet(STORAGE.selectedTrackDraft, TRACKS[0].id);
+        safeSet(STORAGE.selectedTrack, track);
+        state.selectedTrack = track;
+        fireEvent("track_selected", { track, selection_stage: "committed" });
+        await startQuiz();
+      });
+
+      $("#laterBtn").addEventListener("click", () => {
+        showToast("Siap. Kamu bisa mulai kapan saja hari ini.");
+      });
+    }
+
+    function renderDashboard() {
+      const streak = getStreak();
+      const content = $("#mainContent");
+      const completedToday = streak.completed_dates?.includes(state.quizDate);
+      content.innerHTML = `
+        <section class="section panel">
+          <h2 class="section-title">Kabar Harian Kamu</h2>
+          <p class="section-copy">Mulai quiz 5 soal hari ini. Pilihan jalur sudah disimpan, jadi kamu tidak perlu pilih ulang.</p>
+
+          <div class="dashboard-grid">
+            <div class="dash-card">
+              <div class="dash-label">🔥 Streak</div>
+              <p class="dash-value">${Number(streak.current || 0)} hari</p>
+              <p class="dash-note">${Number(streak.current || 0) > 0 ? "Pertahankan ritmemu." : "Mulai streak pertamamu."}</p>
+            </div>
+            <div class="dash-card">
+              <div class="dash-label">📋 Quiz Hari Ini</div>
+              <p class="dash-value">${completedToday ? "Selesai" : "0/5"}</p>
+              <p class="dash-note">${completedToday ? "Balik lagi besok." : "Belum dikerjakan."}</p>
+            </div>
+          </div>
+
+          ${renderActivityStrip(streak)}
+
+          <div class="btn-row">
+            <button class="btn btn-primary" type="button" id="startQuizBtn">Mulai Quiz Hari Ini ➜</button>
+          </div>
+        </section>
+      `;
+      $("#startQuizBtn").addEventListener("click", startQuiz);
+    }
+
+    function renderActivityStrip(streak = getStreak()) {
+      const days = Array.from({ length: 7 }, (_, i) => addDays(state.quizDate, i - 6));
+      const completedDates = new Set(streak.completed_dates || []);
+      return `
+        <div class="activity-wrap">
+          <div class="small-head"><span>Aktivitas 7 Hari Terakhir</span><span>${completedDates.has(state.quizDate) ? "Selesai" : "Hari ini"}</span></div>
+          <div class="activity-strip">
+            ${days.map(dateKey => `
+              <div class="day-item ${completedDates.has(dateKey) ? "done" : ""} ${dateKey === state.quizDate ? "today" : ""}">
+                <span>${getDayLabel(dateKey)}</span>
+                <span class="day-symbol">✓</span>
+              </div>
+            `).join("")}
+          </div>
+        </div>
+      `;
+    }
+
+    async function startQuiz() {
+      if (state.loading) return;
+      state.selectedTrack = safeGet(STORAGE.selectedTrack, state.draftTrack || TRACKS[0].id);
+      if (!state.selectedTrack) return renderTrackSelection();
+
+      const existing = getProgress();
+      if (existing?.completed) return renderResult(existing);
+      if (existing?.questions?.length) return renderQuiz(existing);
+
+      state.loading = true;
+      renderLoading("Menyiapkan 5 soal harian...");
+      fireEvent("quiz_start", { track: state.selectedTrack });
+
+      try {
+        const data = await fetchJson({ action: "getTodayQuiz", track: state.selectedTrack });
+        const progress = {
+          quiz_date: data.quiz_date || state.quizDate,
+          track: data.track || state.selectedTrack,
+          category_mix: data.category_mix || [],
+          questions: data.questions || [],
+          answers: {},
+          current_index: 0,
+          started_at: new Date().toISOString(),
+          completed: false,
+          score: 0
+        };
+        state.quizDate = progress.quiz_date;
+        saveProgress(progress);
+        renderCompactTrack(true);
+        renderQuiz(progress);
+      } catch (error) {
+        renderError(error.message);
+      } finally {
+        state.loading = false;
+      }
+    }
+
+    function renderLoading(message) {
+      $("#mainContent").innerHTML = `<section class="section panel"><div class="loading"><div class="spinner"></div><div>${message}</div></div></section>`;
+    }
+
+    function renderError(message) {
+      $("#mainContent").innerHTML = `
+        <section class="section panel">
+          <h2 class="section-title">Belum bisa memuat quiz</h2>
+          <div class="error-box">${escapeHtml(message)}</div>
+          <div class="btn-row"><button class="btn btn-primary" type="button" id="retryBtn">Coba Lagi</button></div>
+        </section>
+      `;
+      $("#retryBtn").addEventListener("click", startQuiz);
+    }
+
+    function renderQuiz(progress) {
+      state.progress = progress;
+      state.activeQuestionIndex = Math.min(progress.current_index || 0, Math.max(progress.questions.length - 1, 0));
+      const q = progress.questions[state.activeQuestionIndex];
+      if (!q) return renderError("Soal tidak ditemukan dari API.");
+      const answer = progress.answers[q.id];
+      const answeredCount = Object.keys(progress.answers || {}).length;
+      const total = progress.questions.length || 5;
+      const percent = Math.round((answeredCount / total) * 100);
+      const categories = categoryList(progress);
+
+      $("#mainContent").innerHTML = `
+        <section class="section panel quiz-card">
+          <div class="quiz-head">
+            <div class="quiz-meta-line">
+              <span>Soal ${state.activeQuestionIndex + 1} dari ${total}</span>
+              <span class="pill">${escapeHtml(progress.track)} • ${answeredCount}/${total}</span>
+            </div>
+            <div class="progress-line"><div class="progress-fill" style="width:${percent}%"></div></div>
+            <div class="category-chips">${categories.map(cat => `<span class="pill">${topicIcon(cat)} ${escapeHtml(cat)}</span>`).join("")}</div>
+          </div>
+          <div class="quiz-body">
+            <div class="question-card">
+              <p class="question-label">${escapeHtml(q.category || "Quiz")}</p>
+              <h2 class="question-text">${escapeHtml(q.question || "")}</h2>
+              <div class="options">
+                ${["A", "B", "C", "D"].map(letter => renderOption(q, letter, answer)).join("")}
+              </div>
+              <div id="feedbackBox">${answer ? renderFeedback(answer) : ""}</div>
+              <div class="notice" style="margin-top:14px;"><span class="notice-icon">ⓘ</span><span>Pilihan jalur <strong>${escapeHtml(progress.track)}</strong> digunakan untuk quiz hari ini.</span></div>
+            </div>
+            <div class="quiz-actions">
+              <button class="btn btn-secondary" type="button" id="prevBtn" ${state.activeQuestionIndex === 0 ? "disabled" : ""}>← Sebelumnya</button>
+              <button class="btn btn-primary" type="button" id="nextBtn" ${answer ? "" : "disabled"}>${state.activeQuestionIndex + 1 >= total ? "Lihat Hasil" : "Soal Berikutnya →"}</button>
+            </div>
+          </div>
+        </section>
+      `;
+
+      document.querySelectorAll(".option-btn").forEach(btn => {
+        btn.addEventListener("click", () => submitAnswer(q.id, btn.dataset.answer));
+      });
+
+      $("#prevBtn").addEventListener("click", () => {
+        progress.current_index = Math.max(0, state.activeQuestionIndex - 1);
+        saveProgress(progress);
+        renderQuiz(progress);
+      });
+
+      $("#nextBtn").addEventListener("click", () => {
+        if (!progress.answers[q.id]) return;
+        if (state.activeQuestionIndex + 1 >= total) {
+          completeQuiz(progress);
+        } else {
+          progress.current_index = state.activeQuestionIndex + 1;
+          saveProgress(progress);
+          renderQuiz(progress);
+        }
+      });
+    }
+
+    function renderOption(q, letter, answer) {
+      const text = q.options?.[letter] || "";
+      let cls = "option-btn";
+      let stateIcon = "";
+      const disabled = answer ? "disabled" : "";
+
+      if (answer) {
+        if (answer.selected_answer === letter) cls += " selected";
+        if (answer.correct_answer === letter) { cls += " correct"; stateIcon = "✓"; }
+        else if (answer.selected_answer === letter && !answer.is_correct) { cls += " wrong"; stateIcon = "×"; }
+      }
+
+      return `
+        <button class="${cls}" type="button" data-answer="${letter}" ${disabled}>
+          <span class="option-letter">${letter}</span>
+          <span class="option-text">${escapeHtml(text)}</span>
+          <span class="option-state">${stateIcon}</span>
+        </button>
+      `;
+    }
+
+    function renderFeedback(answer) {
+      const cls = answer.is_correct ? "correct" : "wrong";
+      return `
+        <div class="feedback ${cls}">
+          <h3>${answer.is_correct ? "Benar. Mantap!" : "Belum tepat."}</h3>
+          <p>${escapeHtml(answer.explanation || "Pembahasan belum tersedia.")}</p>
+          ${answer.source_reference ? `<div class="source-note">Referensi: ${escapeHtml(answer.source_reference)}</div>` : ""}
+        </div>
+      `;
+    }
+
+    async function submitAnswer(questionId, selectedAnswer) {
+      const progress = state.progress;
+      if (!progress || progress.answers?.[questionId]) return;
+      fireEvent("quiz_answer_click", {
+        track: progress.track,
+        question_id: questionId,
+        selected_answer: selectedAnswer,
+        question_number: state.activeQuestionIndex + 1
+      });
+
+      const options = Array.from(document.querySelectorAll(".option-btn"));
+      options.forEach(btn => btn.disabled = true);
+
+      try {
+        const data = await fetchJson({
+          action: "checkAnswer",
+          track: progress.track,
+          question_id: questionId,
+          selected_answer: selectedAnswer
+        });
+        progress.answers = progress.answers || {};
+        progress.answers[questionId] = {
+          question_id: questionId,
+          selected_answer: selectedAnswer,
+          correct_answer: data.correct_answer,
+          is_correct: Boolean(data.is_correct),
+          explanation: data.explanation || "",
+          source_reference: data.source_reference || "",
+          category: data.category || "",
+          subcategory: data.subcategory || ""
+        };
+        progress.score = Object.values(progress.answers).filter(a => a.is_correct).length;
+        saveProgress(progress);
+        renderQuiz(progress);
+      } catch (error) {
+        showToast(error.message);
+        options.forEach(btn => btn.disabled = false);
+      }
+    }
+
+    function completeQuiz(progress) {
+      const total = progress.questions.length || 5;
+      const score = Object.values(progress.answers || {}).filter(a => a.is_correct).length;
+      progress.completed = true;
+      progress.completed_at = new Date().toISOString();
+      progress.score = score;
+      progress.current_index = Math.max(0, total - 1);
+
+      const streakUpdate = updateStreakOnComplete(progress.quiz_date || state.quizDate);
+      progress.streak_after_complete = streakUpdate.streak.current;
+      saveProgress(progress);
+
+      fireEvent("quiz_complete", {
+        track: progress.track,
+        score,
+        total,
+        streak: progress.streak_after_complete
+      });
+      if (score <= 2) fireEvent("score_0_2", { track: progress.track, score });
+      if (score === 3) fireEvent("score_3", { track: progress.track, score });
+      if (score === 4) fireEvent("score_4", { track: progress.track, score });
+      if (score === 5) fireEvent("score_5", { track: progress.track, score });
+      if (streakUpdate.changed && streakUpdate.started) fireEvent("streak_started", { streak: streakUpdate.streak.current });
+      if (streakUpdate.changed && streakUpdate.continued) fireEvent("streak_continued", { streak: streakUpdate.streak.current });
+
+      submitStats(progress).catch(() => {});
+      renderCompactTrack(true);
+      renderResult(progress);
+    }
+
+    async function submitStats(progress) {
+      if (!hasApiUrl()) return;
+      const total = progress.questions.length || 5;
+      await fetchJson({
+        action: "submitQuizStats",
+        quiz_date: progress.quiz_date,
+        track: progress.track,
+        score: String(progress.score),
+        total: String(total),
+        streak: String(progress.streak_after_complete || getStreak().current || 0),
+        category_mix: categoryList(progress).join(", ")
+      });
+    }
+
+    function renderResult(progress) {
+      const total = progress.questions.length || 5;
+      const score = Number(progress.score || 0);
+      const percent = Math.round((score / total) * 100);
+      const degree = Math.round((score / total) * 360);
+      const level = getLevel(score, total);
+      const streak = getStreak();
+      const categories = categoryList(progress);
+      const answers = Object.values(progress.answers || {});
+      const shareText = buildShareText(progress, streak.current);
+
+      $("#mainContent").innerHTML = `
+        <section class="section panel result-card" style="--score-deg:${degree}deg">
+          <h2 class="section-title" style="text-align:left;">Hasil Quiz Hari Ini</h2>
+          <div class="score-ring">
+            <div class="score-inner">
+              <span class="score-main">${score}/${total}</span>
+              <span class="score-percent">${percent}%</span>
+            </div>
+          </div>
+          <h3 class="result-title">${level.title}</h3>
+          <p class="result-copy">${level.copy}</p>
+          <div class="category-chips" style="justify-content:center;">
+            <span class="pill">${trackMiniIcon(progress.track)} ${escapeHtml(progress.track)}</span>
+            <span class="pill">📚 ${categories.map(escapeHtml).join(" • ") || "Quiz"}</span>
+            <span class="pill" style="background:var(--warm-soft); color:#92430f;">🔥 Streak: ${Number(streak.current || 0)} hari</span>
+          </div>
+        </section>
+
+        <section class="section panel">
+          <h2 class="section-title">Pembahasan Jawaban</h2>
+          <div class="explanation-list">
+            ${answers.map((answer, index) => `
+              <div class="explanation-item">
+                <span class="explanation-num">${index + 1}</span>
+                <div>
+                  <strong>${answer.is_correct ? "Benar" : "Belum tepat"} — Jawaban kamu: ${escapeHtml(answer.selected_answer)}${answer.correct_answer ? `, Kunci: ${escapeHtml(answer.correct_answer)}` : ""}</strong>
+                  <p>${escapeHtml(answer.explanation || "Pembahasan belum tersedia.")}</p>
+                </div>
+              </div>
+            `).join("")}
+          </div>
+        </section>
+
+        <section class="section panel">
+          <h2 class="section-title">Bagikan Score Card</h2>
+          <p class="section-copy">Tampilan ini dibuat ringan dari HTML/CSS. Tidak memakai gambar berat.</p>
+          <div class="share-status-card" style="--score-deg:${degree}deg">
+            <div class="share-status-top">
+              <div class="share-brand"><span class="brand-mark" style="width:42px;height:42px;">⚓</span><span>Daily Loker Pelaut<span>Academy</span></span></div>
+            </div>
+            <div class="share-status-body">
+              <div class="share-mini-score"><strong>${score}/${total}</strong></div>
+              <div>
+                <h3>${level.short}</h3>
+                <p>Jalur: <strong>${escapeHtml(progress.track)}</strong><br>Streak: <strong>${Number(streak.current || 0)} hari</strong></p>
+                <div class="share-url">academy.dailylokerpelaut.com</div>
+              </div>
+            </div>
+          </div>
+          <p class="status-note">Untuk MVP, tombol share mengirim teks WhatsApp. Preview card ini jadi acuan visual untuk status / screenshot share.</p>
+          <div class="btn-row">
+            <button class="btn btn-primary" type="button" id="shareWaBtn">↗ Bagikan Hasil</button>
+            <button class="btn btn-secondary" type="button" id="copyShareBtn">⧉ Copy Teks Share</button>
+            <button class="btn btn-secondary" type="button" id="tomorrowBtn">🗓 Balik Lagi Besok</button>
+          </div>
+        </section>
+      `;
+
+      $("#shareWaBtn").addEventListener("click", () => {
+        fireEvent("whatsapp_share_click", { track: progress.track, score, total, streak: streak.current || 0 });
+        window.open("https://wa.me/?text=" + encodeURIComponent(shareText), "_blank", "noopener");
+      });
+
+      $("#copyShareBtn").addEventListener("click", async () => {
+        try {
+          await navigator.clipboard.writeText(shareText);
+          showToast("Teks share sudah dicopy.");
+        } catch (error) {
+          showToast("Browser tidak mengizinkan copy otomatis. Silakan copy manual dari WhatsApp share.");
+        }
+      });
+
+      $("#tomorrowBtn").addEventListener("click", () => {
+        showToast("Mantap. Balik lagi besok untuk jaga streak.");
+      });
+    }
+
+    function categoryList(progress) {
+      if (Array.isArray(progress.category_mix) && progress.category_mix.length) {
+        return progress.category_mix.map(item => item.category || item).filter(Boolean).slice(0, 4);
+      }
+      const set = new Set();
+      (progress.questions || []).forEach(q => { if (q.category) set.add(q.category); });
+      return [...set].slice(0, 4);
+    }
+
+    function topicIcon(category) {
+      const text = String(category || "").toLowerCase();
+      if (text.includes("marpol")) return "🌊";
+      if (text.includes("colreg")) return "⚓";
+      if (text.includes("psc")) return "🛡️";
+      if (text.includes("interview")) return "👤";
+      return "📚";
+    }
+
+    function trackMiniIcon(track) {
+      if (track === "Deck Officer") return "🧭";
+      if (track === "Engineer Officer") return "⚙️";
+      return "⭐";
+    }
+
+    function getLevel(score, total) {
+      if (score === total) return { title: "Siap Tantang Teman", short: "Score Sempurna", copy: "Mantap. Skor kamu sempurna hari ini." };
+      if (score === total - 1) return { title: "Bagus! Terus Tingkatkan", short: "Bagus Sekali", copy: "Pemahaman kamu kuat. Tinggal rapikan sedikit lagi." };
+      if (score >= Math.ceil(total * 0.6)) return { title: "Sudah On Track", short: "On Track", copy: "Hasilmu cukup baik. Baca pembahasan dan lanjutkan ritmenya." };
+      return { title: "Mulai Pelan, Tapi Konsisten", short: "Tetap Jalan", copy: "Tidak apa-apa. Yang penting kamu belajar dari pembahasan hari ini." };
+    }
+
+    function buildShareText(progress, streak) {
+      const total = progress.questions.length || 5;
+      const categories = categoryList(progress).join(" • ") || "Quiz Pelaut";
+      return `Saya dapat skor ${progress.score}/${total} di Quiz Pelaut Hari Ini 🔥\n\nJalur: ${progress.track}\nTopik: ${categories}\nStreak: ${Number(streak || 0)} hari\n\nBerani coba?\nJangan cuma cari loker, skill juga harus diasah.\n\n${SITE_URL}`;
+    }
+
+    function escapeHtml(value) {
       return String(value ?? "")
         .replaceAll("&", "&amp;")
         .replaceAll("<", "&lt;")
@@ -960,640 +2069,60 @@
         .replaceAll("'", "&#039;");
     }
 
-    function slugify(value) {
-      return String(value || "")
-        .toLowerCase()
-        .replace(/[^a-z0-9]+/g, "-")
-        .replace(/^-+|-+$/g, "");
+    function setupVisitTracking() {
+      const today = getLocalDateKey();
+      const firstVisit = safeGet(STORAGE.firstVisit, null);
+      const lastVisit = safeGet(STORAGE.lastVisit, null);
+      if (!firstVisit) safeSet(STORAGE.firstVisit, today);
+      if (lastVisit && lastVisit !== today) fireEvent("return_user_detected", { last_visit: lastVisit });
+      safeSet(STORAGE.lastVisit, today);
     }
 
-    function isConfigured() {
-      return API_URL && API_URL !== "PASTE_APPS_SCRIPT_WEB_APP_URL_HERE";
-    }
+    document.addEventListener("DOMContentLoaded", () => {
+      loadGA();
+      setupVisitTracking();
+      fireEvent("academy_page_view", { page_type: "academy_home" });
+      render();
 
-    function getCompletionKey(date, track) {
-      return LS.completionPrefix + date + "_" + slugify(track);
-    }
-
-    function getJakartaDateString(date = new Date()) {
-      const parts = new Intl.DateTimeFormat("en-CA", {
-        timeZone: "Asia/Jakarta",
-        year: "numeric",
-        month: "2-digit",
-        day: "2-digit"
-      }).formatToParts(date);
-
-      const lookup = {};
-      parts.forEach((part) => {
-        lookup[part.type] = part.value;
-      });
-
-      return `${lookup.year}-${lookup.month}-${lookup.day}`;
-    }
-
-    function addDays(dateString, amount) {
-      const date = new Date(dateString + "T00:00:00+07:00");
-      date.setDate(date.getDate() + amount);
-      return getJakartaDateString(date);
-    }
-
-    function isPreviousDay(previousDate, currentDate) {
-      if (!previousDate || !currentDate) return false;
-      return addDays(previousDate, 1) === currentDate;
-    }
-
-    function formatDateLabel(dateString) {
-      try {
-        const date = new Date(dateString + "T00:00:00+07:00");
-        return new Intl.DateTimeFormat("id-ID", {
-          timeZone: "Asia/Jakarta",
-          weekday: "long",
-          day: "numeric",
-          month: "short",
-          year: "numeric"
-        }).format(date);
-      } catch (err) {
-        return dateString;
-      }
-    }
-
-    function getLevel(score, total) {
-      if (score <= 2) {
-        return {
-          title: "Perlu diasah lagi",
-          copy: "Tidak apa-apa. Yang penting kamu tahu bagian mana yang perlu dibaca ulang."
-        };
-      }
-
-      if (score === 3) {
-        return {
-          title: "Cukup siap",
-          copy: "Fondasinya sudah ada. Tinggal dibuat lebih konsisten."
-        };
-      }
-
-      if (score === 4) {
-        return {
-          title: "Solid",
-          copy: "Bagus. Tinggal rapikan detail kecil supaya makin percaya diri."
-        };
-      }
-
-      return {
-        title: "Mantap, siap onboard",
-        copy: "Jawaban kamu tajam hari ini. Jaga ritmenya besok."
+      const menuBtn = $("#menuBtn");
+      const topMenu = $("#topMenu");
+      const closeMenu = () => {
+        topMenu.classList.remove("open");
+        menuBtn.setAttribute("aria-expanded", "false");
       };
-    }
-
-    async function apiGet(params) {
-      const url = API_URL + "?" + new URLSearchParams(params).toString();
-
-      const response = await fetch(url, {
-        method: "GET",
-        cache: "no-store"
-      });
-
-      if (!response.ok) {
-        throw new Error("API response tidak berhasil.");
-      }
-
-      const data = await response.json();
-
-      if (!data.ok) {
-        throw new Error(data.error || "API mengembalikan error.");
-      }
-
-      return data;
-    }
-
-    function submitStats(payload) {
-      if (!isConfigured()) return;
-
-      const url = API_URL + "?" + new URLSearchParams({
-        action: "submitQuizStats",
-        quiz_date: payload.quizDate,
-        track: payload.track,
-        score: String(payload.score),
-        total: String(payload.total),
-        streak: String(payload.streak),
-        categories: payload.categories.join(", "),
-        app_version: APP_VERSION
-      }).toString();
-
-      // Statistik ringan: tidak perlu menunggu response.
-      fetch(url, {
-        method: "GET",
-        mode: "no-cors",
-        keepalive: true
-      }).catch(() => {});
-    }
-
-    /************************************************************
-     * RENDERING
-     ************************************************************/
-
-    function setSectionVisibility() {
-      $("#dashboardSection").classList.toggle("hidden", !state.selectedTrack);
-      $("#quizSection").classList.toggle("hidden", !state.selectedTrack);
-    }
-
-    function renderTrackCards() {
-      $$(".track-card").forEach((button) => {
-        const isActive = button.dataset.track === state.selectedTrack;
-        button.classList.toggle("active", isActive);
-        button.setAttribute("aria-pressed", isActive ? "true" : "false");
-      });
-    }
-
-    function renderActivityStrip(referenceDate = getJakartaDateString()) {
-      const completedDates = safeJsonGet(LS.completedDates, []);
-      const completedSet = new Set(completedDates);
-      const days = [];
-
-      for (let i = 6; i >= 0; i--) {
-        const date = addDays(referenceDate, -i);
-        const dateObj = new Date(date + "T00:00:00+07:00");
-        const label = new Intl.DateTimeFormat("id-ID", {
-          timeZone: "Asia/Jakarta",
-          weekday: "short"
-        }).format(dateObj);
-
-        days.push({
-          date,
-          label,
-          done: completedSet.has(date),
-          today: date === referenceDate
-        });
-      }
-
-      $("#activityStrip").innerHTML = days.map((day) => `
-        <div class="day-dot ${day.done ? "done" : ""} ${day.today ? "today" : ""}" title="${escapeHTML(day.date)}">
-          <span>${escapeHTML(day.label)}</span>
-        </div>
-      `).join("");
-    }
-
-    function renderDashboard(quizDate, categoryMix = []) {
-      const streak = Number(safeGet(LS.streak, "0")) || 0;
-      const completion = safeJsonGet(getCompletionKey(quizDate, state.selectedTrack), null);
-
-      $("#streakValue").textContent = String(streak);
-      $("#todayStatus").textContent = completion ? "Selesai" : "Belum";
-      $("#dashboardCopy").textContent = `${state.selectedTrack} • ${formatDateLabel(quizDate)}`;
-      renderActivityStrip(quizDate);
-
-      const chips = categoryMix.length
-        ? categoryMix.map((item) => {
-            const name = typeof item === "string" ? item : item.category;
-            const count = typeof item === "string" ? "" : ` ×${item.count}`;
-            return `<span class="chip">${escapeHTML(name)}${escapeHTML(count)}</span>`;
-          }).join("")
-        : `<span class="chip">Quiz harian</span>`;
-
-      $("#categoryMix").innerHTML = chips;
-    }
-
-    function renderLoading() {
-      $("#quizBody").innerHTML = `
-        <div class="empty-state">
-          Memuat 5 soal hari ini untuk jalur <strong>${escapeHTML(state.selectedTrack)}</strong>...
-        </div>
-      `;
-    }
-
-    function renderApiNotConfigured() {
-      $("#quizBody").innerHTML = `
-        <div class="error-state">
-          <strong>API_URL belum dipasang.</strong><br>
-          Setelah deploy Apps Script Web App, paste URL deployment ke bagian <code>API_URL</code> di file HTML.
-        </div>
-      `;
-    }
-
-    function renderError(message) {
-      $("#quizBody").innerHTML = `
-        <div class="error-state">
-          <strong>Quiz belum bisa dimuat.</strong><br>
-          ${escapeHTML(message)}
-        </div>
-      `;
-    }
-
-    function renderQuestion() {
-      if (!state.quiz || !state.quiz.questions || !state.quiz.questions.length) {
-        renderError("Data soal kosong. Cek sheet QuizBank dan status ACTIVE.");
-        return;
-      }
-
-      const questions = state.quiz.questions;
-      const q = questions[state.currentIndex];
-      const total = questions.length;
-      const progress = Math.round(((state.currentIndex + 1) / total) * 100);
-
-      $("#resultSection").classList.add("hidden");
-      $("#quizSection").classList.remove("hidden");
-      $("#progressBar").style.width = `${progress}%`;
-      $("#quizCounter").textContent = `Soal ${state.currentIndex + 1}/${total}`;
-      $("#quizTrackLabel").textContent = state.selectedTrack;
-      $("#quizDateLabel").textContent = formatDateLabel(state.quiz.quiz_date);
-
-      const options = ["A", "B", "C", "D"].map((letter) => {
-        const text = q.options?.[letter] || "";
-        return `
-          <button class="option-btn" type="button" data-answer="${letter}">
-            <span class="option-letter">${letter}</span>
-            <span>${escapeHTML(text)}</span>
-          </button>
-        `;
-      }).join("");
-
-      $("#quizBody").innerHTML = `
-        <div class="question-label">${escapeHTML(q.category || "Quiz Pelaut")}</div>
-        <h2 class="question-text" id="quizTitle">${escapeHTML(q.question)}</h2>
-
-        <div class="options" id="options">
-          ${options}
-        </div>
-
-        <div id="feedbackBox"></div>
-
-        <div class="quiz-actions">
-          <button class="btn secondary" type="button" id="nextButton" disabled>
-            ${state.currentIndex === total - 1 ? "Lihat hasil" : "Soal berikutnya"}
-          </button>
-        </div>
-      `;
-
-      $$(".option-btn").forEach((button) => {
-        button.addEventListener("click", () => handleAnswerClick(button.dataset.answer));
-      });
-
-      $("#nextButton").addEventListener("click", () => {
-        if (state.currentIndex < total - 1) {
-          state.currentIndex += 1;
-          renderQuestion();
-        } else {
-          completeQuiz();
-        }
-      });
-    }
-
-    async function handleAnswerClick(selectedAnswer) {
-      const q = state.quiz.questions[state.currentIndex];
-
-      $$(".option-btn").forEach((button) => {
-        button.disabled = true;
-        if (button.dataset.answer === selectedAnswer) {
-          button.classList.add("selected");
-        }
-      });
-
-      $("#feedbackBox").innerHTML = `
-        <div class="feedback">
-          <p>Memeriksa jawaban...</p>
-        </div>
-      `;
-
-      trackEvent("quiz_answer_click", {
-        track: state.selectedTrack,
-        quiz_date: state.quiz.quiz_date,
-        question_id: q.id,
-        selected_answer: selectedAnswer
-      });
-
-      try {
-        const feedback = await apiGet({
-          action: "checkAnswer",
-          quiz_date: state.quiz.quiz_date,
-          track: state.selectedTrack,
-          question_id: q.id,
-          selected_answer: selectedAnswer
-        });
-
-        const answerResult = {
-          question_id: q.id,
-          question: q.question,
-          category: q.category,
-          selected_answer: selectedAnswer,
-          correct_answer: feedback.correct_answer,
-          is_correct: Boolean(feedback.is_correct),
-          explanation: feedback.explanation || "",
-          source_reference: feedback.source_reference || ""
-        };
-
-        state.answers[state.currentIndex] = answerResult;
-        renderFeedback(answerResult);
-
-      } catch (err) {
-        $("#feedbackBox").innerHTML = `
-          <div class="feedback wrong">
-            <p class="feedback-title">Jawaban belum bisa dicek.</p>
-            <p>${escapeHTML(err.message || "Coba refresh halaman.")}</p>
-          </div>
-        `;
-      }
-    }
-
-    function renderFeedback(result) {
-      const feedbackClass = result.is_correct ? "correct" : "wrong";
-      const title = result.is_correct
-        ? "Benar. Nice, ini sudah tepat."
-        : `Belum tepat. Jawaban yang benar: ${result.correct_answer}`;
-
-      $$(".option-btn").forEach((button) => {
-        if (button.dataset.answer === result.correct_answer) {
-          button.classList.add("correct");
-        }
-
-        if (button.dataset.answer === result.selected_answer && !result.is_correct) {
-          button.classList.add("wrong");
-        }
-      });
-
-      $("#feedbackBox").innerHTML = `
-        <div class="feedback ${feedbackClass}">
-          <p class="feedback-title">${escapeHTML(title)}</p>
-          <p>${escapeHTML(result.explanation || "Pembahasan belum tersedia.")}</p>
-          ${result.source_reference ? `<div class="source-note">Referensi: ${escapeHTML(result.source_reference)}</div>` : ""}
-        </div>
-      `;
-
-      $("#nextButton").disabled = false;
-    }
-
-    function updateStreak(quizDate) {
-      const lastCompletedDate = safeGet(LS.lastCompletedDate, "");
-      let streak = Number(safeGet(LS.streak, "0")) || 0;
-      let eventName = "";
-
-      if (lastCompletedDate === quizDate) {
-        return { streak, changed: false, eventName: "" };
-      }
-
-      if (!lastCompletedDate) {
-        streak = 1;
-        eventName = "streak_started";
-      } else if (isPreviousDay(lastCompletedDate, quizDate)) {
-        streak += 1;
-        eventName = "streak_continued";
-      } else {
-        streak = 1;
-        eventName = "streak_started";
-      }
-
-      safeSet(LS.streak, String(streak));
-      safeSet(LS.lastCompletedDate, quizDate);
-
-      const completedDates = safeJsonGet(LS.completedDates, []);
-      const updatedDates = Array.from(new Set([...completedDates, quizDate])).sort();
-      safeJsonSet(LS.completedDates, updatedDates.slice(-90));
-
-      return { streak, changed: true, eventName };
-    }
-
-    function completeQuiz() {
-      const quizDate = state.quiz.quiz_date;
-      const total = state.quiz.questions.length;
-      const score = state.answers.filter((item) => item && item.is_correct).length;
-      const categories = Array.from(new Set(state.quiz.questions.map((q) => q.category).filter(Boolean)));
-      const streakInfo = updateStreak(quizDate);
-      const streak = streakInfo.streak;
-
-      const completion = {
-        quizDate,
-        track: state.selectedTrack,
-        score,
-        total,
-        streak,
-        categories,
-        answers: state.answers,
-        completedAt: new Date().toISOString()
+      const toggleMenu = () => {
+        const willOpen = !topMenu.classList.contains("open");
+        topMenu.classList.toggle("open", willOpen);
+        menuBtn.setAttribute("aria-expanded", String(willOpen));
       };
 
-      safeJsonSet(getCompletionKey(quizDate, state.selectedTrack), completion);
-
-      trackEvent("quiz_complete", {
-        track: state.selectedTrack,
-        quiz_date: quizDate,
-        score,
-        total,
-        streak,
-        categories: categories.join(", ")
+      menuBtn.addEventListener("click", (event) => {
+        event.stopPropagation();
+        toggleMenu();
       });
 
-      if (score <= 2) trackEvent("score_0_2", { track: state.selectedTrack, score });
-      if (score === 3) trackEvent("score_3", { track: state.selectedTrack, score });
-      if (score === 4) trackEvent("score_4", { track: state.selectedTrack, score });
-      if (score === 5) trackEvent("score_5", { track: state.selectedTrack, score });
-
-      if (streakInfo.eventName) {
-        trackEvent(streakInfo.eventName, {
-          track: state.selectedTrack,
-          quiz_date: quizDate,
-          streak
-        });
-      }
-
-      submitStats({
-        quizDate,
-        track: state.selectedTrack,
-        score,
-        total,
-        streak,
-        categories
-      });
-
-      renderDashboard(quizDate, state.quiz.category_mix || []);
-      renderResult(completion);
-    }
-
-    function renderResult(completion, fromCache = false) {
-      const scoreDeg = Math.round((completion.score / completion.total) * 360);
-      const level = getLevel(completion.score, completion.total);
-
-      $("#quizSection").classList.add("hidden");
-      $("#resultSection").classList.remove("hidden");
-      $("#todayStatus").textContent = "Selesai";
-
-      const reviewItems = (completion.answers || []).map((item, index) => `
-        <article class="review-item ${item.is_correct ? "correct" : "wrong"}">
-          <div class="review-top">
-            <span>Soal ${index + 1} • ${escapeHTML(item.category || "Quiz")}</span>
-            <span>${item.is_correct ? "Benar" : "Salah"}</span>
-          </div>
-          <p class="review-question">${escapeHTML(item.question)}</p>
-          <p class="review-explanation">
-            Jawaban kamu: <strong>${escapeHTML(item.selected_answer)}</strong>.
-            Jawaban benar: <strong>${escapeHTML(item.correct_answer)}</strong>.<br>
-            ${escapeHTML(item.explanation || "")}
-          </p>
-        </article>
-      `).join("");
-
-      $("#resultBody").innerHTML = `
-        <div class="result-hero">
-          <div class="score-circle" style="--score-deg: ${scoreDeg}deg">
-            <strong>${completion.score}/${completion.total}</strong>
-          </div>
-
-          <div>
-            <h2 class="result-title" id="resultTitle">${escapeHTML(level.title)}</h2>
-            <p class="result-copy">
-              ${escapeHTML(level.copy)}
-              ${fromCache ? " Kamu sudah menyelesaikan quiz untuk jalur ini hari ini." : ""}
-            </p>
-            <p class="result-copy">
-              Jalur: <strong>${escapeHTML(completion.track)}</strong><br>
-              Streak: <strong>${completion.streak} hari</strong>
-            </p>
-
-            <div class="result-actions">
-              <button class="btn whatsapp" type="button" id="shareButton">Share ke WhatsApp</button>
-              <button class="btn secondary" type="button" id="tomorrowButton">Balik lagi besok</button>
-            </div>
-          </div>
-        </div>
-
-        <div class="review-list">
-          ${reviewItems}
-        </div>
-      `;
-
-      $("#shareButton").addEventListener("click", () => shareToWhatsApp(completion));
-      $("#tomorrowButton").addEventListener("click", () => {
-        window.scrollTo({ top: 0, behavior: "smooth" });
-      });
-    }
-
-    function shareToWhatsApp(completion) {
-      const categoryList = completion.categories && completion.categories.length
-        ? completion.categories.join(", ")
-        : "Quiz Pelaut";
-
-      const text =
-`Saya dapat skor ${completion.score}/${completion.total} di Quiz Pelaut Hari Ini 🔥
-
-Jalur: ${completion.track}
-Topik: ${categoryList}
-Streak: ${completion.streak} hari
-
-Berani coba?
-Jangan cuma cari loker, skill juga harus diasah.
-
-${ACADEMY_URL}`;
-
-      trackEvent("whatsapp_share_click", {
-        track: completion.track,
-        quiz_date: completion.quizDate,
-        score: completion.score,
-        streak: completion.streak
-      });
-
-      window.open("https://wa.me/?text=" + encodeURIComponent(text), "_blank", "noopener");
-    }
-
-    /************************************************************
-     * DATA LOADING
-     ************************************************************/
-
-    async function loadTodayQuiz() {
-      setSectionVisibility();
-      renderTrackCards();
-      renderLoading();
-
-      if (!isConfigured()) {
-        renderApiNotConfigured();
-        return;
-      }
-
-      if (state.loading) return;
-      state.loading = true;
-
-      try {
-        const cacheKey = `${getJakartaDateString()}_${state.selectedTrack}`;
-        let data = state.quizCache[cacheKey];
-
-        if (!data) {
-          data = await apiGet({
-            action: "getTodayQuiz",
-            track: state.selectedTrack
-          });
-          state.quizCache[cacheKey] = data;
-        }
-
-        state.quiz = data;
-        state.currentIndex = 0;
-        state.answers = [];
-        state.quizStarted = true;
-
-        renderDashboard(data.quiz_date, data.category_mix || []);
-
-        const completion = safeJsonGet(getCompletionKey(data.quiz_date, state.selectedTrack), null);
-        if (completion) {
-          renderResult(completion, true);
-          state.loading = false;
+      $("#menuChangeTrack").addEventListener("click", () => {
+        closeMenu();
+        if (state.progress && state.progress.status === "in_progress") {
+          showToast("Jalur terkunci setelah quiz dimulai. Selesaikan quiz hari ini dulu.");
           return;
         }
-
-        trackEvent("quiz_start", {
-          track: state.selectedTrack,
-          quiz_date: data.quiz_date,
-          question_count: data.questions.length
-        });
-
-        renderQuestion();
-
-      } catch (err) {
-        renderError(err.message || "Unknown error.");
-      } finally {
-        state.loading = false;
-      }
-    }
-
-    async function selectTrack(track, isUserAction = false) {
-      if (!ALLOWED_TRACKS.includes(track)) return;
-
-      state.selectedTrack = track;
-      safeSet(LS.track, track);
-
-      if (isUserAction) {
-        trackEvent("track_selected", { track });
-      }
-
-      await loadTodayQuiz();
-    }
-
-    function init() {
-      trackEvent("academy_page_view", {
-        page_location: window.location.href,
-        page_title: document.title
+        localStorage.removeItem(STORAGE.track);
+        state.selectedTrack = null;
+        state.quiz = null;
+        state.progress = null;
+        render();
+        window.scrollTo({ top: 0, behavior: "smooth" });
       });
 
-      if (safeGet(LS.visited, "") === "1") {
-        trackEvent("return_user_detected", {
-          last_completed_date: safeGet(LS.lastCompletedDate, "")
-        });
-      }
-      safeSet(LS.visited, "1");
-
-      renderActivityStrip(getJakartaDateString());
-
-      $$(".track-card").forEach((button) => {
-        button.addEventListener("click", () => {
-          selectTrack(button.dataset.track, true);
-        });
+      document.addEventListener("click", (event) => {
+        if (!topMenu.contains(event.target) && !menuBtn.contains(event.target)) closeMenu();
       });
 
-      const savedTrack = safeGet(LS.track, "");
-      if (ALLOWED_TRACKS.includes(savedTrack)) {
-        selectTrack(savedTrack, false);
-      } else {
-        $("#dashboardSection").classList.add("hidden");
-        $("#quizSection").classList.add("hidden");
-      }
-    }
-
-    document.addEventListener("DOMContentLoaded", init);
+      document.addEventListener("keydown", (event) => {
+        if (event.key === "Escape") closeMenu();
+      });
+    });
   </script>
 </body>
 </html>
