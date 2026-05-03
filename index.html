@@ -1297,6 +1297,249 @@
       .share-status-body { grid-template-columns: 1fr; text-align: center; }
       .share-mini-score { margin: 0 auto; }
     }
+
+
+    /* Final mobile UX cleanup: better hamburger, compact topic chips, story card preview */
+    .hamburger {
+      width: 52px;
+      height: 52px;
+      border-radius: 18px;
+      font-size: 1.35rem;
+      font-weight: 950;
+      line-height: 1;
+      cursor: pointer;
+      touch-action: manipulation;
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,0.10), 0 10px 22px rgba(3,27,66,0.16);
+    }
+
+    .top-menu {
+      top: 62px !important;
+      right: 0 !important;
+      width: min(286px, calc(100vw - 28px)) !important;
+      z-index: 80;
+      gap: 5px;
+      padding: 10px;
+      border-radius: 22px;
+      background: #ffffff;
+    }
+
+    .top-menu a,
+    .top-menu button {
+      min-height: 66px;
+      grid-template-columns: 42px 1fr !important;
+      gap: 12px !important;
+      padding: 13px 12px !important;
+      border-radius: 17px !important;
+    }
+
+    .top-menu a > span:first-child,
+    .top-menu button > span:first-child {
+      width: 42px !important;
+      height: 42px !important;
+      border-radius: 15px !important;
+      font-size: 1.1rem !important;
+    }
+
+    .top-menu a > span:last-child,
+    .top-menu button > span:last-child {
+      font-size: 1rem !important;
+      line-height: 1.15 !important;
+    }
+
+    .top-menu small {
+      margin-top: 4px !important;
+      font-size: 0.76rem !important;
+      line-height: 1.25 !important;
+      color: #657a90 !important;
+    }
+
+    .result-card .category-chips .pill {
+      max-width: 100%;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .btn-wa {
+      color: #fff;
+      background: linear-gradient(135deg, #0eb85f, #08a34f);
+      box-shadow: 0 14px 24px rgba(14, 184, 95, 0.22);
+    }
+
+    .story-card {
+      width: min(100%, 340px);
+      aspect-ratio: 9 / 16;
+      margin: 18px auto 0;
+      padding: 22px 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-between;
+      border: 0;
+      border-radius: 28px;
+      color: #fff;
+      text-align: center;
+      background:
+        radial-gradient(circle at 84% 14%, rgba(23,199,195,0.68), transparent 13rem),
+        radial-gradient(circle at 18% 88%, rgba(91,241,236,0.18), transparent 12rem),
+        linear-gradient(150deg, #031b42 0%, #063a79 48%, #05aeb8 100%);
+      box-shadow: 0 22px 48px rgba(5, 46, 99, 0.22);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .story-card::before,
+    .story-card::after {
+      content: "";
+      position: absolute;
+      pointer-events: none;
+      opacity: 0.26;
+      background-repeat: no-repeat;
+      background-size: contain;
+    }
+
+    .story-card::before {
+      width: 160px;
+      height: 70px;
+      left: 18px;
+      top: 98px;
+      background-image: url("data:image/svg+xml,%3Csvg width='190' height='80' viewBox='0 0 190 80' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M35 48h84l-18 23H53L35 48Z' stroke='%23BFF9F8' stroke-width='3' stroke-linejoin='round'/%3E%3Cpath d='M68 48V24h32v24M79 24V10M60 39h50M78 37h8M96 37h8' stroke='%23BFF9F8' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'/%3E%3Cpath d='M2 70c18 0 18-8 36-8s18 8 36 8 18-8 36-8 18 8 36 8 18-8 36-8' stroke='%23BFF9F8' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E");
+    }
+
+    .story-card::after {
+      width: 120px;
+      height: 60px;
+      right: 14px;
+      bottom: 56px;
+      background-image: url("data:image/svg+xml,%3Csvg width='150' height='70' viewBox='0 0 150 70' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M6 48c18 0 18-8 36-8s18 8 36 8 18-8 36-8 18 8 36 8' stroke='%23BFF9F8' stroke-width='2' stroke-linecap='round'/%3E%3Cpath d='M25 24c5-6 13-6 18 0M86 20c7-7 18-7 25 0' stroke='%23BFF9F8' stroke-width='3' stroke-linecap='round'/%3E%3C/svg%3E");
+    }
+
+    .story-brand {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      justify-items: center;
+      gap: 8px;
+      font-weight: 950;
+      line-height: 1.08;
+      letter-spacing: -0.04em;
+      font-size: 1.06rem;
+    }
+
+    .story-brand .story-logo {
+      width: 54px;
+      height: 54px;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      border: 2px solid rgba(255,255,255,0.72);
+      background: rgba(255,255,255,0.10);
+      font-size: 1.55rem;
+    }
+
+    .story-brand .accent { color: #5bf1ec; display: block; }
+
+    .story-score-wrap {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      justify-items: center;
+      gap: 12px;
+    }
+
+    .story-score-ring {
+      width: 168px;
+      height: 168px;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      background: conic-gradient(#5bf1ec var(--score-deg, 0deg), rgba(255,255,255,0.28) 0deg);
+      box-shadow: 0 18px 38px rgba(0,0,0,0.20);
+      position: relative;
+    }
+
+    .story-score-ring::after {
+      content: "";
+      position: absolute;
+      inset: 14px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.96);
+    }
+
+    .story-score-ring strong {
+      position: relative;
+      z-index: 1;
+      color: var(--navy);
+      font-size: 3rem;
+      line-height: 1;
+      letter-spacing: -0.08em;
+    }
+
+    .story-score-ring span {
+      position: relative;
+      z-index: 1;
+      color: var(--teal);
+      font-size: 1.05rem;
+      font-weight: 950;
+    }
+
+    .story-score-text {
+      margin: 0;
+      color: rgba(255,255,255,0.94);
+      font-weight: 950;
+      font-size: 1.28rem;
+      line-height: 1.16;
+      letter-spacing: -0.045em;
+    }
+
+    .story-tags {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .story-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 7px 10px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.16);
+      border: 1px solid rgba(255,255,255,0.14);
+      color: #fff;
+      font-weight: 900;
+      font-size: 0.82rem;
+    }
+
+    .story-motto {
+      position: relative;
+      z-index: 1;
+      margin: 0;
+      max-width: 240px;
+      color: #ffffff;
+      font-size: 1.2rem;
+      line-height: 1.28;
+      font-weight: 950;
+      letter-spacing: -0.035em;
+    }
+
+    .story-url-line {
+      position: relative;
+      z-index: 1;
+      color: #9ffafa;
+      font-size: 0.86rem;
+      font-weight: 900;
+    }
+
+    @media (max-width: 420px) {
+      .top-menu { width: min(280px, calc(100vw - 28px)) !important; }
+      .story-card { width: min(100%, 318px); }
+      .story-score-ring { width: 150px; height: 150px; }
+      .story-score-ring strong { font-size: 2.65rem; }
+    }
+
   </style>
 </head>
 <body>
@@ -1943,6 +2186,7 @@
       const level = getLevel(score, total);
       const streak = getStreak();
       const categories = categoryList(progress);
+      const topicChips = topicPreviewList(categories);
       const answers = Object.values(progress.answers || {});
       const shareText = buildShareText(progress, streak.current);
 
@@ -1959,8 +2203,8 @@
           <p class="result-copy">${level.copy}</p>
           <div class="category-chips" style="justify-content:center;">
             <span class="pill">${trackMiniIcon(progress.track)} ${escapeHtml(progress.track)}</span>
-            <span class="pill">📚 ${categories.map(escapeHtml).join(" • ") || "Quiz"}</span>
             <span class="pill" style="background:var(--warm-soft); color:#92430f;">🔥 Streak: ${Number(streak.current || 0)} hari</span>
+            ${topicChips.map(chip => `<span class="pill">${chip.startsWith("+") ? "" : "🛡️ "}${escapeHtml(chip)}</span>`).join("")}
           </div>
         </section>
 
@@ -1981,28 +2225,36 @@
 
         <section class="section panel">
           <h2 class="section-title">Bagikan Score Card</h2>
-          <p class="section-copy">Tampilan ini dibuat ringan dari HTML/CSS. Tidak memakai gambar berat.</p>
-          <div class="share-status-card" style="--score-deg:${degree}deg">
-            <div class="share-status-top">
-              <div class="share-brand"><span class="brand-mark" style="width:42px;height:42px;">⚓</span><span>Daily Loker Pelaut<span>Academy</span></span></div>
+          <p class="section-copy">Simpan card untuk WhatsApp, Instagram, atau Facebook Story.</p>
+          <div class="story-card" id="statusPreview" style="--score-deg:${degree}deg">
+            <div class="story-brand">
+              <span class="story-logo">⚓</span>
+              <span>Daily Loker Pelaut<span class="accent">Academy</span></span>
             </div>
-            <div class="share-status-body">
-              <div class="share-mini-score"><strong>${score}/${total}</strong></div>
-              <div>
-                <h3>${level.short}</h3>
-                <p>Jalur: <strong>${escapeHtml(progress.track)}</strong><br>Streak: <strong>${Number(streak.current || 0)} hari</strong></p>
-                <div class="share-url">academy.dailylokerpelaut.com</div>
-              </div>
+            <div class="story-score-wrap">
+              <div class="story-score-ring"><div><strong>${score}/${total}</strong><br><span>${percent}%</span></div></div>
+              <p class="story-score-text">${level.short}</p>
             </div>
+            <div class="story-tags">
+              <span class="story-tag">Jalur: ${escapeHtml(progress.track)}</span>
+              <span class="story-tag">🔥 Streak: ${Number(streak.current || 0)} hari</span>
+            </div>
+            <p class="story-motto">Siap layar, siap belajar.</p>
+            <div class="story-url-line">academy.dailylokerpelaut.com</div>
           </div>
-          <p class="status-note">Untuk MVP, tombol share mengirim teks WhatsApp. Preview card ini jadi acuan visual untuk status / screenshot share.</p>
           <div class="btn-row">
-            <button class="btn btn-primary" type="button" id="shareWaBtn">↗ Bagikan Hasil</button>
+            <button class="btn btn-secondary" type="button" id="saveStatusBtn">⬇ Simpan Status</button>
+            <button class="btn btn-wa" type="button" id="shareWaBtn">🟢 Share ke WhatsApp</button>
             <button class="btn btn-secondary" type="button" id="copyShareBtn">⧉ Copy Teks Share</button>
             <button class="btn btn-secondary" type="button" id="tomorrowBtn">🗓 Balik Lagi Besok</button>
           </div>
         </section>
       `;
+
+      $("#saveStatusBtn").addEventListener("click", () => {
+        fireEvent("status_card_save_click", { track: progress.track, score, total, streak: streak.current || 0 });
+        saveStatusImage(progress, level, streak.current || 0);
+      });
 
       $("#shareWaBtn").addEventListener("click", () => {
         fireEvent("whatsapp_share_click", { track: progress.track, score, total, streak: streak.current || 0 });
@@ -2021,6 +2273,178 @@
       $("#tomorrowBtn").addEventListener("click", () => {
         showToast("Mantap. Balik lagi besok untuk jaga streak.");
       });
+    }
+
+
+    function shortTopicLabel(category) {
+      const raw = String(category || "").trim();
+      const text = raw.toLowerCase();
+      if (!raw) return "Quiz";
+      if (text.includes("psc")) return "PSC";
+      if (text.includes("anti") || text.includes("scam")) return "Anti-Scam";
+      if (text.includes("interview")) return "Interview";
+      if (text.includes("colreg")) return "COLREG";
+      if (text.includes("marpol")) return "MARPOL";
+      if (text.includes("safety")) return "Safety";
+      if (raw.length > 14) return raw.slice(0, 13).trim() + "…";
+      return raw;
+    }
+
+    function topicPreviewList(categories) {
+      const unique = [];
+      (categories || []).forEach(category => {
+        const label = shortTopicLabel(category);
+        if (label && !unique.includes(label)) unique.push(label);
+      });
+      if (unique.length <= 2) return unique;
+      return [...unique.slice(0, 2), `+${unique.length - 2}`];
+    }
+
+    function drawRoundRect(ctx, x, y, width, height, radius) {
+      const r = Math.min(radius, width / 2, height / 2);
+      ctx.beginPath();
+      ctx.moveTo(x + r, y);
+      ctx.arcTo(x + width, y, x + width, y + height, r);
+      ctx.arcTo(x + width, y + height, x, y + height, r);
+      ctx.arcTo(x, y + height, x, y, r);
+      ctx.arcTo(x, y, x + width, y, r);
+      ctx.closePath();
+    }
+
+    function drawCenteredText(ctx, text, x, y, maxWidth, lineHeight) {
+      const words = String(text).split(" ");
+      const lines = [];
+      let line = "";
+      words.forEach(word => {
+        const test = line ? line + " " + word : word;
+        if (ctx.measureText(test).width > maxWidth && line) {
+          lines.push(line);
+          line = word;
+        } else {
+          line = test;
+        }
+      });
+      if (line) lines.push(line);
+      lines.forEach((item, index) => ctx.fillText(item, x, y + index * lineHeight));
+      return lines.length * lineHeight;
+    }
+
+    function saveStatusImage(progress, level, streakValue) {
+      const total = progress.questions.length || 5;
+      const score = Number(progress.score || 0);
+      const percent = Math.round((score / total) * 100);
+      const canvas = document.createElement("canvas");
+      canvas.width = 1080;
+      canvas.height = 1920;
+      const ctx = canvas.getContext("2d");
+
+      const bg = ctx.createLinearGradient(0, 0, 1080, 1920);
+      bg.addColorStop(0, "#f7fcff");
+      bg.addColorStop(1, "#e9fbfb");
+      ctx.fillStyle = bg;
+      ctx.fillRect(0, 0, 1080, 1920);
+
+      const header = ctx.createLinearGradient(70, 90, 1010, 420);
+      header.addColorStop(0, "#031b42");
+      header.addColorStop(0.55, "#063d84");
+      header.addColorStop(1, "#05aeb8");
+      ctx.fillStyle = header;
+      drawRoundRect(ctx, 70, 90, 940, 1700, 54);
+      ctx.fill();
+
+      ctx.globalAlpha = 0.10;
+      ctx.strokeStyle = "#ffffff";
+      ctx.lineWidth = 5;
+      for (let i = 0; i < 5; i++) {
+        ctx.beginPath();
+        ctx.moveTo(0, 1450 + i * 34);
+        ctx.bezierCurveTo(260, 1390 + i * 34, 500, 1510 + i * 34, 1080, 1420 + i * 34);
+        ctx.stroke();
+      }
+      ctx.globalAlpha = 1;
+
+      ctx.fillStyle = "rgba(255,255,255,0.12)";
+      ctx.beginPath();
+      ctx.arc(540, 225, 68, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.fillStyle = "#ffffff";
+      ctx.font = "700 74px system-ui, -apple-system, Segoe UI, sans-serif";
+      ctx.textAlign = "center";
+      ctx.fillText("⚓", 540, 250);
+
+      ctx.font = "900 62px system-ui, -apple-system, Segoe UI, sans-serif";
+      ctx.fillText("Daily Loker Pelaut", 540, 345);
+      ctx.fillStyle = "#5bf1ec";
+      ctx.fillText("Academy", 540, 415);
+
+      const ringX = 540, ringY = 760, outer = 210, inner = 158;
+      ctx.lineWidth = 42;
+      ctx.strokeStyle = "rgba(255,255,255,0.24)";
+      ctx.beginPath();
+      ctx.arc(ringX, ringY, outer, 0, Math.PI * 2);
+      ctx.stroke();
+      ctx.strokeStyle = "#5bf1ec";
+      ctx.beginPath();
+      ctx.arc(ringX, ringY, outer, -Math.PI / 2, -Math.PI / 2 + (Math.PI * 2 * score / total));
+      ctx.stroke();
+      ctx.fillStyle = "rgba(255,255,255,0.96)";
+      ctx.beginPath();
+      ctx.arc(ringX, ringY, inner, 0, Math.PI * 2);
+      ctx.fill();
+
+      ctx.fillStyle = "#052e63";
+      ctx.font = "950 128px system-ui, -apple-system, Segoe UI, sans-serif";
+      ctx.textAlign = "center";
+      ctx.fillText(`${score}/${total}`, ringX, ringY + 6);
+      ctx.fillStyle = "#05aeb8";
+      ctx.font = "950 48px system-ui, -apple-system, Segoe UI, sans-serif";
+      ctx.fillText(`${percent}%`, ringX, ringY + 78);
+
+      ctx.fillStyle = "#ffffff";
+      ctx.font = "950 66px system-ui, -apple-system, Segoe UI, sans-serif";
+      ctx.fillText(level.short, 540, 1060);
+
+      ctx.font = "850 36px system-ui, -apple-system, Segoe UI, sans-serif";
+      const pillY = 1132;
+      const pillW = 310;
+      ctx.fillStyle = "rgba(255,255,255,0.16)";
+      drawRoundRect(ctx, 200, pillY, pillW, 72, 36); ctx.fill();
+      drawRoundRect(ctx, 570, pillY, pillW, 72, 36); ctx.fill();
+      ctx.fillStyle = "#ffffff";
+      ctx.fillText(`Jalur: ${progress.track}`, 355, pillY + 48);
+      ctx.fillText(`🔥 Streak: ${Number(streakValue || 0)} hari`, 725, pillY + 48);
+
+      ctx.strokeStyle = "rgba(91,241,236,0.65)";
+      ctx.lineWidth = 4;
+      ctx.beginPath();
+      ctx.moveTo(300, 1300); ctx.lineTo(780, 1300); ctx.stroke();
+      ctx.fillStyle = "#5bf1ec";
+      ctx.font = "700 36px system-ui, -apple-system, Segoe UI, sans-serif";
+      ctx.fillText("⚓", 540, 1312);
+
+      ctx.fillStyle = "#ffffff";
+      ctx.font = "950 56px system-ui, -apple-system, Segoe UI, sans-serif";
+      drawCenteredText(ctx, "Siap layar, siap belajar.", 540, 1410, 720, 66);
+
+      ctx.fillStyle = "#9ffafa";
+      ctx.font = "850 32px system-ui, -apple-system, Segoe UI, sans-serif";
+      ctx.fillText("academy.dailylokerpelaut.com", 540, 1660);
+
+      canvas.toBlob(blob => {
+        if (!blob) {
+          showToast("Gagal membuat gambar status.");
+          return;
+        }
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement("a");
+        link.href = url;
+        link.download = `daily-loker-pelaut-academy-${progress.quiz_date || state.quizDate}.png`;
+        document.body.appendChild(link);
+        link.click();
+        link.remove();
+        setTimeout(() => URL.revokeObjectURL(url), 1500);
+        showToast("Status card dibuat. Cek file download di browser kamu.");
+      }, "image/png", 0.95);
     }
 
     function categoryList(progress) {
@@ -2056,8 +2480,16 @@
 
     function buildShareText(progress, streak) {
       const total = progress.questions.length || 5;
-      const categories = categoryList(progress).join(" • ") || "Quiz Pelaut";
-      return `Saya dapat skor ${progress.score}/${total} di Quiz Pelaut Hari Ini 🔥\n\nJalur: ${progress.track}\nTopik: ${categories}\nStreak: ${Number(streak || 0)} hari\n\nBerani coba?\nJangan cuma cari loker, skill juga harus diasah.\n\n${SITE_URL}`;
+      const topics = topicPreviewList(categoryList(progress)).join(" • ") || "Quiz Pelaut";
+      return `Saya dapat skor ${progress.score}/${total} di Quiz Pelaut Hari Ini 🔥
+
+Jalur: ${progress.track}
+Topik: ${topics}
+Streak: ${Number(streak || 0)} hari
+
+Siap layar, siap belajar.
+
+${SITE_URL}`;
     }
 
     function escapeHtml(value) {
@@ -2089,11 +2521,15 @@
       const closeMenu = () => {
         topMenu.classList.remove("open");
         menuBtn.setAttribute("aria-expanded", "false");
+        menuBtn.setAttribute("aria-label", "Menu");
+        menuBtn.textContent = "☰";
       };
       const toggleMenu = () => {
         const willOpen = !topMenu.classList.contains("open");
         topMenu.classList.toggle("open", willOpen);
         menuBtn.setAttribute("aria-expanded", String(willOpen));
+        menuBtn.setAttribute("aria-label", willOpen ? "Tutup menu" : "Menu");
+        menuBtn.textContent = willOpen ? "×" : "☰";
       };
 
       menuBtn.addEventListener("click", (event) => {
@@ -2103,13 +2539,14 @@
 
       $("#menuChangeTrack").addEventListener("click", () => {
         closeMenu();
-        if (state.progress && state.progress.status === "in_progress") {
-          showToast("Jalur terkunci setelah quiz dimulai. Selesaikan quiz hari ini dulu.");
+        const todayProgress = getProgress();
+        if (todayProgress?.started_at || todayProgress?.completed) {
+          showToast("Jalur terkunci untuk quiz hari ini. Kamu bisa ubah jalur sebelum mulai quiz besok.");
           return;
         }
-        localStorage.removeItem(STORAGE.track);
+        if (state.selectedTrack) safeSet(STORAGE.selectedTrackDraft, state.selectedTrack);
+        localStorage.removeItem(STORAGE.selectedTrack);
         state.selectedTrack = null;
-        state.quiz = null;
         state.progress = null;
         render();
         window.scrollTo({ top: 0, behavior: "smooth" });
