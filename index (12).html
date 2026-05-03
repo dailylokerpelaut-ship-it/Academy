@@ -1,0 +1,1599 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Daily Loker Pelaut Academy — Quiz Pelaut Harian</title>
+  <meta name="description" content="Quiz edukasi harian untuk pelaut Indonesia. Latihan 5 soal setiap hari, pilih jalur Deck Officer, Engineer Officer, atau Rating." />
+  <meta name="theme-color" content="#0f2f3f" />
+
+  <style>
+    :root {
+      --bg: #f7f9f8;
+      --surface: #ffffff;
+      --surface-soft: #eef5f2;
+      --ink: #10242f;
+      --muted: #60727b;
+      --line: #dfe8e5;
+      --brand: #0f3a4a;
+      --brand-2: #1f6f78;
+      --accent: #f2b84b;
+      --accent-soft: #fff4d8;
+      --ok: #177a4d;
+      --ok-soft: #e7f7ee;
+      --bad: #b42318;
+      --bad-soft: #fff0ee;
+      --shadow: 0 18px 50px rgba(16, 36, 47, 0.08);
+      --radius-xl: 28px;
+      --radius-lg: 20px;
+      --radius-md: 14px;
+      --max: 1120px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at top left, rgba(31, 111, 120, 0.12), transparent 34rem),
+        linear-gradient(180deg, #fbfcfb 0%, var(--bg) 45%, #f3f7f6 100%);
+      min-height: 100vh;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button {
+      font: inherit;
+    }
+
+    .page-shell {
+      width: min(100%, var(--max));
+      margin: 0 auto;
+      padding: 18px 16px 36px;
+    }
+
+    .site-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      padding: 10px 4px 18px;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 850;
+      letter-spacing: -0.03em;
+      color: var(--brand);
+    }
+
+    .brand-mark {
+      width: 38px;
+      height: 38px;
+      display: grid;
+      place-items: center;
+      border: 1px solid rgba(15, 58, 74, 0.12);
+      border-radius: 14px;
+      background: rgba(255, 255, 255, 0.78);
+      box-shadow: 0 8px 24px rgba(15, 58, 74, 0.08);
+    }
+
+    .brand small {
+      display: block;
+      margin-top: -2px;
+      color: var(--muted);
+      font-size: 0.72rem;
+      letter-spacing: 0;
+      font-weight: 700;
+    }
+
+    .top-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 9px 12px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.72);
+      color: var(--brand);
+      font-size: 0.85rem;
+      font-weight: 750;
+      white-space: nowrap;
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 18px;
+      align-items: stretch;
+      padding: 24px;
+      border: 1px solid rgba(15, 58, 74, 0.08);
+      border-radius: var(--radius-xl);
+      background: rgba(255, 255, 255, 0.78);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+      position: relative;
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      width: 220px;
+      height: 220px;
+      right: -80px;
+      top: -90px;
+      border-radius: 999px;
+      background: rgba(242, 184, 75, 0.16);
+      pointer-events: none;
+    }
+
+    .eyebrow {
+      margin: 0 0 10px;
+      color: var(--brand-2);
+      font-size: 0.84rem;
+      font-weight: 850;
+      text-transform: uppercase;
+      letter-spacing: 0.09em;
+    }
+
+    h1 {
+      margin: 0;
+      color: var(--ink);
+      font-size: clamp(2rem, 8vw, 4.7rem);
+      line-height: 0.94;
+      letter-spacing: -0.07em;
+      max-width: 820px;
+    }
+
+    .hero-subtitle {
+      max-width: 680px;
+      margin: 18px 0 0;
+      color: var(--muted);
+      font-size: 1.02rem;
+      line-height: 1.7;
+    }
+
+    .hero-card {
+      position: relative;
+      z-index: 1;
+      padding: 18px;
+      border: 1px solid var(--line);
+      border-radius: 24px;
+      background:
+        linear-gradient(180deg, rgba(255,255,255,0.96), rgba(248,251,250,0.96));
+      min-height: 180px;
+    }
+
+    .mini-label {
+      margin: 0 0 8px;
+      color: var(--muted);
+      font-size: 0.82rem;
+      font-weight: 750;
+    }
+
+    .mini-number {
+      margin: 0;
+      font-size: 2.4rem;
+      line-height: 1;
+      font-weight: 900;
+      letter-spacing: -0.06em;
+      color: var(--brand);
+    }
+
+    .mini-copy {
+      margin: 10px 0 0;
+      color: var(--muted);
+      font-size: 0.92rem;
+      line-height: 1.6;
+    }
+
+    .section {
+      margin-top: 18px;
+      padding: 22px;
+      border: 1px solid rgba(15, 58, 74, 0.08);
+      border-radius: var(--radius-xl);
+      background: rgba(255, 255, 255, 0.86);
+      box-shadow: 0 12px 36px rgba(16, 36, 47, 0.05);
+    }
+
+    .section-head {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 18px;
+      margin-bottom: 16px;
+    }
+
+    .section-title {
+      margin: 0;
+      font-size: 1.25rem;
+      letter-spacing: -0.04em;
+    }
+
+    .section-copy {
+      margin: 6px 0 0;
+      color: var(--muted);
+      line-height: 1.6;
+      font-size: 0.95rem;
+    }
+
+    .track-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 12px;
+    }
+
+    .track-card {
+      width: 100%;
+      text-align: left;
+      border: 1px solid var(--line);
+      border-radius: 22px;
+      background: #fff;
+      padding: 18px;
+      cursor: pointer;
+      transition: transform 0.18s ease, border-color 0.18s ease, box-shadow 0.18s ease;
+    }
+
+    .track-card:hover {
+      transform: translateY(-2px);
+      border-color: rgba(31, 111, 120, 0.35);
+      box-shadow: 0 14px 32px rgba(16, 36, 47, 0.08);
+    }
+
+    .track-card.active {
+      border-color: rgba(31, 111, 120, 0.7);
+      background: linear-gradient(180deg, #ffffff, #f2f9f7);
+      box-shadow: 0 14px 32px rgba(31, 111, 120, 0.13);
+    }
+
+    .track-icon {
+      display: inline-grid;
+      place-items: center;
+      width: 42px;
+      height: 42px;
+      margin-bottom: 12px;
+      border-radius: 16px;
+      background: var(--surface-soft);
+      font-size: 1.2rem;
+    }
+
+    .track-name {
+      display: block;
+      font-weight: 850;
+      letter-spacing: -0.03em;
+      font-size: 1.05rem;
+    }
+
+    .track-desc {
+      display: block;
+      margin-top: 6px;
+      color: var(--muted);
+      line-height: 1.55;
+      font-size: 0.92rem;
+    }
+
+    .dashboard-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 12px;
+    }
+
+    .dash-card {
+      padding: 16px;
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      background: #fff;
+    }
+
+    .dash-title {
+      margin: 0 0 8px;
+      color: var(--muted);
+      font-size: 0.82rem;
+      font-weight: 800;
+    }
+
+    .dash-value {
+      margin: 0;
+      color: var(--brand);
+      font-size: 1.5rem;
+      font-weight: 900;
+      letter-spacing: -0.04em;
+    }
+
+    .activity-strip {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 7px;
+      margin-top: 12px;
+    }
+
+    .day-dot {
+      min-height: 52px;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      display: grid;
+      place-items: center;
+      background: #fff;
+      color: var(--muted);
+      font-size: 0.72rem;
+      font-weight: 800;
+    }
+
+    .day-dot.done {
+      color: var(--ok);
+      border-color: rgba(23, 122, 77, 0.28);
+      background: var(--ok-soft);
+    }
+
+    .day-dot.today {
+      outline: 2px solid rgba(242, 184, 75, 0.45);
+      outline-offset: 2px;
+    }
+
+    .category-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 12px;
+    }
+
+    .chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 7px 10px;
+      border-radius: 999px;
+      background: var(--surface-soft);
+      color: var(--brand);
+      font-size: 0.78rem;
+      font-weight: 800;
+    }
+
+    .quiz-card {
+      padding: 0;
+      overflow: hidden;
+    }
+
+    .quiz-top {
+      padding: 18px;
+      border-bottom: 1px solid var(--line);
+      background: linear-gradient(180deg, #fff, #fbfdfc);
+    }
+
+    .progress-wrap {
+      height: 10px;
+      border-radius: 999px;
+      overflow: hidden;
+      background: #e8efec;
+    }
+
+    .progress-bar {
+      width: 0%;
+      height: 100%;
+      border-radius: inherit;
+      background: linear-gradient(90deg, var(--brand-2), var(--accent));
+      transition: width 0.25s ease;
+    }
+
+    .quiz-meta {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 8px;
+      margin-top: 13px;
+      color: var(--muted);
+      font-size: 0.84rem;
+      font-weight: 760;
+    }
+
+    .quiz-body {
+      padding: 22px;
+    }
+
+    .question-label {
+      color: var(--brand-2);
+      font-weight: 900;
+      font-size: 0.83rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .question-text {
+      margin: 10px 0 18px;
+      font-size: 1.32rem;
+      line-height: 1.35;
+      letter-spacing: -0.04em;
+      font-weight: 850;
+    }
+
+    .options {
+      display: grid;
+      gap: 10px;
+    }
+
+    .option-btn {
+      width: 100%;
+      min-height: 58px;
+      display: grid;
+      grid-template-columns: 42px 1fr;
+      align-items: center;
+      gap: 12px;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      background: #fff;
+      padding: 11px 14px;
+      cursor: pointer;
+      text-align: left;
+      color: var(--ink);
+      transition: transform 0.15s ease, border-color 0.15s ease, background 0.15s ease;
+    }
+
+    .option-btn:hover:not(:disabled) {
+      transform: translateY(-1px);
+      border-color: rgba(31, 111, 120, 0.4);
+      background: #fbfdfc;
+    }
+
+    .option-btn:disabled {
+      cursor: not-allowed;
+      opacity: 0.96;
+    }
+
+    .option-letter {
+      width: 38px;
+      height: 38px;
+      display: grid;
+      place-items: center;
+      border-radius: 14px;
+      background: var(--surface-soft);
+      font-weight: 900;
+      color: var(--brand);
+    }
+
+    .option-btn.selected {
+      border-color: rgba(31, 111, 120, 0.5);
+      background: #f4fbf9;
+    }
+
+    .option-btn.correct {
+      border-color: rgba(23, 122, 77, 0.42);
+      background: var(--ok-soft);
+    }
+
+    .option-btn.wrong {
+      border-color: rgba(180, 35, 24, 0.35);
+      background: var(--bad-soft);
+    }
+
+    .feedback {
+      margin-top: 16px;
+      padding: 16px;
+      border-radius: 18px;
+      border: 1px solid var(--line);
+      background: #fff;
+    }
+
+    .feedback.correct {
+      border-color: rgba(23, 122, 77, 0.28);
+      background: var(--ok-soft);
+    }
+
+    .feedback.wrong {
+      border-color: rgba(180, 35, 24, 0.25);
+      background: var(--bad-soft);
+    }
+
+    .feedback-title {
+      margin: 0 0 8px;
+      font-weight: 900;
+      letter-spacing: -0.02em;
+    }
+
+    .feedback p {
+      margin: 0;
+      color: #405660;
+      line-height: 1.65;
+    }
+
+    .source-note {
+      margin-top: 10px;
+      color: var(--muted);
+      font-size: 0.83rem;
+      line-height: 1.5;
+    }
+
+    .quiz-actions {
+      display: flex;
+      gap: 10px;
+      justify-content: flex-end;
+      margin-top: 18px;
+    }
+
+    .btn {
+      border: 0;
+      border-radius: 999px;
+      padding: 12px 16px;
+      background: var(--brand);
+      color: #fff;
+      font-weight: 850;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      transition: transform 0.15s ease, opacity 0.15s ease;
+    }
+
+    .btn:hover:not(:disabled) {
+      transform: translateY(-1px);
+    }
+
+    .btn:disabled {
+      opacity: 0.48;
+      cursor: not-allowed;
+    }
+
+    .btn.secondary {
+      color: var(--brand);
+      background: var(--surface-soft);
+    }
+
+    .btn.whatsapp {
+      background: #168b53;
+    }
+
+    .result-hero {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 14px;
+      align-items: center;
+    }
+
+    .score-circle {
+      width: 148px;
+      height: 148px;
+      border-radius: 999px;
+      display: grid;
+      place-items: center;
+      background:
+        radial-gradient(circle at center, #fff 0%, #fff 56%, transparent 57%),
+        conic-gradient(var(--brand-2) var(--score-deg, 0deg), #e6eeeb 0deg);
+      justify-self: center;
+      border: 1px solid var(--line);
+    }
+
+    .score-circle strong {
+      font-size: 2.6rem;
+      letter-spacing: -0.08em;
+      color: var(--brand);
+    }
+
+    .result-title {
+      margin: 0;
+      font-size: 1.75rem;
+      line-height: 1.1;
+      letter-spacing: -0.06em;
+    }
+
+    .result-copy {
+      margin: 8px 0 0;
+      color: var(--muted);
+      line-height: 1.65;
+    }
+
+    .result-actions {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-top: 16px;
+    }
+
+    .review-list {
+      display: grid;
+      gap: 10px;
+      margin-top: 18px;
+    }
+
+    .review-item {
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      background: #fff;
+      padding: 14px;
+    }
+
+    .review-item.correct {
+      border-color: rgba(23, 122, 77, 0.24);
+    }
+
+    .review-item.wrong {
+      border-color: rgba(180, 35, 24, 0.24);
+    }
+
+    .review-top {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      color: var(--muted);
+      font-weight: 850;
+      font-size: 0.82rem;
+      margin-bottom: 8px;
+    }
+
+    .review-question {
+      margin: 0 0 8px;
+      font-weight: 850;
+      line-height: 1.45;
+    }
+
+    .review-explanation {
+      margin: 0;
+      color: #405660;
+      line-height: 1.6;
+      font-size: 0.92rem;
+    }
+
+    .empty-state,
+    .error-state {
+      padding: 18px;
+      border: 1px dashed rgba(15, 58, 74, 0.22);
+      border-radius: 20px;
+      background: #fff;
+      color: var(--muted);
+      line-height: 1.65;
+    }
+
+    .error-state {
+      border-color: rgba(180, 35, 24, 0.25);
+      background: var(--bad-soft);
+      color: #6a2b26;
+    }
+
+    .footer {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-top: 22px;
+      padding: 18px 4px 0;
+      color: var(--muted);
+      font-size: 0.86rem;
+      line-height: 1.6;
+    }
+
+    .footer a {
+      color: var(--brand);
+      font-weight: 800;
+    }
+
+    .hidden {
+      display: none !important;
+    }
+
+    @media (min-width: 720px) {
+      .page-shell {
+        padding: 24px 24px 46px;
+      }
+
+      .hero {
+        grid-template-columns: minmax(0, 1.45fr) minmax(280px, 0.55fr);
+        padding: 34px;
+      }
+
+      .track-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+
+      .dashboard-grid {
+        grid-template-columns: 0.8fr 0.8fr 1.4fr;
+      }
+
+      .result-hero {
+        grid-template-columns: 180px 1fr;
+      }
+
+      .score-circle {
+        justify-self: start;
+      }
+
+      .result-actions {
+        flex-direction: row;
+        flex-wrap: wrap;
+      }
+
+      .footer {
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="page-shell">
+    <header class="site-header">
+      <a class="brand" href="https://academy.dailylokerpelaut.com/" aria-label="Daily Loker Pelaut Academy">
+        <span class="brand-mark">⚓</span>
+        <span>
+          Daily Loker Pelaut
+          <small>Academy</small>
+        </span>
+      </a>
+
+      <a class="top-link" href="https://vacancy.dailylokerpelaut.com/" target="_blank" rel="noopener">
+        Loker Harian
+      </a>
+    </header>
+
+    <main>
+      <section class="hero" aria-labelledby="heroTitle">
+        <div>
+          <p class="eyebrow">Quiz edukasi harian untuk pelaut Indonesia</p>
+          <h1 id="heroTitle">5 soal singkat. Skill tetap tajam.</h1>
+          <p class="hero-subtitle">
+            Pilih jalurmu, kerjakan quiz hari ini, baca pembahasannya, lalu jaga streak.
+            Bukan cuma cari loker — kemampuan juga harus diasah pelan-pelan setiap hari.
+          </p>
+        </div>
+
+        <aside class="hero-card" aria-label="Ringkasan Academy">
+          <p class="mini-label">Target harian</p>
+          <p class="mini-number">5 soal</p>
+          <p class="mini-copy">
+            Ringan untuk dibuka setiap hari, cukup serius untuk bantu refresh pengetahuan kerja di kapal.
+          </p>
+        </aside>
+      </section>
+
+      <section class="section" id="trackSection" aria-labelledby="trackTitle">
+        <div class="section-head">
+          <div>
+            <h2 class="section-title" id="trackTitle">Pilih jalur quiz</h2>
+            <p class="section-copy">
+              Pilihan ini disimpan di browser kamu. Bisa diganti kapan saja tanpa login.
+            </p>
+          </div>
+        </div>
+
+        <div class="track-grid" role="list">
+          <button class="track-card" type="button" data-track="Deck Officer">
+            <span class="track-icon">🧭</span>
+            <span class="track-name">Deck Officer</span>
+            <span class="track-desc">Untuk Mualim, calon officer deck, navigasi, safety, PSC, cargo, dan bridge operation.</span>
+          </button>
+
+          <button class="track-card" type="button" data-track="Engineer Officer">
+            <span class="track-icon">⚙️</span>
+            <span class="track-name">Engineer Officer</span>
+            <span class="track-desc">Untuk Masinis, calon engineer, engine basic, machinery, maintenance, safety, dan troubleshooting.</span>
+          </button>
+
+          <button class="track-card" type="button" data-track="Rating">
+            <span class="track-icon">🦺</span>
+            <span class="track-name">Rating</span>
+            <span class="track-desc">Untuk AB, Oiler, OS, Wiper, Fitter, dan crew rating yang ingin upgrade kesiapan kerja.</span>
+          </button>
+        </div>
+      </section>
+
+      <section class="section hidden" id="dashboardSection" aria-labelledby="dashboardTitle">
+        <div class="section-head">
+          <div>
+            <h2 class="section-title" id="dashboardTitle">Dashboard harian</h2>
+            <p class="section-copy" id="dashboardCopy">Memuat quiz hari ini...</p>
+          </div>
+        </div>
+
+        <div class="dashboard-grid">
+          <div class="dash-card">
+            <p class="dash-title">Current streak</p>
+            <p class="dash-value"><span id="streakValue">0</span> hari</p>
+          </div>
+
+          <div class="dash-card">
+            <p class="dash-title">Status hari ini</p>
+            <p class="dash-value" id="todayStatus">Belum mulai</p>
+          </div>
+
+          <div class="dash-card">
+            <p class="dash-title">Aktivitas 7 hari</p>
+            <div class="activity-strip" id="activityStrip" aria-label="7-day activity strip"></div>
+          </div>
+        </div>
+
+        <div class="category-chips" id="categoryMix"></div>
+      </section>
+
+      <section class="section quiz-card hidden" id="quizSection" aria-labelledby="quizTitle">
+        <div class="quiz-top">
+          <div class="progress-wrap" aria-label="Progress quiz">
+            <div class="progress-bar" id="progressBar"></div>
+          </div>
+          <div class="quiz-meta">
+            <span id="quizCounter">Soal 1/5</span>
+            <span>•</span>
+            <span id="quizTrackLabel">Track</span>
+            <span>•</span>
+            <span id="quizDateLabel">Hari ini</span>
+          </div>
+        </div>
+
+        <div class="quiz-body" id="quizBody">
+          <div class="empty-state">Pilih jalur quiz untuk mulai.</div>
+        </div>
+      </section>
+
+      <section class="section hidden" id="resultSection" aria-labelledby="resultTitle">
+        <div id="resultBody"></div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <span>© Daily Loker Pelaut Academy — edukasi ringan untuk pelaut Indonesia.</span>
+      <span><a href="https://vacancy.dailylokerpelaut.com/" target="_blank" rel="noopener">Cek loker pelaut harian</a></span>
+    </footer>
+  </div>
+
+  <script>
+    /************************************************************
+     * DAILY LOKER PELAUT ACADEMY — FRONTEND CONFIG
+     ************************************************************/
+
+    // 1) Ganti dengan Web App URL dari Google Apps Script.
+    const API_URL = "https://script.google.com/macros/s/AKfycbyQBcRZntHA_vL-Gv9GJY43jAKVGc6uLhasbwvJE51rdExk1kRqVfjDmVYCT89A6DrfJQ/exec";
+
+    // 2) Ganti dengan GA4 Measurement ID, contoh: G-ABCD123456.
+    //    Kalau belum siap, biarkan placeholder ini. Website tetap jalan.
+    const GA_MEASUREMENT_ID = "G-XXXXXXXXXX";
+
+    const ACADEMY_URL = "https://academy.dailylokerpelaut.com/";
+    const APP_VERSION = "academy-mvp-1.0.0";
+    const ALLOWED_TRACKS = ["Deck Officer", "Engineer Officer", "Rating"];
+
+    const LS = {
+      track: "dlpa_selected_track",
+      visited: "dlpa_visited",
+      streak: "dlpa_streak",
+      lastCompletedDate: "dlpa_last_completed_date",
+      completedDates: "dlpa_completed_dates",
+      completionPrefix: "dlpa_completion_"
+    };
+
+    const state = {
+      selectedTrack: "",
+      quiz: null,
+      currentIndex: 0,
+      answers: [],
+      loading: false,
+      quizStarted: false,
+      quizCache: {}
+    };
+
+    /************************************************************
+     * GA4
+     ************************************************************/
+
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){ dataLayer.push(arguments); }
+
+    (function loadGA4() {
+      if (!GA_MEASUREMENT_ID || GA_MEASUREMENT_ID === "G-XXXXXXXXXX") return;
+
+      const script = document.createElement("script");
+      script.async = true;
+      script.src = "https://www.googletagmanager.com/gtag/js?id=" + encodeURIComponent(GA_MEASUREMENT_ID);
+      document.head.appendChild(script);
+
+      gtag("js", new Date());
+      gtag("config", GA_MEASUREMENT_ID, {
+        send_page_view: false
+      });
+    })();
+
+    function trackEvent(eventName, params = {}) {
+      if (typeof gtag !== "function") return;
+      gtag("event", eventName, {
+        app_name: "Daily Loker Pelaut Academy",
+        app_version: APP_VERSION,
+        ...params
+      });
+    }
+
+    /************************************************************
+     * HELPERS
+     ************************************************************/
+
+    const $ = (selector) => document.querySelector(selector);
+    const $$ = (selector) => Array.from(document.querySelectorAll(selector));
+
+    function safeGet(key, fallback = "") {
+      try {
+        const value = localStorage.getItem(key);
+        return value === null ? fallback : value;
+      } catch (err) {
+        return fallback;
+      }
+    }
+
+    function safeSet(key, value) {
+      try {
+        localStorage.setItem(key, value);
+      } catch (err) {
+        // localStorage may be blocked in some browsers. Website still works without persistence.
+      }
+    }
+
+    function safeJsonGet(key, fallback) {
+      try {
+        const raw = localStorage.getItem(key);
+        if (!raw) return fallback;
+        return JSON.parse(raw);
+      } catch (err) {
+        return fallback;
+      }
+    }
+
+    function safeJsonSet(key, value) {
+      try {
+        localStorage.setItem(key, JSON.stringify(value));
+      } catch (err) {}
+    }
+
+    function escapeHTML(value) {
+      return String(value ?? "")
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#039;");
+    }
+
+    function slugify(value) {
+      return String(value || "")
+        .toLowerCase()
+        .replace(/[^a-z0-9]+/g, "-")
+        .replace(/^-+|-+$/g, "");
+    }
+
+    function isConfigured() {
+      return API_URL && API_URL !== "PASTE_APPS_SCRIPT_WEB_APP_URL_HERE";
+    }
+
+    function getCompletionKey(date, track) {
+      return LS.completionPrefix + date + "_" + slugify(track);
+    }
+
+    function getJakartaDateString(date = new Date()) {
+      const parts = new Intl.DateTimeFormat("en-CA", {
+        timeZone: "Asia/Jakarta",
+        year: "numeric",
+        month: "2-digit",
+        day: "2-digit"
+      }).formatToParts(date);
+
+      const lookup = {};
+      parts.forEach((part) => {
+        lookup[part.type] = part.value;
+      });
+
+      return `${lookup.year}-${lookup.month}-${lookup.day}`;
+    }
+
+    function addDays(dateString, amount) {
+      const date = new Date(dateString + "T00:00:00+07:00");
+      date.setDate(date.getDate() + amount);
+      return getJakartaDateString(date);
+    }
+
+    function isPreviousDay(previousDate, currentDate) {
+      if (!previousDate || !currentDate) return false;
+      return addDays(previousDate, 1) === currentDate;
+    }
+
+    function formatDateLabel(dateString) {
+      try {
+        const date = new Date(dateString + "T00:00:00+07:00");
+        return new Intl.DateTimeFormat("id-ID", {
+          timeZone: "Asia/Jakarta",
+          weekday: "long",
+          day: "numeric",
+          month: "short",
+          year: "numeric"
+        }).format(date);
+      } catch (err) {
+        return dateString;
+      }
+    }
+
+    function getLevel(score, total) {
+      if (score <= 2) {
+        return {
+          title: "Perlu diasah lagi",
+          copy: "Tidak apa-apa. Yang penting kamu tahu bagian mana yang perlu dibaca ulang."
+        };
+      }
+
+      if (score === 3) {
+        return {
+          title: "Cukup siap",
+          copy: "Fondasinya sudah ada. Tinggal dibuat lebih konsisten."
+        };
+      }
+
+      if (score === 4) {
+        return {
+          title: "Solid",
+          copy: "Bagus. Tinggal rapikan detail kecil supaya makin percaya diri."
+        };
+      }
+
+      return {
+        title: "Mantap, siap onboard",
+        copy: "Jawaban kamu tajam hari ini. Jaga ritmenya besok."
+      };
+    }
+
+    async function apiGet(params) {
+      const url = API_URL + "?" + new URLSearchParams(params).toString();
+
+      const response = await fetch(url, {
+        method: "GET",
+        cache: "no-store"
+      });
+
+      if (!response.ok) {
+        throw new Error("API response tidak berhasil.");
+      }
+
+      const data = await response.json();
+
+      if (!data.ok) {
+        throw new Error(data.error || "API mengembalikan error.");
+      }
+
+      return data;
+    }
+
+    function submitStats(payload) {
+      if (!isConfigured()) return;
+
+      const url = API_URL + "?" + new URLSearchParams({
+        action: "submitQuizStats",
+        quiz_date: payload.quizDate,
+        track: payload.track,
+        score: String(payload.score),
+        total: String(payload.total),
+        streak: String(payload.streak),
+        categories: payload.categories.join(", "),
+        app_version: APP_VERSION
+      }).toString();
+
+      // Statistik ringan: tidak perlu menunggu response.
+      fetch(url, {
+        method: "GET",
+        mode: "no-cors",
+        keepalive: true
+      }).catch(() => {});
+    }
+
+    /************************************************************
+     * RENDERING
+     ************************************************************/
+
+    function setSectionVisibility() {
+      $("#dashboardSection").classList.toggle("hidden", !state.selectedTrack);
+      $("#quizSection").classList.toggle("hidden", !state.selectedTrack);
+    }
+
+    function renderTrackCards() {
+      $$(".track-card").forEach((button) => {
+        const isActive = button.dataset.track === state.selectedTrack;
+        button.classList.toggle("active", isActive);
+        button.setAttribute("aria-pressed", isActive ? "true" : "false");
+      });
+    }
+
+    function renderActivityStrip(referenceDate = getJakartaDateString()) {
+      const completedDates = safeJsonGet(LS.completedDates, []);
+      const completedSet = new Set(completedDates);
+      const days = [];
+
+      for (let i = 6; i >= 0; i--) {
+        const date = addDays(referenceDate, -i);
+        const dateObj = new Date(date + "T00:00:00+07:00");
+        const label = new Intl.DateTimeFormat("id-ID", {
+          timeZone: "Asia/Jakarta",
+          weekday: "short"
+        }).format(dateObj);
+
+        days.push({
+          date,
+          label,
+          done: completedSet.has(date),
+          today: date === referenceDate
+        });
+      }
+
+      $("#activityStrip").innerHTML = days.map((day) => `
+        <div class="day-dot ${day.done ? "done" : ""} ${day.today ? "today" : ""}" title="${escapeHTML(day.date)}">
+          <span>${escapeHTML(day.label)}</span>
+        </div>
+      `).join("");
+    }
+
+    function renderDashboard(quizDate, categoryMix = []) {
+      const streak = Number(safeGet(LS.streak, "0")) || 0;
+      const completion = safeJsonGet(getCompletionKey(quizDate, state.selectedTrack), null);
+
+      $("#streakValue").textContent = String(streak);
+      $("#todayStatus").textContent = completion ? "Selesai" : "Belum";
+      $("#dashboardCopy").textContent = `${state.selectedTrack} • ${formatDateLabel(quizDate)}`;
+      renderActivityStrip(quizDate);
+
+      const chips = categoryMix.length
+        ? categoryMix.map((item) => {
+            const name = typeof item === "string" ? item : item.category;
+            const count = typeof item === "string" ? "" : ` ×${item.count}`;
+            return `<span class="chip">${escapeHTML(name)}${escapeHTML(count)}</span>`;
+          }).join("")
+        : `<span class="chip">Quiz harian</span>`;
+
+      $("#categoryMix").innerHTML = chips;
+    }
+
+    function renderLoading() {
+      $("#quizBody").innerHTML = `
+        <div class="empty-state">
+          Memuat 5 soal hari ini untuk jalur <strong>${escapeHTML(state.selectedTrack)}</strong>...
+        </div>
+      `;
+    }
+
+    function renderApiNotConfigured() {
+      $("#quizBody").innerHTML = `
+        <div class="error-state">
+          <strong>API_URL belum dipasang.</strong><br>
+          Setelah deploy Apps Script Web App, paste URL deployment ke bagian <code>API_URL</code> di file HTML.
+        </div>
+      `;
+    }
+
+    function renderError(message) {
+      $("#quizBody").innerHTML = `
+        <div class="error-state">
+          <strong>Quiz belum bisa dimuat.</strong><br>
+          ${escapeHTML(message)}
+        </div>
+      `;
+    }
+
+    function renderQuestion() {
+      if (!state.quiz || !state.quiz.questions || !state.quiz.questions.length) {
+        renderError("Data soal kosong. Cek sheet QuizBank dan status ACTIVE.");
+        return;
+      }
+
+      const questions = state.quiz.questions;
+      const q = questions[state.currentIndex];
+      const total = questions.length;
+      const progress = Math.round(((state.currentIndex + 1) / total) * 100);
+
+      $("#resultSection").classList.add("hidden");
+      $("#quizSection").classList.remove("hidden");
+      $("#progressBar").style.width = `${progress}%`;
+      $("#quizCounter").textContent = `Soal ${state.currentIndex + 1}/${total}`;
+      $("#quizTrackLabel").textContent = state.selectedTrack;
+      $("#quizDateLabel").textContent = formatDateLabel(state.quiz.quiz_date);
+
+      const options = ["A", "B", "C", "D"].map((letter) => {
+        const text = q.options?.[letter] || "";
+        return `
+          <button class="option-btn" type="button" data-answer="${letter}">
+            <span class="option-letter">${letter}</span>
+            <span>${escapeHTML(text)}</span>
+          </button>
+        `;
+      }).join("");
+
+      $("#quizBody").innerHTML = `
+        <div class="question-label">${escapeHTML(q.category || "Quiz Pelaut")}</div>
+        <h2 class="question-text" id="quizTitle">${escapeHTML(q.question)}</h2>
+
+        <div class="options" id="options">
+          ${options}
+        </div>
+
+        <div id="feedbackBox"></div>
+
+        <div class="quiz-actions">
+          <button class="btn secondary" type="button" id="nextButton" disabled>
+            ${state.currentIndex === total - 1 ? "Lihat hasil" : "Soal berikutnya"}
+          </button>
+        </div>
+      `;
+
+      $$(".option-btn").forEach((button) => {
+        button.addEventListener("click", () => handleAnswerClick(button.dataset.answer));
+      });
+
+      $("#nextButton").addEventListener("click", () => {
+        if (state.currentIndex < total - 1) {
+          state.currentIndex += 1;
+          renderQuestion();
+        } else {
+          completeQuiz();
+        }
+      });
+    }
+
+    async function handleAnswerClick(selectedAnswer) {
+      const q = state.quiz.questions[state.currentIndex];
+
+      $$(".option-btn").forEach((button) => {
+        button.disabled = true;
+        if (button.dataset.answer === selectedAnswer) {
+          button.classList.add("selected");
+        }
+      });
+
+      $("#feedbackBox").innerHTML = `
+        <div class="feedback">
+          <p>Memeriksa jawaban...</p>
+        </div>
+      `;
+
+      trackEvent("quiz_answer_click", {
+        track: state.selectedTrack,
+        quiz_date: state.quiz.quiz_date,
+        question_id: q.id,
+        selected_answer: selectedAnswer
+      });
+
+      try {
+        const feedback = await apiGet({
+          action: "checkAnswer",
+          quiz_date: state.quiz.quiz_date,
+          track: state.selectedTrack,
+          question_id: q.id,
+          selected_answer: selectedAnswer
+        });
+
+        const answerResult = {
+          question_id: q.id,
+          question: q.question,
+          category: q.category,
+          selected_answer: selectedAnswer,
+          correct_answer: feedback.correct_answer,
+          is_correct: Boolean(feedback.is_correct),
+          explanation: feedback.explanation || "",
+          source_reference: feedback.source_reference || ""
+        };
+
+        state.answers[state.currentIndex] = answerResult;
+        renderFeedback(answerResult);
+
+      } catch (err) {
+        $("#feedbackBox").innerHTML = `
+          <div class="feedback wrong">
+            <p class="feedback-title">Jawaban belum bisa dicek.</p>
+            <p>${escapeHTML(err.message || "Coba refresh halaman.")}</p>
+          </div>
+        `;
+      }
+    }
+
+    function renderFeedback(result) {
+      const feedbackClass = result.is_correct ? "correct" : "wrong";
+      const title = result.is_correct
+        ? "Benar. Nice, ini sudah tepat."
+        : `Belum tepat. Jawaban yang benar: ${result.correct_answer}`;
+
+      $$(".option-btn").forEach((button) => {
+        if (button.dataset.answer === result.correct_answer) {
+          button.classList.add("correct");
+        }
+
+        if (button.dataset.answer === result.selected_answer && !result.is_correct) {
+          button.classList.add("wrong");
+        }
+      });
+
+      $("#feedbackBox").innerHTML = `
+        <div class="feedback ${feedbackClass}">
+          <p class="feedback-title">${escapeHTML(title)}</p>
+          <p>${escapeHTML(result.explanation || "Pembahasan belum tersedia.")}</p>
+          ${result.source_reference ? `<div class="source-note">Referensi: ${escapeHTML(result.source_reference)}</div>` : ""}
+        </div>
+      `;
+
+      $("#nextButton").disabled = false;
+    }
+
+    function updateStreak(quizDate) {
+      const lastCompletedDate = safeGet(LS.lastCompletedDate, "");
+      let streak = Number(safeGet(LS.streak, "0")) || 0;
+      let eventName = "";
+
+      if (lastCompletedDate === quizDate) {
+        return { streak, changed: false, eventName: "" };
+      }
+
+      if (!lastCompletedDate) {
+        streak = 1;
+        eventName = "streak_started";
+      } else if (isPreviousDay(lastCompletedDate, quizDate)) {
+        streak += 1;
+        eventName = "streak_continued";
+      } else {
+        streak = 1;
+        eventName = "streak_started";
+      }
+
+      safeSet(LS.streak, String(streak));
+      safeSet(LS.lastCompletedDate, quizDate);
+
+      const completedDates = safeJsonGet(LS.completedDates, []);
+      const updatedDates = Array.from(new Set([...completedDates, quizDate])).sort();
+      safeJsonSet(LS.completedDates, updatedDates.slice(-90));
+
+      return { streak, changed: true, eventName };
+    }
+
+    function completeQuiz() {
+      const quizDate = state.quiz.quiz_date;
+      const total = state.quiz.questions.length;
+      const score = state.answers.filter((item) => item && item.is_correct).length;
+      const categories = Array.from(new Set(state.quiz.questions.map((q) => q.category).filter(Boolean)));
+      const streakInfo = updateStreak(quizDate);
+      const streak = streakInfo.streak;
+
+      const completion = {
+        quizDate,
+        track: state.selectedTrack,
+        score,
+        total,
+        streak,
+        categories,
+        answers: state.answers,
+        completedAt: new Date().toISOString()
+      };
+
+      safeJsonSet(getCompletionKey(quizDate, state.selectedTrack), completion);
+
+      trackEvent("quiz_complete", {
+        track: state.selectedTrack,
+        quiz_date: quizDate,
+        score,
+        total,
+        streak,
+        categories: categories.join(", ")
+      });
+
+      if (score <= 2) trackEvent("score_0_2", { track: state.selectedTrack, score });
+      if (score === 3) trackEvent("score_3", { track: state.selectedTrack, score });
+      if (score === 4) trackEvent("score_4", { track: state.selectedTrack, score });
+      if (score === 5) trackEvent("score_5", { track: state.selectedTrack, score });
+
+      if (streakInfo.eventName) {
+        trackEvent(streakInfo.eventName, {
+          track: state.selectedTrack,
+          quiz_date: quizDate,
+          streak
+        });
+      }
+
+      submitStats({
+        quizDate,
+        track: state.selectedTrack,
+        score,
+        total,
+        streak,
+        categories
+      });
+
+      renderDashboard(quizDate, state.quiz.category_mix || []);
+      renderResult(completion);
+    }
+
+    function renderResult(completion, fromCache = false) {
+      const scoreDeg = Math.round((completion.score / completion.total) * 360);
+      const level = getLevel(completion.score, completion.total);
+
+      $("#quizSection").classList.add("hidden");
+      $("#resultSection").classList.remove("hidden");
+      $("#todayStatus").textContent = "Selesai";
+
+      const reviewItems = (completion.answers || []).map((item, index) => `
+        <article class="review-item ${item.is_correct ? "correct" : "wrong"}">
+          <div class="review-top">
+            <span>Soal ${index + 1} • ${escapeHTML(item.category || "Quiz")}</span>
+            <span>${item.is_correct ? "Benar" : "Salah"}</span>
+          </div>
+          <p class="review-question">${escapeHTML(item.question)}</p>
+          <p class="review-explanation">
+            Jawaban kamu: <strong>${escapeHTML(item.selected_answer)}</strong>.
+            Jawaban benar: <strong>${escapeHTML(item.correct_answer)}</strong>.<br>
+            ${escapeHTML(item.explanation || "")}
+          </p>
+        </article>
+      `).join("");
+
+      $("#resultBody").innerHTML = `
+        <div class="result-hero">
+          <div class="score-circle" style="--score-deg: ${scoreDeg}deg">
+            <strong>${completion.score}/${completion.total}</strong>
+          </div>
+
+          <div>
+            <h2 class="result-title" id="resultTitle">${escapeHTML(level.title)}</h2>
+            <p class="result-copy">
+              ${escapeHTML(level.copy)}
+              ${fromCache ? " Kamu sudah menyelesaikan quiz untuk jalur ini hari ini." : ""}
+            </p>
+            <p class="result-copy">
+              Jalur: <strong>${escapeHTML(completion.track)}</strong><br>
+              Streak: <strong>${completion.streak} hari</strong>
+            </p>
+
+            <div class="result-actions">
+              <button class="btn whatsapp" type="button" id="shareButton">Share ke WhatsApp</button>
+              <button class="btn secondary" type="button" id="tomorrowButton">Balik lagi besok</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="review-list">
+          ${reviewItems}
+        </div>
+      `;
+
+      $("#shareButton").addEventListener("click", () => shareToWhatsApp(completion));
+      $("#tomorrowButton").addEventListener("click", () => {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      });
+    }
+
+    function shareToWhatsApp(completion) {
+      const categoryList = completion.categories && completion.categories.length
+        ? completion.categories.join(", ")
+        : "Quiz Pelaut";
+
+      const text =
+`Saya dapat skor ${completion.score}/${completion.total} di Quiz Pelaut Hari Ini 🔥
+
+Jalur: ${completion.track}
+Topik: ${categoryList}
+Streak: ${completion.streak} hari
+
+Berani coba?
+Jangan cuma cari loker, skill juga harus diasah.
+
+${ACADEMY_URL}`;
+
+      trackEvent("whatsapp_share_click", {
+        track: completion.track,
+        quiz_date: completion.quizDate,
+        score: completion.score,
+        streak: completion.streak
+      });
+
+      window.open("https://wa.me/?text=" + encodeURIComponent(text), "_blank", "noopener");
+    }
+
+    /************************************************************
+     * DATA LOADING
+     ************************************************************/
+
+    async function loadTodayQuiz() {
+      setSectionVisibility();
+      renderTrackCards();
+      renderLoading();
+
+      if (!isConfigured()) {
+        renderApiNotConfigured();
+        return;
+      }
+
+      if (state.loading) return;
+      state.loading = true;
+
+      try {
+        const cacheKey = `${getJakartaDateString()}_${state.selectedTrack}`;
+        let data = state.quizCache[cacheKey];
+
+        if (!data) {
+          data = await apiGet({
+            action: "getTodayQuiz",
+            track: state.selectedTrack
+          });
+          state.quizCache[cacheKey] = data;
+        }
+
+        state.quiz = data;
+        state.currentIndex = 0;
+        state.answers = [];
+        state.quizStarted = true;
+
+        renderDashboard(data.quiz_date, data.category_mix || []);
+
+        const completion = safeJsonGet(getCompletionKey(data.quiz_date, state.selectedTrack), null);
+        if (completion) {
+          renderResult(completion, true);
+          state.loading = false;
+          return;
+        }
+
+        trackEvent("quiz_start", {
+          track: state.selectedTrack,
+          quiz_date: data.quiz_date,
+          question_count: data.questions.length
+        });
+
+        renderQuestion();
+
+      } catch (err) {
+        renderError(err.message || "Unknown error.");
+      } finally {
+        state.loading = false;
+      }
+    }
+
+    async function selectTrack(track, isUserAction = false) {
+      if (!ALLOWED_TRACKS.includes(track)) return;
+
+      state.selectedTrack = track;
+      safeSet(LS.track, track);
+
+      if (isUserAction) {
+        trackEvent("track_selected", { track });
+      }
+
+      await loadTodayQuiz();
+    }
+
+    function init() {
+      trackEvent("academy_page_view", {
+        page_location: window.location.href,
+        page_title: document.title
+      });
+
+      if (safeGet(LS.visited, "") === "1") {
+        trackEvent("return_user_detected", {
+          last_completed_date: safeGet(LS.lastCompletedDate, "")
+        });
+      }
+      safeSet(LS.visited, "1");
+
+      renderActivityStrip(getJakartaDateString());
+
+      $$(".track-card").forEach((button) => {
+        button.addEventListener("click", () => {
+          selectTrack(button.dataset.track, true);
+        });
+      });
+
+      const savedTrack = safeGet(LS.track, "");
+      if (ALLOWED_TRACKS.includes(savedTrack)) {
+        selectTrack(savedTrack, false);
+      } else {
+        $("#dashboardSection").classList.add("hidden");
+        $("#quizSection").classList.add("hidden");
+      }
+    }
+
+    document.addEventListener("DOMContentLoaded", init);
+  </script>
+</body>
+</html>
