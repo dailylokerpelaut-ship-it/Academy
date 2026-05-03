@@ -1540,6 +1540,130 @@
       .story-score-ring strong { font-size: 2.65rem; }
     }
 
+
+
+    /* V2 revisions: smaller hero, scrollable menu, instant answer feedback, celebratory story card */
+    .hero-top { overflow: visible !important; }
+    .hero-title {
+      max-width: 520px;
+      font-size: clamp(1.34rem, 5.4vw, 2.35rem) !important;
+      line-height: 1.08 !important;
+      letter-spacing: -0.055em !important;
+    }
+    .hero-text {
+      max-width: 500px;
+      font-size: 0.9rem !important;
+      line-height: 1.55 !important;
+    }
+
+    .nav-wrap { z-index: 120 !important; }
+    .top-menu {
+      position: fixed !important;
+      top: calc(env(safe-area-inset-top, 0px) + 74px) !important;
+      right: 14px !important;
+      max-height: calc(100dvh - 96px) !important;
+      overflow-y: auto !important;
+      overscroll-behavior: contain;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: thin;
+    }
+    .top-menu::before { display: none !important; }
+    .top-menu a,
+    .top-menu button { min-height: 72px !important; }
+    .top-menu a:active,
+    .top-menu button:active { transform: scale(0.985); background: var(--surface-soft); }
+
+    .option-btn.pending {
+      border-color: rgba(5, 174, 184, 0.9) !important;
+      background: #effefe !important;
+      box-shadow: 0 10px 24px rgba(5, 174, 184, 0.12);
+    }
+    .option-btn.pending .option-letter {
+      color: #fff;
+      background: linear-gradient(135deg, var(--teal), var(--teal-2));
+    }
+    .option-btn.pending .option-state {
+      color: var(--teal);
+      width: 20px;
+      height: 20px;
+      border: 3px solid rgba(5,174,184,0.22);
+      border-top-color: var(--teal);
+      border-radius: 50%;
+      font-size: 0;
+      animation: spin 0.72s linear infinite;
+    }
+    .feedback.checking {
+      border-color: rgba(5, 174, 184, 0.34);
+      background: #f0ffff;
+    }
+    .feedback.checking h3 { color: var(--navy); }
+
+    .story-card {
+      background:
+        radial-gradient(circle at 50% 4%, rgba(255,255,255,0.26), transparent 8rem),
+        radial-gradient(circle at 84% 14%, rgba(23,199,195,0.72), transparent 13rem),
+        radial-gradient(circle at 18% 88%, rgba(255,138,42,0.16), transparent 12rem),
+        linear-gradient(150deg, #02183b 0%, #063a79 46%, #05aeb8 100%) !important;
+    }
+    .story-card .confetti-line {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+      opacity: 0.9;
+      background-image:
+        radial-gradient(circle, #ffcf5a 0 3px, transparent 4px),
+        radial-gradient(circle, #5bf1ec 0 3px, transparent 4px),
+        radial-gradient(circle, rgba(255,255,255,0.85) 0 2px, transparent 3px);
+      background-size: 86px 110px, 120px 96px, 70px 80px;
+      background-position: 12px 30px, 54px 120px, 24px 210px;
+    }
+    .story-kicker {
+      position: relative;
+      z-index: 1;
+      padding: 7px 12px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.15);
+      border: 1px solid rgba(255,255,255,0.16);
+      color: #dffffe;
+      font-size: 0.76rem;
+      font-weight: 950;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+    .story-score-text {
+      padding: 8px 14px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.15);
+      border: 1px solid rgba(255,255,255,0.14);
+    }
+    .story-motto {
+      max-width: 270px !important;
+      padding: 12px 14px;
+      border-radius: 18px;
+      background: rgba(255,255,255,0.12);
+      border: 1px solid rgba(255,255,255,0.12);
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,0.03);
+    }
+    .story-celebrate {
+      position: relative;
+      z-index: 1;
+      margin: 0;
+      color: #ffdc7b;
+      font-weight: 950;
+      font-size: 0.92rem;
+      letter-spacing: -0.02em;
+    }
+
+    @media (max-width: 420px) {
+      .hero-title { font-size: 1.42rem !important; }
+      .hero-copy { margin-top: 18px !important; }
+      .top-menu {
+        width: min(292px, calc(100vw - 24px)) !important;
+        right: 12px !important;
+      }
+    }
+
   </style>
 </head>
 <body>
@@ -1569,8 +1693,8 @@
     </div>
     <div class="hero-copy" id="heroCopy">
       <span class="hero-kicker">⚡ Quiz pelaut harian</span>
-      <h1 class="hero-title">Belajar 5 soal. Jaga streak. Naik level.</h1>
-      <p class="hero-text">Pilih jalur yang sesuai, kerjakan quiz harian, baca pembahasan, lalu bagikan score ke teman pelautmu.</p>
+      <h1 class="hero-title">5 soal hari ini. Jaga ritme, naik kelas.</h1>
+      <p class="hero-text">Latihan singkat untuk pelaut Indonesia. Pilih jalur, jawab 5 soal, baca pembahasan, lalu jaga streak harianmu.</p>
     </div>
   </header>
 
@@ -2105,7 +2229,17 @@
       });
 
       const options = Array.from(document.querySelectorAll(".option-btn"));
+      const selectedBtn = document.querySelector(`.option-btn[data-answer="${selectedAnswer}"]`);
       options.forEach(btn => btn.disabled = true);
+      if (selectedBtn) {
+        selectedBtn.classList.add("selected", "pending");
+        const stateIcon = selectedBtn.querySelector(".option-state");
+        if (stateIcon) stateIcon.textContent = "";
+      }
+      const feedbackBox = document.querySelector("#feedbackBox");
+      if (feedbackBox) {
+        feedbackBox.innerHTML = `<div class="feedback checking"><h3>Mengecek jawaban...</h3><p>Pilihan kamu sudah diterima. Sebentar, pembahasan sedang dimuat.</p></div>`;
+      }
 
       try {
         const data = await fetchJson({
@@ -2227,19 +2361,23 @@
           <h2 class="section-title">Bagikan Score Card</h2>
           <p class="section-copy">Simpan card untuk WhatsApp, Instagram, atau Facebook Story.</p>
           <div class="story-card" id="statusPreview" style="--score-deg:${degree}deg">
+            <span class="confetti-line" aria-hidden="true"></span>
             <div class="story-brand">
               <span class="story-logo">⚓</span>
               <span>Daily Loker Pelaut<span class="accent">Academy</span></span>
             </div>
+            <div class="story-kicker">Quiz Pelaut Hari Ini</div>
             <div class="story-score-wrap">
               <div class="story-score-ring"><div><strong>${score}/${total}</strong><br><span>${percent}%</span></div></div>
-              <p class="story-score-text">${level.short}</p>
+              <p class="story-score-text">🎉 ${level.short}</p>
             </div>
             <div class="story-tags">
-              <span class="story-tag">Jalur: ${escapeHtml(progress.track)}</span>
+              <span class="story-tag">${trackMiniIcon(progress.track)} ${escapeHtml(progress.track)}</span>
               <span class="story-tag">🔥 Streak: ${Number(streak.current || 0)} hari</span>
+              ${topicChips.slice(0,2).map(chip => `<span class="story-tag">${escapeHtml(chip)}</span>`).join("")}
             </div>
             <p class="story-motto">Siap layar, siap belajar.</p>
+            <p class="story-celebrate">Challenge teman pelautmu hari ini.</p>
             <div class="story-url-line">academy.dailylokerpelaut.com</div>
           </div>
           <div class="btn-row">
@@ -2340,95 +2478,150 @@
 
       const bg = ctx.createLinearGradient(0, 0, 1080, 1920);
       bg.addColorStop(0, "#f7fcff");
-      bg.addColorStop(1, "#e9fbfb");
+      bg.addColorStop(0.52, "#e9fbfb");
+      bg.addColorStop(1, "#ffffff");
       ctx.fillStyle = bg;
       ctx.fillRect(0, 0, 1080, 1920);
 
-      const header = ctx.createLinearGradient(70, 90, 1010, 420);
-      header.addColorStop(0, "#031b42");
-      header.addColorStop(0.55, "#063d84");
-      header.addColorStop(1, "#05aeb8");
-      ctx.fillStyle = header;
-      drawRoundRect(ctx, 70, 90, 940, 1700, 54);
+      const card = ctx.createLinearGradient(70, 80, 1010, 1840);
+      card.addColorStop(0, "#02183b");
+      card.addColorStop(0.48, "#063a79");
+      card.addColorStop(1, "#05aeb8");
+      ctx.fillStyle = card;
+      drawRoundRect(ctx, 70, 80, 940, 1760, 64);
       ctx.fill();
 
-      ctx.globalAlpha = 0.10;
+      // soft glows
+      const glow1 = ctx.createRadialGradient(840, 240, 10, 840, 240, 310);
+      glow1.addColorStop(0, "rgba(91,241,236,0.58)");
+      glow1.addColorStop(1, "rgba(91,241,236,0)");
+      ctx.fillStyle = glow1;
+      ctx.fillRect(520, 0, 560, 560);
+
+      const glow2 = ctx.createRadialGradient(230, 1660, 10, 230, 1660, 340);
+      glow2.addColorStop(0, "rgba(255,138,42,0.24)");
+      glow2.addColorStop(1, "rgba(255,138,42,0)");
+      ctx.fillStyle = glow2;
+      ctx.fillRect(0, 1300, 560, 620);
+
+      // waves
+      ctx.globalAlpha = 0.12;
       ctx.strokeStyle = "#ffffff";
       ctx.lineWidth = 5;
-      for (let i = 0; i < 5; i++) {
+      for (let i = 0; i < 6; i++) {
         ctx.beginPath();
-        ctx.moveTo(0, 1450 + i * 34);
-        ctx.bezierCurveTo(260, 1390 + i * 34, 500, 1510 + i * 34, 1080, 1420 + i * 34);
+        ctx.moveTo(90, 1450 + i * 42);
+        ctx.bezierCurveTo(300, 1390 + i * 42, 520, 1530 + i * 42, 990, 1420 + i * 42);
         ctx.stroke();
       }
       ctx.globalAlpha = 1;
 
-      ctx.fillStyle = "rgba(255,255,255,0.12)";
+      // confetti
+      const confetti = [
+        [160,230,"#ffcf5a"],[250,180,"#5bf1ec"],[840,420,"#ffffff"],[910,310,"#ff8a2a"],[760,170,"#5bf1ec"],
+        [180,760,"#ffffff"],[880,860,"#ffcf5a"],[140,1180,"#5bf1ec"],[900,1240,"#ffffff"],[260,1510,"#ff8a2a"]
+      ];
+      confetti.forEach(([x,y,color], i) => {
+        ctx.save();
+        ctx.translate(x,y);
+        ctx.rotate((i * 17) * Math.PI / 180);
+        ctx.fillStyle = color;
+        drawRoundRect(ctx, -12, -5, 24, 10, 5);
+        ctx.fill();
+        ctx.restore();
+      });
+
+      // logo
+      ctx.fillStyle = "rgba(255,255,255,0.13)";
       ctx.beginPath();
-      ctx.arc(540, 225, 68, 0, Math.PI * 2);
+      ctx.arc(540, 235, 74, 0, Math.PI * 2);
       ctx.fill();
+      ctx.strokeStyle = "rgba(255,255,255,0.58)";
+      ctx.lineWidth = 4;
+      ctx.beginPath();
+      ctx.arc(540, 235, 74, 0, Math.PI * 2);
+      ctx.stroke();
       ctx.fillStyle = "#ffffff";
-      ctx.font = "700 74px system-ui, -apple-system, Segoe UI, sans-serif";
+      ctx.font = "700 78px system-ui, -apple-system, Segoe UI, sans-serif";
       ctx.textAlign = "center";
-      ctx.fillText("⚓", 540, 250);
+      ctx.fillText("⚓", 540, 262);
 
-      ctx.font = "900 62px system-ui, -apple-system, Segoe UI, sans-serif";
-      ctx.fillText("Daily Loker Pelaut", 540, 345);
+      ctx.font = "950 62px system-ui, -apple-system, Segoe UI, sans-serif";
+      ctx.fillText("Daily Loker Pelaut", 540, 355);
       ctx.fillStyle = "#5bf1ec";
-      ctx.fillText("Academy", 540, 415);
+      ctx.fillText("Academy", 540, 425);
 
-      const ringX = 540, ringY = 760, outer = 210, inner = 158;
-      ctx.lineWidth = 42;
-      ctx.strokeStyle = "rgba(255,255,255,0.24)";
+      // kicker pill
+      ctx.fillStyle = "rgba(255,255,255,0.14)";
+      drawRoundRect(ctx, 308, 485, 464, 72, 36); ctx.fill();
+      ctx.strokeStyle = "rgba(255,255,255,0.16)";
+      ctx.stroke();
+      ctx.fillStyle = "#dffffe";
+      ctx.font = "950 30px system-ui, -apple-system, Segoe UI, sans-serif";
+      ctx.fillText("QUIZ PELAUT HARI INI", 540, 532);
+
+      // score ring
+      const ringX = 540, ringY = 790, outer = 220, inner = 162;
+      ctx.lineWidth = 48;
+      ctx.strokeStyle = "rgba(255,255,255,0.22)";
       ctx.beginPath();
       ctx.arc(ringX, ringY, outer, 0, Math.PI * 2);
       ctx.stroke();
       ctx.strokeStyle = "#5bf1ec";
+      ctx.lineCap = "round";
       ctx.beginPath();
       ctx.arc(ringX, ringY, outer, -Math.PI / 2, -Math.PI / 2 + (Math.PI * 2 * score / total));
       ctx.stroke();
-      ctx.fillStyle = "rgba(255,255,255,0.96)";
+      ctx.lineCap = "butt";
+      ctx.fillStyle = "rgba(255,255,255,0.97)";
       ctx.beginPath();
       ctx.arc(ringX, ringY, inner, 0, Math.PI * 2);
       ctx.fill();
 
       ctx.fillStyle = "#052e63";
-      ctx.font = "950 128px system-ui, -apple-system, Segoe UI, sans-serif";
+      ctx.font = "950 134px system-ui, -apple-system, Segoe UI, sans-serif";
       ctx.textAlign = "center";
-      ctx.fillText(`${score}/${total}`, ringX, ringY + 6);
+      ctx.fillText(`${score}/${total}`, ringX, ringY + 8);
       ctx.fillStyle = "#05aeb8";
-      ctx.font = "950 48px system-ui, -apple-system, Segoe UI, sans-serif";
-      ctx.fillText(`${percent}%`, ringX, ringY + 78);
+      ctx.font = "950 52px system-ui, -apple-system, Segoe UI, sans-serif";
+      ctx.fillText(`${percent}%`, ringX, ringY + 90);
 
+      // celebration headline
+      ctx.fillStyle = "#ffdc7b";
+      ctx.font = "950 44px system-ui, -apple-system, Segoe UI, sans-serif";
+      ctx.fillText("🎉 HASIL QUIZ KAMU", 540, 1090);
       ctx.fillStyle = "#ffffff";
-      ctx.font = "950 66px system-ui, -apple-system, Segoe UI, sans-serif";
-      ctx.fillText(level.short, 540, 1060);
+      ctx.font = "950 74px system-ui, -apple-system, Segoe UI, sans-serif";
+      drawCenteredText(ctx, level.short, 540, 1170, 760, 82);
 
-      ctx.font = "850 36px system-ui, -apple-system, Segoe UI, sans-serif";
-      const pillY = 1132;
-      const pillW = 310;
-      ctx.fillStyle = "rgba(255,255,255,0.16)";
-      drawRoundRect(ctx, 200, pillY, pillW, 72, 36); ctx.fill();
-      drawRoundRect(ctx, 570, pillY, pillW, 72, 36); ctx.fill();
+      // data pills
+      ctx.font = "900 34px system-ui, -apple-system, Segoe UI, sans-serif";
+      const leftText = `Jalur: ${progress.track}`;
+      const rightText = `🔥 Streak: ${Number(streakValue || 0)} hari`;
+      ctx.fillStyle = "rgba(255,255,255,0.15)";
+      drawRoundRect(ctx, 160, 1295, 760, 78, 39); ctx.fill();
       ctx.fillStyle = "#ffffff";
-      ctx.fillText(`Jalur: ${progress.track}`, 355, pillY + 48);
-      ctx.fillText(`🔥 Streak: ${Number(streakValue || 0)} hari`, 725, pillY + 48);
-
-      ctx.strokeStyle = "rgba(91,241,236,0.65)";
-      ctx.lineWidth = 4;
-      ctx.beginPath();
-      ctx.moveTo(300, 1300); ctx.lineTo(780, 1300); ctx.stroke();
-      ctx.fillStyle = "#5bf1ec";
-      ctx.font = "700 36px system-ui, -apple-system, Segoe UI, sans-serif";
-      ctx.fillText("⚓", 540, 1312);
-
+      ctx.fillText(leftText, 540, 1346);
+      ctx.fillStyle = "rgba(255,255,255,0.15)";
+      drawRoundRect(ctx, 250, 1395, 580, 78, 39); ctx.fill();
       ctx.fillStyle = "#ffffff";
-      ctx.font = "950 56px system-ui, -apple-system, Segoe UI, sans-serif";
-      drawCenteredText(ctx, "Siap layar, siap belajar.", 540, 1410, 720, 66);
+      ctx.fillText(rightText, 540, 1446);
+
+      // motto card
+      ctx.fillStyle = "rgba(255,255,255,0.13)";
+      drawRoundRect(ctx, 170, 1535, 740, 150, 34); ctx.fill();
+      ctx.strokeStyle = "rgba(255,255,255,0.15)";
+      ctx.stroke();
+      ctx.fillStyle = "#ffffff";
+      ctx.font = "950 58px system-ui, -apple-system, Segoe UI, sans-serif";
+      drawCenteredText(ctx, "Siap layar, siap belajar.", 540, 1600, 660, 66);
+      ctx.fillStyle = "#dffffe";
+      ctx.font = "850 30px system-ui, -apple-system, Segoe UI, sans-serif";
+      ctx.fillText("Challenge teman pelautmu hari ini.", 540, 1716);
 
       ctx.fillStyle = "#9ffafa";
-      ctx.font = "850 32px system-ui, -apple-system, Segoe UI, sans-serif";
-      ctx.fillText("academy.dailylokerpelaut.com", 540, 1660);
+      ctx.font = "900 32px system-ui, -apple-system, Segoe UI, sans-serif";
+      ctx.fillText("academy.dailylokerpelaut.com", 540, 1805);
 
       canvas.toBlob(blob => {
         if (!blob) {
