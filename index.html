@@ -1569,7 +1569,8 @@
     }
     .top-menu::before { display: none !important; }
     .top-menu a,
-    .top-menu button { min-height: 72px !important; }
+    .top-menu button { min-height: 72px !important; touch-action: manipulation; }
+    .top-menu a { cursor: pointer; }
     .top-menu a:active,
     .top-menu button:active { transform: scale(0.985); background: var(--surface-soft); }
 
@@ -1676,11 +1677,11 @@
       <div class="nav-wrap">
         <button class="hamburger" id="menuBtn" type="button" aria-label="Menu" aria-expanded="false" aria-controls="topMenu">☰</button>
         <nav class="top-menu" id="topMenu" aria-label="Menu utama academy">
-          <a href="https://dailylokerpelaut.com/" target="_blank" rel="noopener">
+          <a id="menuHomeLink" href="https://dailylokerpelaut.com/">
             <span aria-hidden="true">🏠</span>
             <span>Menu Utama<small>Ke dailylokerpelaut.com</small></span>
           </a>
-          <a href="https://vacancy.dailylokerpelaut.com/" target="_blank" rel="noopener">
+          <a id="menuVacancyLink" href="https://vacancy.dailylokerpelaut.com/">
             <span aria-hidden="true">⚓</span>
             <span>Loker Harian<small>Lowongan pelaut terbaru</small></span>
           </a>
@@ -1706,9 +1707,9 @@
     <footer class="footer">
       <p><strong>Daily Loker Pelaut Academy</strong><br />Quiz edukasi harian. Tanpa login. Tanpa paywall.</p>
       <p>
-        <a href="https://dailylokerpelaut.com/" target="_blank" rel="noopener">Menu Utama</a>
+        <a href="https://dailylokerpelaut.com/">Menu Utama</a>
         &nbsp;•&nbsp;
-        <a href="https://vacancy.dailylokerpelaut.com/" target="_blank" rel="noopener">Lihat lowongan pelaut harian</a>
+        <a href="https://vacancy.dailylokerpelaut.com/">Lihat lowongan pelaut harian</a>
       </p>
     </footer>
   </main>
@@ -2729,6 +2730,27 @@ ${SITE_URL}`;
         event.stopPropagation();
         toggleMenu();
       });
+
+      const menuHomeLink = $("#menuHomeLink");
+      const menuVacancyLink = $("#menuVacancyLink");
+
+      if (menuHomeLink) {
+        menuHomeLink.addEventListener("click", (event) => {
+          event.preventDefault();
+          event.stopPropagation();
+          closeMenu();
+          window.location.href = "https://dailylokerpelaut.com/";
+        });
+      }
+
+      if (menuVacancyLink) {
+        menuVacancyLink.addEventListener("click", (event) => {
+          event.preventDefault();
+          event.stopPropagation();
+          closeMenu();
+          window.location.href = "https://vacancy.dailylokerpelaut.com/";
+        });
+      }
 
       $("#menuChangeTrack").addEventListener("click", () => {
         closeMenu();
