@@ -1726,7 +1726,7 @@
     const GA_MEASUREMENT_ID = "G-G4YTZPWFCQ";
 
     const SITE_URL = "https://academy.dailylokerpelaut.com/";
-    const APP_VERSION = "academy-option-a-1.1.1";
+    const APP_VERSION = "academy-option-a-1.1.2-ga-pageview";
 
     const TRACKS = [
       {
@@ -1878,8 +1878,15 @@
     function fireEvent(eventName, params = {}) {
       if (typeof window.gtag === "function") {
         window.gtag("event", eventName, {
-          app_version: APP_VERSION,
+          event_category: "Academy Quiz",
+          page_name: "academy_quiz",
+          page_title: document.title || "Daily Loker Pelaut Academy — Quiz Pelaut Harian",
           page_location: window.location.href,
+          page_path: window.location.pathname,
+          hostname: window.location.hostname,
+          app_version: APP_VERSION,
+          quiz_date: state?.quizDate || getLocalDateKey(),
+          transport_type: "beacon",
           ...params
         });
       }
@@ -1887,14 +1894,28 @@
 
     function loadGA() {
       if (!GA_MEASUREMENT_ID || GA_MEASUREMENT_ID === "G-XXXXXXXXXX") return;
+      if (window.__DLP_GA4_INSTALLED__) return;
+      window.__DLP_GA4_INSTALLED__ = true;
+
       window.dataLayer = window.dataLayer || [];
-      window.gtag = function(){ window.dataLayer.push(arguments); };
+      window.gtag = window.gtag || function(){ window.dataLayer.push(arguments); };
+
       const script = document.createElement("script");
       script.async = true;
       script.src = "https://www.googletagmanager.com/gtag/js?id=" + encodeURIComponent(GA_MEASUREMENT_ID);
       document.head.appendChild(script);
+
       window.gtag("js", new Date());
-      window.gtag("config", GA_MEASUREMENT_ID, { send_page_view: false });
+      window.gtag("config", GA_MEASUREMENT_ID, {
+        page_title: document.title || "Daily Loker Pelaut Academy — Quiz Pelaut Harian",
+        page_location: window.location.href,
+        page_path: window.location.pathname,
+        send_page_view: true
+      });
+
+      fireEvent("dlp_academy_home_loaded", {
+        event_label: "Academy quiz page loaded"
+      });
     }
 
     function hasApiUrl() {
@@ -2704,9 +2725,34 @@ ${SITE_URL}`;
       safeSet(STORAGE.lastVisit, today);
     }
 
+    function setupLinkTracking() {
+      document.addEventListener("click", function(event){
+        const link = event.target.closest("a");
+        if (!link) return;
+
+        const href = link.getAttribute("href") || "";
+        const text = (link.innerText || "").trim();
+
+        if (href.includes("vacancy.dailylokerpelaut.com")) {
+          fireEvent("academy_to_vacancy_click", {
+            event_label: text || "Vacancy link click",
+            link_url: href
+          });
+        }
+
+        if (href.includes("dailylokerpelaut.com") && !href.includes("academy.dailylokerpelaut.com") && !href.includes("vacancy.dailylokerpelaut.com")) {
+          fireEvent("academy_internal_link_click", {
+            event_label: text || "Internal DLP link click",
+            link_url: href
+          });
+        }
+      });
+    }
+
     document.addEventListener("DOMContentLoaded", () => {
       loadGA();
       setupVisitTracking();
+      setupLinkTracking();
       fireEvent("academy_page_view", { page_type: "academy_home" });
       render();
 
