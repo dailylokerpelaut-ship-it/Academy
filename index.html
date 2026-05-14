@@ -1080,7 +1080,7 @@
 
   <nav class="bottom-nav" aria-label="Navigasi bawah">
     <button class="nav-item active" data-go="home"><span class="ico">⌂</span><span>Beranda</span></button>
-    <button class="nav-item" data-go="quiz"><span class="ico">□</span><span>Quiz</span></button>
+    <button class="nav-item" data-go="today" id="todayNavBtn"><span class="ico" id="todayNavIcon">▶</span><span id="todayNavLabel">Mulai</span></button>
     <button class="nav-item" data-go="result"><span class="ico">▥</span><span>Hasil</span></button>
   </nav>
 
@@ -1298,8 +1298,43 @@
       qsa('.screen').forEach(s => s.classList.remove('active'));
       const target = name === 'quiz' ? 'quizScreen' : name === 'result' ? 'resultScreen' : 'homeScreen';
       $(target).classList.add('active');
-      qsa('.nav-item').forEach(n => n.classList.toggle('active', n.dataset.go === name));
+      const activeGo = name === 'quiz' ? 'today' : name;
+      qsa('.nav-item').forEach(n => n.classList.toggle('active', n.dataset.go === activeGo));
+      updateFooterState();
       window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function getLockedOrSelectedProgress() {
+      const lock = getTodayLock();
+      const track = normalizeTrack(lock?.track) || state.selectedTrack;
+      if (!track) return null;
+      return readJSON(progressKey(todayWIB(), track), null);
+    }
+
+    function updateFooterState() {
+      const btn = $('todayNavBtn');
+      const icon = $('todayNavIcon');
+      const label = $('todayNavLabel');
+      if (!btn || !icon || !label) return;
+
+      const lock = getTodayLock();
+      const progress = getLockedOrSelectedProgress();
+      const completed = !!(progress?.completed || lock?.completed || state.completed);
+      const inProgress = !!(!completed && (state.questions.length || (progress?.questions && progress.questions.length)));
+
+      if (completed) {
+        icon.textContent = '✓';
+        label.textContent = 'Selesai';
+        btn.setAttribute('aria-label', 'Lihat hasil quiz hari ini');
+      } else if (inProgress) {
+        icon.textContent = '▶';
+        label.textContent = 'Lanjut';
+        btn.setAttribute('aria-label', 'Lanjutkan quiz hari ini');
+      } else {
+        icon.textContent = '▶';
+        label.textContent = 'Mulai';
+        btn.setAttribute('aria-label', 'Mulai quiz hari ini');
+      }
     }
 
     function openDrawer() {
@@ -1337,6 +1372,7 @@
       $('selectedTrackMini').classList.remove('hidden');
       $('trackLockIcon').textContent = getTodayLock() || state.questions.length ? '🔒' : '🔓';
       qsa('.track-card').forEach(card => card.classList.toggle('selected', card.dataset.track === finalTrack));
+      updateFooterState();
       sendEvent('track_selected', { track: finalTrack });
     }
 
@@ -1495,6 +1531,7 @@
           state.completed = false;
           setTodayLock(state.selectedTrack, { completed: false });
           saveProgress();
+          updateFooterState();
         }
         state.startedAt = Date.now();
         startTimer();
@@ -1702,6 +1739,7 @@
       if (score === 5) sendEvent('score_5', { track: state.selectedTrack });
 
       updateStreakUI();
+      updateFooterState();
       showResult();
     }
 
@@ -1966,6 +2004,7 @@
           $('trackLockIcon').textContent = '🔒';
         }
       }
+      updateFooterState();
 
       qsa('.track-card').forEach(card => card.addEventListener('click', () => {
         const lock = getTodayLock();
@@ -2022,14 +2061,39 @@
       });
       qsa('.nav-item').forEach(btn => btn.addEventListener('click', () => {
         const go = btn.dataset.go;
-        if (go === 'quiz') {
+        if (go === 'today') {
+          const lock = getTodayLock();
+          const lockedTrack = normalizeTrack(lock?.track);
+          if (lockedTrack) {
+            setSelectedTrack(lockedTrack, { force: true, commit: true });
+            const progress = readJSON(progressKey(todayWIB(), lockedTrack), null);
+            if (progress && progress.completed) {
+              hydrateFromProgress(progress);
+              state.lastResult = progress;
+              showResult();
+              return;
+            }
+            if (progress && Array.isArray(progress.questions) && progress.questions.length) {
+              hydrateFromProgress(progress);
+              startTimer();
+              setScreen('quiz');
+              renderQuestion();
+              return;
+            }
+          }
           if (!state.questions.length) startQuiz();
-          else setScreen('quiz');
+          else {
+            setScreen('quiz');
+            renderQuestion();
+          }
           return;
         }
         if (go === 'result') {
-          const progress = state.selectedTrack ? loadProgress() : null;
+          const lock = getTodayLock();
+          const track = normalizeTrack(lock?.track) || state.selectedTrack;
+          const progress = track ? readJSON(progressKey(todayWIB(), track), null) : null;
           if (progress && progress.completed) {
+            if (track) setSelectedTrack(track, { force: true, commit: true });
             hydrateFromProgress(progress);
             state.lastResult = progress;
             showResult();
