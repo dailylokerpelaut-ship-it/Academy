@@ -2,37 +2,45 @@
 <html lang="id">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Daily Loker Pelaut Academy — Quiz Pelaut Harian</title>
-  <meta name="description" content="Quiz edukasi harian untuk pelaut Indonesia. Latihan 5 soal setiap hari, pilih jalur Deck Officer, Engineer Officer, atau Rating." />
-  <meta name="theme-color" content="#052e63" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="theme-color" content="#071D2A" />
+  <meta name="description" content="Daily Loker Pelaut Academy - 5 soal quiz pelaut setiap hari. Siap layar, siap belajar." />
+  <title>Daily Loker Pelaut Academy</title>
+
+  <!-- GA4: jangan ubah Measurement ID tanpa diminta -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-G4YTZPWFCQ"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){ dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'G-G4YTZPWFCQ', { send_page_view: false });
+  </script>
 
   <style>
     :root {
-      --bg: #f6fbfd;
-      --surface: #ffffff;
-      --surface-soft: #f1f8fb;
-      --navy: #052e63;
-      --navy-2: #073b77;
-      --teal: #05aeb8;
-      --teal-2: #17c7c3;
-      --aqua: #e8fbfb;
-      --ink: #082448;
-      --muted: #62758d;
-      --line: #dce8f0;
-      --soft-line: #edf3f7;
-      --warm: #ff8a2a;
-      --warm-soft: #fff3e7;
-      --ok: #0aa873;
-      --ok-soft: #e7fbf4;
-      --bad: #d14335;
-      --bad-soft: #fff0ee;
-      --shadow: 0 18px 45px rgba(5, 46, 99, 0.10);
-      --shadow-soft: 0 10px 28px rgba(5, 46, 99, 0.07);
+      --navy-950: #061622;
+      --navy-900: #071D2A;
+      --navy-850: #0A2435;
+      --navy-800: #0D2C42;
+      --blue-600: #0EA5E9;
+      --blue-100: #EAF7FF;
+      --orange-500: #F59E0B;
+      --orange-600: #EA580C;
+      --green-600: #10B981;
+      --green-700: #059669;
+      --red-500: #EF4444;
+      --yellow-500: #F59E0B;
+      --ink: #0F172A;
+      --muted: #64748B;
+      --line: #E2E8F0;
+      --soft: #F8FAFC;
+      --white: #FFFFFF;
+      --shadow-soft: 0 18px 45px rgba(2, 8, 23, 0.16);
+      --shadow-card: 0 12px 28px rgba(2, 8, 23, 0.10);
       --radius-xl: 28px;
       --radius-lg: 22px;
       --radius-md: 16px;
-      --max: 980px;
+      --safe-bottom: env(safe-area-inset-bottom, 0px);
     }
 
     * { box-sizing: border-box; }
@@ -40,2787 +48,1922 @@
     body {
       margin: 0;
       min-height: 100vh;
-      font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, Arial, sans-serif;
+      font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+      background: linear-gradient(180deg, #F8FAFC 0%, #EEF6FA 100%);
       color: var(--ink);
-      background:
-        radial-gradient(circle at 12% 0%, rgba(23, 199, 195, 0.18), transparent 30rem),
-        radial-gradient(circle at 92% 18%, rgba(5, 46, 99, 0.08), transparent 22rem),
-        linear-gradient(180deg, #fbfeff 0%, var(--bg) 48%, #ffffff 100%);
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+      padding-bottom: calc(78px + var(--safe-bottom));
     }
 
-    button, input { font: inherit; }
+    button, input, select, textarea { font: inherit; }
     button { -webkit-tap-highlight-color: transparent; }
     a { color: inherit; text-decoration: none; }
-
-    .app-shell {
-      width: min(100%, var(--max));
-      margin: 0 auto;
-      padding: 0 14px 36px;
+    .hidden { display: none !important; }
+    .visually-hidden {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      border: 0;
     }
 
-    .hero-top {
-      margin: 0 -14px 18px;
-      min-height: 196px;
-      padding: 22px 18px 58px;
-      color: #fff;
+    .app {
+      width: min(100%, 480px);
+      margin: 0 auto;
+      min-height: 100vh;
+      background: #F8FAFC;
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    .top-shell {
+      position: relative;
+      color: var(--white);
       background:
-        radial-gradient(circle at 72% 18%, rgba(23, 199, 195, 0.55), transparent 21rem),
-        linear-gradient(135deg, #031b42 0%, #063a79 52%, #05aeb8 100%);
+        radial-gradient(circle at 86% 8%, rgba(14, 165, 233, 0.18), transparent 28%),
+        radial-gradient(circle at 14% 72%, rgba(245, 158, 11, 0.16), transparent 30%),
+        linear-gradient(160deg, var(--navy-950) 0%, var(--navy-900) 52%, #0A3044 100%);
+      overflow: hidden;
+      padding: 16px 16px 22px;
       border-bottom-left-radius: 34px;
       border-bottom-right-radius: 34px;
-      position: relative;
-      overflow: hidden;
-      box-shadow: 0 16px 36px rgba(5, 46, 99, 0.18);
-    }
-
-    .hero-top::before,
-    .hero-top::after {
-      content: "";
-      position: absolute;
-      pointer-events: none;
-      opacity: 0.4;
-      background-repeat: no-repeat;
-      background-size: contain;
-    }
-
-    .hero-top::before {
-      width: 210px;
-      height: 92px;
-      right: 14px;
-      bottom: 22px;
-      background-image: url("data:image/svg+xml,%3Csvg width='260' height='100' viewBox='0 0 260 100' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M42 64c20 0 20-10 40-10s20 10 40 10 20-10 40-10 20 10 40 10' stroke='%23BFF9F8' stroke-width='3' stroke-linecap='round'/%3E%3Cpath d='M80 48h90l-18 24H98L80 48Z' stroke='%23BFF9F8' stroke-width='3' stroke-linejoin='round'/%3E%3Cpath d='M112 48V24h34v24M123 24V10M103 38h54M126 36h8M144 36h8M107 58h10M126 58h10M145 58h10' stroke='%23BFF9F8' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'/%3E%3Cpath d='M6 82c20 0 20-10 40-10s20 10 40 10 20-10 40-10 20 10 40 10 20-10 40-10 20 10 40 10' stroke='%23BFF9F8' stroke-width='2' stroke-linecap='round' opacity='.7'/%3E%3C/svg%3E");
-    }
-
-    .hero-top::after {
-      width: 100%;
-      height: 78px;
-      left: 0;
-      bottom: -1px;
-      background-image: url("data:image/svg+xml,%3Csvg width='900' height='90' viewBox='0 0 900 90' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 38C112 76 203 14 319 45C447 80 540 25 666 45C760 60 825 45 900 20V90H0V38Z' fill='white'/%3E%3C/svg%3E");
-      background-size: 100% 100%;
-      opacity: 1;
-    }
-
-    .brand-row {
-      position: relative;
-      z-index: 2;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 14px;
-    }
-
-    .brand {
-      display: inline-flex;
-      align-items: center;
-      gap: 12px;
-      line-height: 1.05;
-      font-weight: 900;
-      letter-spacing: -0.035em;
-    }
-
-    .brand-mark {
-      width: 48px;
-      height: 48px;
-      flex: 0 0 auto;
-      display: grid;
-      place-items: center;
-      border: 2px solid rgba(255,255,255,0.78);
-      border-radius: 999px;
-      background: rgba(255,255,255,0.11);
-      box-shadow: inset 0 0 0 1px rgba(255,255,255,0.15);
-    }
-
-    .brand-main { display: block; font-size: 1.02rem; }
-    .brand-accent { display: block; margin-top: 2px; color: #5bf1ec; font-size: 1.08rem; }
-
-    .hamburger {
-      width: 44px;
-      height: 44px;
-      display: grid;
-      place-items: center;
-      border: 1px solid rgba(255,255,255,0.24);
-      border-radius: 16px;
-      background: rgba(255,255,255,0.08);
-      color: #fff;
-    }
-
-
-
-    .nav-wrap {
-      position: relative;
-      z-index: 20;
-      flex: 0 0 auto;
-    }
-
-    .top-menu {
-      position: absolute;
-      top: 54px;
-      right: 0;
-      width: min(310px, calc(100vw - 32px));
-      display: none;
-      flex-direction: column;
-      gap: 8px;
-      padding: 10px;
-      border: 1px solid rgba(5, 46, 99, 0.10);
-      border-radius: 20px;
-      background: rgba(255, 255, 255, 0.98);
-      color: var(--ink);
-      box-shadow: 0 22px 50px rgba(5, 46, 99, 0.22);
-      backdrop-filter: blur(12px);
-    }
-
-    .top-menu.open {
-      display: flex;
-      animation: menuPop 150ms ease-out;
-    }
-
-    .top-menu::before {
-      content: "";
-      position: absolute;
-      top: -8px;
-      right: 16px;
-      width: 16px;
-      height: 16px;
-      background: rgba(255, 255, 255, 0.98);
-      border-left: 1px solid rgba(5, 46, 99, 0.08);
-      border-top: 1px solid rgba(5, 46, 99, 0.08);
-      transform: rotate(45deg);
-    }
-
-    .top-menu a,
-    .top-menu button {
-      width: 100%;
-      display: grid;
-      grid-template-columns: 34px 1fr;
-      align-items: center;
-      gap: 10px;
-      padding: 12px;
-      border: 0;
-      border-radius: 15px;
-      background: transparent;
-      color: var(--ink);
-      text-align: left;
-      cursor: pointer;
-    }
-
-    .top-menu a:hover,
-    .top-menu button:hover {
-      background: var(--surface-soft);
-    }
-
-    .top-menu a > span:first-child,
-    .top-menu button > span:first-child {
-      width: 34px;
-      height: 34px;
-      display: grid;
-      place-items: center;
-      border-radius: 12px;
-      background: var(--aqua);
-      font-size: 1rem;
-    }
-
-    .top-menu a > span:last-child,
-    .top-menu button > span:last-child {
-      display: block;
-      min-width: 0;
-      font-size: 0.92rem;
-      font-weight: 900;
-      line-height: 1.18;
-    }
-
-    .top-menu small {
-      display: block;
-      margin-top: 3px;
-      color: var(--muted);
-      font-size: 0.72rem;
-      font-weight: 700;
-      line-height: 1.25;
-      white-space: normal;
-    }
-
-    @keyframes menuPop {
-      from { opacity: 0; transform: translateY(-6px) scale(0.98); }
-      to { opacity: 1; transform: translateY(0) scale(1); }
-    }
-
-    .hero-copy {
-      position: relative;
-      z-index: 2;
-      max-width: 560px;
-      margin-top: 30px;
-    }
-
-    .hero-kicker {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 7px 11px;
-      border: 1px solid rgba(255,255,255,0.2);
-      border-radius: 999px;
-      background: rgba(255,255,255,0.09);
-      color: #d7ffff;
-      font-size: 0.78rem;
-      font-weight: 800;
-    }
-
-    .hero-title {
-      margin: 13px 0 0;
-      max-width: 560px;
-      font-size: clamp(1.8rem, 8vw, 3.35rem);
-      line-height: 0.98;
-      letter-spacing: -0.07em;
-    }
-
-    .hero-text {
-      margin: 14px 0 0;
-      max-width: 540px;
-      color: rgba(255,255,255,0.82);
-      line-height: 1.62;
-      font-size: 0.98rem;
-    }
-
-    .panel {
-      border: 1px solid rgba(5, 46, 99, 0.08);
-      border-radius: var(--radius-xl);
-      background: rgba(255,255,255,0.92);
       box-shadow: var(--shadow-soft);
     }
 
-    .section {
-      padding: 20px;
-      margin-top: 16px;
-    }
-
-    .section-title {
-      margin: 0;
-      color: var(--ink);
-      font-size: 1.55rem;
-      line-height: 1.12;
-      letter-spacing: -0.055em;
-    }
-
-    .section-title::after {
+    .top-shell::before {
       content: "";
-      display: block;
-      width: 42px;
-      height: 4px;
-      margin-top: 10px;
-      border-radius: 999px;
-      background: linear-gradient(90deg, var(--teal), var(--teal-2));
+      position: absolute;
+      inset: 0;
+      opacity: 0.14;
+      background-image:
+        linear-gradient(30deg, transparent 48%, rgba(255,255,255,0.22) 49%, transparent 51%),
+        radial-gradient(circle at 25% 25%, transparent 0 54px, rgba(255,255,255,0.14) 55px, transparent 56px),
+        radial-gradient(circle at 76% 70%, transparent 0 70px, rgba(255,255,255,0.10) 71px, transparent 72px);
+      background-size: 120px 120px, 180px 180px, 220px 220px;
+      pointer-events: none;
     }
 
-    .section-copy {
-      margin: 14px 0 0;
-      color: var(--muted);
-      line-height: 1.65;
+    .top-shell::after {
+      content: "";
+      position: absolute;
+      right: -64px;
+      bottom: -86px;
+      width: 210px;
+      height: 210px;
+      border-radius: 50%;
+      border: 1px solid rgba(255,255,255,0.16);
+      box-shadow: 0 0 0 28px rgba(255,255,255,0.03), 0 0 0 56px rgba(255,255,255,0.02);
+      pointer-events: none;
     }
 
-    .track-list {
-      display: grid;
+    .topbar, .hero, .streak-card, .selected-track-mini { position: relative; z-index: 1; }
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
       gap: 12px;
+      margin-bottom: 26px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      min-width: 0;
+    }
+
+    .brand-mark {
+      width: 42px;
+      height: 42px;
+      border-radius: 16px;
+      display: grid;
+      place-items: center;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.18);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.12);
+      font-size: 24px;
+      flex: 0 0 auto;
+    }
+
+    .brand-text { line-height: 1.02; min-width: 0; }
+    .brand-text strong {
+      display: block;
+      letter-spacing: .02em;
+      font-size: 12px;
+      font-weight: 900;
+      text-transform: uppercase;
+    }
+    .brand-text span {
+      display: block;
+      color: var(--orange-500);
+      font-size: 14px;
+      font-weight: 950;
+      text-transform: uppercase;
+      letter-spacing: .03em;
+    }
+
+    .menu-btn {
+      width: 44px;
+      height: 44px;
+      border: 0;
+      border-radius: 16px;
+      color: var(--white);
+      background: rgba(255,255,255,0.08);
+      display: grid;
+      place-items: center;
+      cursor: pointer;
+      border: 1px solid rgba(255,255,255,0.16);
+      flex: 0 0 auto;
+    }
+    .hamb { width: 20px; height: 14px; position: relative; display: inline-block; }
+    .hamb::before, .hamb::after, .hamb span {
+      content: "";
+      position: absolute;
+      right: 0;
+      height: 2px;
+      border-radius: 999px;
+      background: white;
+    }
+    .hamb::before { top: 0; width: 20px; }
+    .hamb span { top: 6px; width: 15px; }
+    .hamb::after { bottom: 0; width: 20px; }
+
+    .hero h1 {
+      margin: 0;
+      font-size: clamp(34px, 11vw, 52px);
+      line-height: 0.98;
+      letter-spacing: -0.065em;
+      font-weight: 950;
+    }
+    .hero h1 .accent { color: var(--orange-500); display: block; }
+    .hero p {
+      margin: 14px 0 0;
+      color: rgba(255,255,255,0.84);
+      font-size: 15px;
+      line-height: 1.55;
+      max-width: 310px;
+    }
+
+    .hero-actions {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 10px;
       margin-top: 18px;
     }
 
-    .track-card {
-      width: 100%;
-      min-height: 96px;
-      display: grid;
-      grid-template-columns: 62px 1fr 34px;
-      align-items: center;
-      gap: 14px;
-      padding: 14px;
-      border: 1px solid var(--line);
-      border-radius: 22px;
-      background: #fff;
-      box-shadow: 0 8px 24px rgba(5, 46, 99, 0.04);
-      color: var(--ink);
-      cursor: pointer;
-      text-align: left;
-      transition: transform 0.18s ease, border-color 0.18s ease, background 0.18s ease, box-shadow 0.18s ease;
-    }
-
-    .track-card:hover {
-      transform: translateY(-1px);
-      border-color: rgba(5, 174, 184, 0.38);
-      box-shadow: 0 13px 30px rgba(5, 46, 99, 0.08);
-    }
-
-    .track-card.active {
-      border-color: rgba(5, 174, 184, 0.85);
-      background: linear-gradient(180deg, #ffffff, #effefe);
-      box-shadow: 0 16px 32px rgba(5, 174, 184, 0.13);
-    }
-
-    .track-icon {
-      width: 58px;
-      height: 58px;
-      display: grid;
-      place-items: center;
-      border-radius: 50%;
-      background: linear-gradient(180deg, #effbff, #e8fbfb);
-      color: var(--teal);
-    }
-
-    .track-name {
-      display: block;
-      font-size: 1.05rem;
-      font-weight: 900;
-      letter-spacing: -0.035em;
-    }
-
-    .track-desc {
-      display: block;
-      margin-top: 5px;
-      color: var(--muted);
-      font-size: 0.87rem;
-      line-height: 1.45;
-    }
-
-    .radio-indicator {
-      width: 28px;
-      height: 28px;
-      display: grid;
-      place-items: center;
-      border: 2px solid #bdd0dd;
-      border-radius: 50%;
-      color: #fff;
-      font-weight: 900;
-    }
-
-    .track-card.active .radio-indicator {
-      border-color: var(--teal);
-      background: linear-gradient(135deg, var(--teal), var(--teal-2));
-    }
-
-    .notice {
-      display: flex;
-      gap: 12px;
-      align-items: center;
-      margin-top: 14px;
-      padding: 13px 14px;
-      border: 1px solid var(--line);
-      border-radius: 18px;
-      background: linear-gradient(180deg, #fff, #f7fcfe);
-      color: var(--muted);
-      line-height: 1.45;
-      font-size: 0.9rem;
-    }
-
-    .notice-icon {
-      width: 38px;
-      height: 38px;
-      display: grid;
-      place-items: center;
-      flex: 0 0 auto;
-      border-radius: 16px;
-      background: #e9fbfb;
-      color: var(--teal);
-    }
-
-    .btn-row { display: grid; gap: 10px; margin-top: 18px; }
-
     .btn {
-      width: 100%;
-      min-height: 56px;
+      border: 0;
+      border-radius: 18px;
+      padding: 14px 16px;
+      font-weight: 850;
+      cursor: pointer;
       display: inline-flex;
       align-items: center;
       justify-content: center;
       gap: 10px;
-      border: 0;
-      border-radius: 18px;
-      cursor: pointer;
-      font-weight: 900;
-      letter-spacing: -0.025em;
-      transition: transform 0.18s ease, box-shadow 0.18s ease, opacity 0.18s ease;
-    }
-
-    .btn:hover:not(:disabled) { transform: translateY(-1px); }
-    .btn:disabled { cursor: not-allowed; opacity: 0.62; }
-
-    .btn-primary {
-      color: #fff;
-      background: linear-gradient(135deg, var(--navy) 0%, #063d84 45%, var(--teal) 100%);
-      box-shadow: 0 14px 28px rgba(5, 46, 99, 0.22);
-    }
-
-    .btn-secondary {
-      color: var(--navy);
-      background: #fff;
-      border: 1px solid var(--line);
-      box-shadow: 0 8px 18px rgba(5, 46, 99, 0.04);
-    }
-
-    .btn-teal {
-      color: #fff;
-      background: linear-gradient(135deg, #079da9, var(--teal-2));
-      box-shadow: 0 14px 24px rgba(5, 174, 184, 0.24);
-    }
-
-    .hidden { display: none !important; }
-
-    .compact-track {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 12px;
-      padding: 12px;
-      margin-top: -34px;
-      position: relative;
-      z-index: 5;
-    }
-
-    .compact-left {
-      display: flex;
-      align-items: center;
-      min-width: 0;
-      gap: 10px;
-      font-weight: 900;
-      color: var(--ink);
-    }
-
-    .compact-icon {
-      width: 42px;
-      height: 42px;
-      display: grid;
-      place-items: center;
-      border-radius: 50%;
-      color: var(--teal);
-      background: #e8fbfb;
-      flex: 0 0 auto;
-    }
-
-    .compact-meta {
-      display: grid;
-      line-height: 1.25;
-    }
-
-    .compact-meta small {
-      color: var(--muted);
-      font-size: 0.73rem;
-      font-weight: 800;
-    }
-
-    .link-btn {
-      border: 0;
-      background: transparent;
-      padding: 8px;
-      color: var(--teal);
-      cursor: pointer;
-      font-weight: 900;
-      white-space: nowrap;
-    }
-
-    .link-btn:disabled { color: #97a9b7; cursor: not-allowed; }
-
-    .dashboard-grid {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 12px;
-      margin-top: 18px;
-    }
-
-    .dash-card {
-      padding: 16px;
-      border: 1px solid var(--line);
-      border-radius: 22px;
-      background: #fff;
-      box-shadow: 0 8px 20px rgba(5, 46, 99, 0.04);
-    }
-
-    .dash-label {
-      display: flex;
-      align-items: center;
-      gap: 7px;
-      color: var(--muted);
-      font-size: 0.82rem;
-      font-weight: 850;
-    }
-
-    .dash-value {
-      margin: 8px 0 0;
-      color: var(--navy);
-      font-size: 1.5rem;
-      line-height: 1;
-      font-weight: 950;
-      letter-spacing: -0.055em;
-    }
-
-    .dash-note {
-      margin: 6px 0 0;
-      color: var(--muted);
-      font-size: 0.78rem;
-      line-height: 1.35;
-    }
-
-    .activity-wrap { margin-top: 18px; }
-    .small-head {
-      display: flex;
-      justify-content: space-between;
-      gap: 12px;
-      margin: 0 0 10px;
-      font-size: 0.94rem;
-      font-weight: 900;
-      letter-spacing: -0.025em;
-    }
-
-    .activity-strip {
-      display: grid;
-      grid-template-columns: repeat(7, 1fr);
-      gap: 7px;
-      align-items: center;
-    }
-
-    .day-item {
       min-height: 52px;
-      display: grid;
-      place-items: center;
-      gap: 4px;
+      transition: transform .16s ease, box-shadow .16s ease, opacity .16s ease, background .16s ease;
+      user-select: none;
+    }
+    .btn:active { transform: scale(.985); }
+    .btn-primary {
+      color: white;
+      background: linear-gradient(135deg, var(--orange-600), var(--orange-500));
+      box-shadow: 0 14px 28px rgba(234, 88, 12, .32);
+    }
+    .btn-blue {
+      color: white;
+      background: linear-gradient(135deg, #0369A1, var(--blue-600));
+      box-shadow: 0 14px 28px rgba(14, 165, 233, .24);
+    }
+    .btn-green {
+      color: white;
+      background: linear-gradient(135deg, var(--green-700), var(--green-600));
+      box-shadow: 0 14px 28px rgba(16, 185, 129, .24);
+    }
+    .btn-dark {
+      color: white;
+      background: linear-gradient(135deg, var(--navy-900), var(--navy-800));
+      box-shadow: 0 14px 28px rgba(7, 29, 42, .22);
+    }
+    .btn-outline {
+      color: var(--navy-900);
+      background: white;
       border: 1px solid var(--line);
-      border-radius: 16px;
-      background: #fff;
-      color: var(--muted);
-      font-size: 0.68rem;
-      font-weight: 850;
+    }
+    .btn-ghost {
+      color: rgba(255,255,255,.95);
+      background: rgba(255,255,255,.10);
+      border: 1px solid rgba(255,255,255,.18);
+    }
+    .btn[disabled] { cursor: not-allowed; opacity: .62; box-shadow: none; }
+    .btn .circle {
+      width: 30px;
+      height: 30px;
+      border-radius: 999px;
+      background: rgba(255,255,255,.22);
+      display: inline-grid;
+      place-items: center;
+      margin-left: auto;
     }
 
-    .day-symbol {
-      width: 22px;
-      height: 22px;
+    .selected-track-mini {
+      margin-top: 18px;
+      padding: 14px 14px;
+      border-radius: 20px;
+      background: linear-gradient(135deg, rgba(16,185,129,.95), rgba(5,150,105,.86));
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      box-shadow: 0 14px 34px rgba(16, 185, 129, .22);
+    }
+    .selected-track-mini small { display: block; color: rgba(255,255,255,.78); font-weight: 750; margin-bottom: 3px; }
+    .selected-track-mini strong { display: block; font-size: 18px; }
+    .selected-track-mini .lock {
+      width: 36px;
+      height: 36px;
+      border-radius: 14px;
       display: grid;
       place-items: center;
-      border-radius: 50%;
-      border: 2px solid #bcd0dc;
-      color: transparent;
-      font-size: 0.77rem;
+      border: 1px solid rgba(255,255,255,.24);
+      background: rgba(255,255,255,.13);
     }
 
-    .day-item.done .day-symbol {
-      border-color: var(--teal);
-      background: linear-gradient(135deg, var(--teal), var(--teal-2));
-      color: #fff;
+    .streak-card {
+      margin-top: 16px;
+      background: rgba(255,255,255,0.12);
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 22px;
+      padding: 16px;
+      backdrop-filter: blur(12px);
     }
-
-    .day-item.today {
-      border-color: rgba(5, 174, 184, 0.45);
-      background: #f7ffff;
-    }
-
-    .progress-line {
-      height: 9px;
+    .streak-title { color: rgba(255,255,255,.86); font-size: 13px; font-weight: 800; display: flex; gap: 6px; align-items: center; }
+    .streak-number { margin: 4px 0 10px; font-size: 23px; font-weight: 950; letter-spacing: -.03em; }
+    .days-strip { display: grid; grid-template-columns: repeat(7, 1fr); gap: 7px; margin: 10px 0 12px; }
+    .day-dot { text-align: center; color: rgba(255,255,255,.72); font-size: 10px; font-weight: 800; }
+    .dot {
+      width: 24px;
+      height: 24px;
       border-radius: 999px;
-      background: #e6eef4;
+      margin: 5px auto 0;
+      display: grid;
+      place-items: center;
+      color: white;
+      font-size: 13px;
+      background: rgba(255,255,255,.18);
+    }
+    .dot.done { background: var(--green-600); }
+    .streak-note { color: rgba(255,255,255,.76); margin: 0; font-size: 12.5px; line-height: 1.45; }
+
+    .content {
+      padding: 18px 16px 0;
+    }
+
+    .section-title {
+      margin: 0 0 10px;
+      font-size: 22px;
+      line-height: 1.1;
+      letter-spacing: -.04em;
+      font-weight: 950;
+    }
+    .section-subtitle { margin: 0 0 16px; color: var(--muted); line-height: 1.52; font-size: 14px; }
+
+    .card {
+      background: white;
+      border: 1px solid rgba(226,232,240,.88);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-card);
+    }
+
+    .track-grid { display: grid; gap: 12px; }
+    .track-card {
+      position: relative;
+      border: 0;
+      width: 100%;
+      padding: 16px;
+      border-radius: 22px;
+      color: white;
+      text-align: left;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      cursor: pointer;
       overflow: hidden;
+      min-height: 92px;
+      box-shadow: 0 16px 30px rgba(15,23,42,.18);
     }
-
-    .progress-fill {
-      width: 0%;
-      height: 100%;
-      border-radius: inherit;
-      background: linear-gradient(90deg, var(--teal), #063d84);
-      transition: width 0.28s ease;
+    .track-card::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at 85% 25%, rgba(255,255,255,.20), transparent 28%);
+      pointer-events: none;
     }
+    .track-card[data-track="Deck Officer"] { background: linear-gradient(135deg, #0A2B4C, #124B78); }
+    .track-card[data-track="Engineer Officer"] { background: linear-gradient(135deg, #0E5132, #168452); }
+    .track-card[data-track="Rating"] { background: linear-gradient(135deg, #74420D, #A16207); }
+    .track-icon {
+      width: 52px;
+      height: 52px;
+      border-radius: 18px;
+      background: rgba(255,255,255,.14);
+      display: grid;
+      place-items: center;
+      font-size: 27px;
+      flex: 0 0 auto;
+      border: 1px solid rgba(255,255,255,.18);
+    }
+    .track-card strong { display: block; font-size: 17px; font-weight: 950; margin-bottom: 5px; }
+    .track-card span { display: block; color: rgba(255,255,255,.80); font-size: 12px; line-height: 1.35; font-weight: 700; }
+    .track-card.selected { outline: 3px solid rgba(14,165,233,.35); transform: translateY(-1px); }
 
-    .quiz-card { overflow: hidden; padding: 0; }
-    .quiz-head {
+    .hint-card {
+      margin-top: 14px;
+      padding: 14px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: #EFF6FF;
+      color: #0F3A57;
+      border: 1px solid #DBEAFE;
+      border-radius: 18px;
+      font-size: 13px;
+      line-height: 1.45;
+      font-weight: 650;
+    }
+    .hint-card .hint-icon { width: 36px; height: 36px; border-radius: 13px; display: grid; place-items: center; background: white; flex: 0 0 auto; }
+
+    .daily-card {
+      margin-top: 18px;
       padding: 18px;
-      border-bottom: 1px solid var(--soft-line);
-      background: linear-gradient(180deg, #ffffff, #f8fcfe);
+      text-align: center;
+      background: linear-gradient(180deg, #FFFFFF, #FFF7ED);
     }
+    .daily-card .coffee { font-size: 34px; margin-bottom: 4px; }
+    .daily-card p { margin: 0 0 14px; color: var(--ink); font-weight: 850; line-height: 1.45; }
 
-    .quiz-meta-line {
+    .screen { display: none; }
+    .screen.active { display: block; }
+
+    .quiz-wrap { padding: 16px; }
+    .quiz-top {
       display: flex;
       align-items: center;
       justify-content: space-between;
       gap: 10px;
-      margin-bottom: 12px;
-      color: var(--muted);
-      font-size: 0.88rem;
-      font-weight: 850;
+      margin-bottom: 14px;
     }
-
-    .pill {
+    .quiz-back {
+      width: 40px;
+      height: 40px;
+      border: 0;
+      border-radius: 14px;
+      background: #F1F5F9;
+      color: var(--navy-900);
+      display: grid;
+      place-items: center;
+      cursor: pointer;
+    }
+    .quiz-count { font-weight: 900; font-size: 14px; color: var(--navy-900); }
+    .timer-pill { font-size: 13px; font-weight: 850; color: var(--muted); }
+    .progress-track {
+      height: 8px;
+      background: #E2E8F0;
+      border-radius: 999px;
+      overflow: hidden;
+      margin-bottom: 18px;
+    }
+    .progress-fill {
+      height: 100%;
+      width: 0;
+      background: linear-gradient(90deg, var(--blue-600), var(--green-600));
+      border-radius: inherit;
+      transition: width .32s ease;
+    }
+    .question-card { padding: 18px; box-shadow: none; border-radius: 24px; }
+    .chips { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 16px; }
+    .chip {
       display: inline-flex;
       align-items: center;
-      gap: 7px;
-      padding: 7px 10px;
-      border: 1px solid var(--line);
+      gap: 6px;
       border-radius: 999px;
-      background: #fff;
-      color: var(--navy);
-      font-size: 0.8rem;
-      font-weight: 850;
-      white-space: nowrap;
-    }
-
-    .quiz-body { padding: 20px; }
-
-    .question-card {
-      padding: 18px;
-      border: 1px solid var(--line);
-      border-radius: 24px;
-      background: #fff;
-      box-shadow: 0 8px 22px rgba(5, 46, 99, 0.04);
-    }
-
-    .question-label {
-      margin: 0 0 10px;
-      color: var(--teal);
-      font-size: 0.78rem;
-      font-weight: 950;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-    }
-
-    .question-text {
-      margin: 0;
-      color: var(--ink);
-      font-size: clamp(1.17rem, 5vw, 1.65rem);
-      line-height: 1.35;
-      letter-spacing: -0.045em;
+      padding: 7px 10px;
+      background: #F1F5F9;
+      color: #334155;
+      font-size: 11px;
       font-weight: 900;
     }
-
-    .options { display: grid; gap: 10px; margin-top: 16px; }
-
+    .chip.easy { color: #047857; background: #ECFDF5; }
+    .chip.medium { color: #B45309; background: #FFF7ED; }
+    .chip.hard { color: #BE123C; background: #FFF1F2; }
+    .question-text {
+      margin: 0 0 18px;
+      font-size: 18px;
+      line-height: 1.48;
+      letter-spacing: -.02em;
+      font-weight: 850;
+    }
+    .options { display: grid; gap: 10px; }
     .option-btn {
       width: 100%;
-      min-height: 58px;
+      border: 1px solid #DCE6EF;
+      background: #FFFFFF;
+      border-radius: 16px;
+      padding: 12px 13px;
       display: grid;
-      grid-template-columns: 38px 1fr 24px;
+      grid-template-columns: 34px 1fr auto;
       align-items: center;
-      gap: 10px;
-      border: 1px solid var(--line);
-      border-radius: 17px;
-      background: #fff;
+      gap: 12px;
+      text-align: left;
       color: var(--ink);
       cursor: pointer;
-      padding: 10px 12px;
-      text-align: left;
-      transition: border-color 0.15s ease, background 0.15s ease, transform 0.15s ease;
+      min-height: 62px;
+      transition: border-color .16s ease, background .16s ease, transform .16s ease, box-shadow .16s ease;
     }
-
-    .option-btn:hover:not(:disabled) {
-      transform: translateY(-1px);
-      border-color: rgba(5,174,184,0.42);
-      background: #fbffff;
-    }
-
-    .option-btn:disabled { cursor: not-allowed; opacity: 0.98; }
-
+    .option-btn:active { transform: scale(.99); }
     .option-letter {
       width: 34px;
       height: 34px;
+      border-radius: 999px;
       display: grid;
       place-items: center;
-      border-radius: 50%;
-      color: var(--navy);
-      background: #edf6fb;
+      background: #F1F5F9;
+      color: #334155;
       font-weight: 950;
-      font-size: 0.9rem;
+      font-size: 13px;
     }
+    .option-text { font-size: 14px; line-height: 1.38; font-weight: 700; }
+    .option-btn.selected { border-color: var(--blue-600); box-shadow: 0 10px 22px rgba(14,165,233,.12); }
+    .option-btn.correct { background: linear-gradient(135deg, var(--green-700), var(--green-600)); color: white; border-color: transparent; }
+    .option-btn.correct .option-letter { background: rgba(255,255,255,.18); color: white; }
+    .option-btn.wrong { background: #FFF1F2; border-color: #FECACA; color: #881337; }
+    .option-btn.wrong .option-letter { background: #FFE4E6; color: #BE123C; }
+    .option-btn[disabled] { cursor: not-allowed; }
+    .option-status { font-size: 18px; font-weight: 950; min-width: 20px; text-align: right; }
 
-    .option-text { line-height: 1.4; font-weight: 700; color: #203b5d; }
-    .option-state { color: transparent; font-weight: 950; }
-
-    .option-btn.selected {
-      border-color: rgba(5, 174, 184, 0.75);
-      background: #effefe;
-    }
-
-    .option-btn.selected .option-letter {
-      color: #fff;
-      background: linear-gradient(135deg, var(--teal), var(--teal-2));
-    }
-
-    .option-btn.correct {
-      border-color: rgba(10, 168, 115, 0.48);
-      background: var(--ok-soft);
-    }
-
-    .option-btn.correct .option-letter { background: var(--ok); color: #fff; }
-    .option-btn.correct .option-state { color: var(--ok); }
-
-    .option-btn.wrong {
-      border-color: rgba(209, 67, 53, 0.38);
-      background: var(--bad-soft);
-    }
-
-    .option-btn.wrong .option-letter { background: var(--bad); color: #fff; }
-    .option-btn.wrong .option-state { color: var(--bad); }
-
-    .feedback {
+    .explanation-card {
       margin-top: 14px;
       padding: 14px;
-      border: 1px solid var(--line);
       border-radius: 18px;
-      background: #fff;
+      background: #F0FDF4;
+      border: 1px solid #BBF7D0;
+      color: #14532D;
     }
+    .explanation-card.wrong { background: #FFF7ED; border-color: #FED7AA; color: #7C2D12; }
+    .explanation-card strong { display: block; margin-bottom: 5px; font-size: 13px; }
+    .explanation-card p { margin: 0; font-size: 13px; line-height: 1.55; font-weight: 650; }
+    .quiz-actions { margin-top: 16px; display: grid; gap: 10px; }
 
-    .feedback.correct { border-color: rgba(10,168,115,0.32); background: var(--ok-soft); }
-    .feedback.wrong { border-color: rgba(209,67,53,0.25); background: var(--bad-soft); }
-
-    .feedback h3 {
-      margin: 0 0 8px;
-      font-size: 1rem;
-      letter-spacing: -0.025em;
-    }
-
-    .feedback p {
-      margin: 0;
-      color: #435970;
-      line-height: 1.65;
-      font-size: 0.94rem;
-    }
-
-    .source-note {
-      margin-top: 10px;
-      color: var(--muted);
-      font-size: 0.82rem;
-      line-height: 1.45;
-    }
-
-    .quiz-actions {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 10px;
-      margin-top: 16px;
-    }
-
-    .category-chips {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      margin-top: 14px;
-    }
-
-    .result-card {
-      padding: 22px 18px;
+    .loading-card, .error-card {
+      padding: 22px;
       text-align: center;
-      overflow: hidden;
-      position: relative;
-    }
-
-    .result-card::before {
-      content: "✦  ✦  ✦";
-      position: absolute;
-      top: 32px;
-      left: 16px;
-      color: rgba(5, 174, 184, 0.28);
-      font-size: 1.2rem;
-      letter-spacing: 8px;
-    }
-
-    .score-ring {
-      width: 190px;
-      height: 190px;
-      display: grid;
-      place-items: center;
-      margin: 18px auto 14px;
-      border-radius: 50%;
-      background: conic-gradient(var(--teal) var(--score-deg, 0deg), #e5eef4 0deg);
-      box-shadow: 0 18px 34px rgba(5, 174, 184, 0.14);
-      position: relative;
-    }
-
-    .score-ring::after {
-      content: "";
-      position: absolute;
-      inset: 14px;
-      border-radius: 50%;
-      background: #fff;
-      box-shadow: inset 0 0 0 1px var(--soft-line);
-    }
-
-    .score-inner {
-      position: relative;
-      z-index: 1;
-      display: grid;
-      gap: 4px;
-      color: var(--navy);
-    }
-
-    .score-main {
-      font-size: 3.8rem;
-      line-height: 1;
-      font-weight: 950;
-      letter-spacing: -0.08em;
-    }
-
-    .score-percent {
-      color: var(--teal);
-      font-size: 1.25rem;
-      font-weight: 950;
-    }
-
-    .result-title {
-      margin: 0;
-      color: var(--navy);
-      font-size: 1.7rem;
-      line-height: 1.1;
-      font-weight: 950;
-      letter-spacing: -0.055em;
-    }
-
-    .result-copy {
-      margin: 10px auto 0;
-      max-width: 420px;
-      color: var(--muted);
-      line-height: 1.55;
-    }
-
-    .explanation-list { display: grid; gap: 10px; margin-top: 14px; }
-
-    .explanation-item {
-      display: grid;
-      grid-template-columns: 34px 1fr;
-      gap: 10px;
-      align-items: start;
-      padding: 13px;
-      border: 1px solid var(--line);
-      border-radius: 18px;
-      background: #fff;
-    }
-
-    .explanation-num {
-      width: 30px;
-      height: 30px;
-      display: grid;
-      place-items: center;
-      border-radius: 50%;
-      color: #fff;
-      background: linear-gradient(135deg, var(--teal), var(--teal-2));
-      font-weight: 950;
-      font-size: 0.86rem;
-    }
-
-    .explanation-item strong { display: block; margin-bottom: 4px; color: var(--ink); }
-    .explanation-item p { margin: 0; color: var(--muted); line-height: 1.55; font-size: 0.9rem; }
-
-    .share-status-card {
       margin-top: 16px;
-      border: 1px solid rgba(5, 46, 99, 0.08);
-      border-radius: 26px;
-      background: #fff;
-      overflow: hidden;
-      box-shadow: var(--shadow-soft);
-      text-align: left;
     }
+    .spinner {
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      border: 4px solid #DBEAFE;
+      border-top-color: var(--blue-600);
+      animation: spin .8s linear infinite;
+      margin: 0 auto 12px;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .loading-card h3, .error-card h3 { margin: 0 0 6px; }
+    .loading-card p, .error-card p { margin: 0; color: var(--muted); line-height: 1.5; }
 
-    .share-status-top {
-      padding: 18px;
-      color: #fff;
+    .result-shell {
+      position: relative;
+      color: white;
       background:
-        radial-gradient(circle at 84% 20%, rgba(23,199,195,0.6), transparent 13rem),
-        linear-gradient(135deg, #031b42, #063d84 56%, var(--teal));
-      position: relative;
+        radial-gradient(circle at 50% 22%, rgba(14,165,233,.24), transparent 22%),
+        radial-gradient(circle at 10% 42%, rgba(16,185,129,.14), transparent 22%),
+        linear-gradient(160deg, var(--navy-950), var(--navy-900) 58%, #0A3044);
+      border-bottom-left-radius: 34px;
+      border-bottom-right-radius: 34px;
+      padding: 16px 16px 22px;
       overflow: hidden;
+      min-height: 520px;
     }
-
-    .share-status-top::after {
+    .result-shell::before {
       content: "";
       position: absolute;
-      right: 12px;
-      bottom: 7px;
-      width: 132px;
-      height: 52px;
-      opacity: 0.38;
-      background-repeat: no-repeat;
-      background-size: contain;
-      background-image: url("data:image/svg+xml,%3Csvg width='180' height='70' viewBox='0 0 180 70' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M34 42h78L97 60H49L34 42Z' stroke='%23BFF9F8' stroke-width='3' stroke-linejoin='round'/%3E%3Cpath d='M64 42V20h28v22M73 20V9M56 33h45M73 31h8M88 31h8' stroke='%23BFF9F8' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'/%3E%3Cpath d='M0 62c16 0 16-8 32-8s16 8 32 8 16-8 32-8 16 8 32 8 16-8 32-8' stroke='%23BFF9F8' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E");
+      inset: 0;
+      opacity: .12;
+      background-image: radial-gradient(circle at 50% 50%, transparent 0 64px, rgba(255,255,255,.2) 65px, transparent 66px), linear-gradient(45deg, transparent 48%, rgba(255,255,255,.16) 49%, transparent 51%);
+      background-size: 190px 190px, 140px 140px;
     }
-
-    .share-brand {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      position: relative;
-      z-index: 1;
+    .confetti {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      overflow: hidden;
+      opacity: .9;
+    }
+    .confetti i {
+      position: absolute;
+      width: 8px;
+      height: 12px;
+      border-radius: 2px;
+      background: var(--orange-500);
+      transform: rotate(20deg);
+    }
+    .result-content { position: relative; z-index: 1; text-align: center; padding-top: 20px; }
+    .result-headline {
+      margin: 0 0 18px;
+      font-size: 30px;
+      line-height: 1.05;
+      letter-spacing: -.04em;
       font-weight: 950;
-      letter-spacing: -0.03em;
-      line-height: 1.1;
     }
-
-    .share-brand span:last-child { color: #5bf1ec; display: block; }
-
-    .share-status-body {
-      display: grid;
-      grid-template-columns: 110px 1fr;
-      gap: 14px;
-      align-items: center;
-      padding: 18px;
-    }
-
-    .share-mini-score {
-      width: 108px;
-      height: 108px;
+    .score-ring {
+      width: 178px;
+      height: 178px;
+      border-radius: 50%;
+      margin: 0 auto 18px;
       display: grid;
       place-items: center;
+      background: conic-gradient(var(--blue-600) var(--score-deg, 0deg), rgba(255,255,255,.12) 0deg);
+      box-shadow: 0 24px 55px rgba(14,165,233,.24);
+    }
+    .score-ring-inner {
+      width: 142px;
+      height: 142px;
       border-radius: 50%;
-      background: conic-gradient(var(--teal) var(--score-deg, 0deg), #e5eef4 0deg);
-      position: relative;
+      display: grid;
+      place-items: center;
+      background: rgba(7,29,42,.92);
+      border: 1px solid rgba(255,255,255,.16);
+    }
+    .score-main { font-size: 54px; font-weight: 950; letter-spacing: -.08em; }
+    .score-percent { display: block; margin-top: -10px; font-size: 24px; font-weight: 950; color: rgba(255,255,255,.84); }
+    .result-message { margin: 0 0 18px; color: rgba(255,255,255,.82); font-weight: 750; line-height: 1.5; }
+    .result-stats {
+      text-align: left;
+      display: grid;
+      gap: 1px;
+      background: rgba(255,255,255,.10);
+      border: 1px solid rgba(255,255,255,.14);
+      border-radius: 20px;
+      overflow: hidden;
+      margin: 0 auto 16px;
+      max-width: 340px;
+    }
+    .result-row {
+      display: grid;
+      grid-template-columns: 82px 1fr;
+      gap: 12px;
+      padding: 12px 14px;
+      background: rgba(255,255,255,.03);
+    }
+    .result-row span { color: rgba(255,255,255,.70); font-size: 13px; font-weight: 800; }
+    .result-row strong { font-size: 14px; }
+    .result-actions { position: relative; z-index: 2; display: grid; gap: 10px; margin-top: 16px; }
+    .result-actions .btn-outline { background: rgba(255,255,255,.08); color: white; border-color: rgba(255,255,255,.18); }
+
+    .recap-section { padding: 18px 16px; }
+    .recap-card { padding: 16px; }
+    .recap-list { display: grid; gap: 12px; }
+    .recap-item {
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      padding: 14px;
+      background: white;
+    }
+    .recap-head {
+      display: grid;
+      grid-template-columns: 32px 1fr auto;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+    .recap-num {
+      width: 32px;
+      height: 32px;
+      border-radius: 999px;
+      display: grid;
+      place-items: center;
+      background: #F1F5F9;
+      color: #64748B;
+      font-weight: 950;
+      font-size: 13px;
+    }
+    .recap-meta { min-width: 0; }
+    .recap-meta strong { display: block; font-size: 13px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .recap-meta small { color: var(--muted); font-weight: 800; }
+    .recap-status { font-weight: 950; font-size: 12px; }
+    .recap-status.ok { color: var(--green-700); }
+    .recap-status.no { color: #BE123C; }
+    .recap-question {
+      margin: 0 0 10px;
+      font-size: 14px;
+      line-height: 1.48;
+      font-weight: 850;
+      color: var(--ink);
+    }
+    .recap-answer-grid {
+      display: grid;
+      gap: 8px;
+      margin-bottom: 10px;
+    }
+    .recap-answer {
+      border-radius: 14px;
+      padding: 10px 11px;
+      background: #F8FAFC;
+      border: 1px solid #E2E8F0;
+      font-size: 13px;
+      line-height: 1.45;
+      color: #334155;
+    }
+    .recap-answer strong { color: var(--navy-900); }
+    .recap-answer.correct {
+      background: #ECFDF5;
+      border-color: #BBF7D0;
+      color: #14532D;
+    }
+    .recap-answer.wrong {
+      background: #FFF1F2;
+      border-color: #FECDD3;
+      color: #881337;
+    }
+    .recap-explanation {
+      border-radius: 14px;
+      background: #EFF6FF;
+      border: 1px solid #BFDBFE;
+      color: #0F3A57;
+      padding: 10px 11px;
+      font-size: 13px;
+      line-height: 1.55;
+      font-weight: 650;
+    }
+    .recap-explanation strong { display: block; margin-bottom: 4px; color: #0F172A; }
+
+    .share-text-card {
+      margin-top: 16px;
+      padding: 15px;
+      background: #F1F5F9;
+      border-radius: 18px;
+      color: #0F172A;
+      white-space: pre-line;
+      line-height: 1.55;
+      font-size: 14px;
+      font-weight: 650;
     }
 
-    .share-mini-score::after {
+    .status-preview-wrap { padding: 18px 16px 0; }
+    .status-preview {
+      width: min(100%, 320px);
+      aspect-ratio: 9/16;
+      margin: 0 auto;
+      border-radius: 26px;
+      overflow: hidden;
+      color: white;
+      position: relative;
+      padding: 24px 20px;
+      background:
+        radial-gradient(circle at 20% 8%, rgba(14,165,233,.28), transparent 24%),
+        radial-gradient(circle at 84% 36%, rgba(245,158,11,.20), transparent 24%),
+        linear-gradient(155deg, var(--navy-950), var(--navy-900) 58%, #0B3146);
+      box-shadow: 0 24px 50px rgba(7,29,42,.24);
+    }
+    .status-preview::before {
       content: "";
       position: absolute;
-      inset: 9px;
-      border-radius: 50%;
-      background: #fff;
+      inset: 0;
+      opacity: .16;
+      background-image: radial-gradient(circle at 50% 50%, transparent 0 48px, rgba(255,255,255,.18) 49px, transparent 50px), linear-gradient(45deg, transparent 48%, rgba(255,255,255,.18) 49%, transparent 51%);
+      background-size: 140px 140px, 110px 110px;
     }
+    .status-preview > * { position: relative; z-index: 1; }
+    .status-brand { display: flex; align-items: center; justify-content: center; gap: 10px; text-align: left; margin-bottom: 46px; }
+    .status-brand .brand-mark { width: 44px; height: 44px; font-size: 23px; }
+    .status-title { text-align: center; font-size: 19px; font-weight: 900; margin-bottom: 30px; }
+    .status-score { text-align: center; font-size: 76px; letter-spacing: -.08em; font-weight: 950; color: var(--orange-500); line-height: .95; }
+    .status-percent { text-align: center; font-size: 30px; font-weight: 950; margin: 8px 0 18px; }
+    .status-banner { margin: 0 auto 28px; width: fit-content; padding: 10px 16px; border-radius: 999px; background: linear-gradient(135deg, var(--orange-600), var(--orange-500)); font-weight: 950; box-shadow: 0 14px 24px rgba(234,88,12,.24); }
+    .status-lines { display: grid; gap: 14px; margin-top: 8px; font-size: 15px; font-weight: 850; }
+    .status-lines div { display: flex; gap: 10px; align-items: center; }
+    .status-footer { position: absolute; left: 0; right: 0; bottom: 22px; text-align: center; font-size: 13px; color: rgba(255,255,255,.82); }
+    .status-footer strong { display: block; color: white; margin-bottom: 8px; font-size: 15px; }
 
-    .share-mini-score strong {
-      position: relative;
-      z-index: 1;
-      color: var(--navy);
-      font-size: 2rem;
-      letter-spacing: -0.07em;
+    .drawer-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(2,8,23,.48);
+      z-index: 50;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity .18s ease;
     }
+    .drawer-backdrop.open { opacity: 1; pointer-events: auto; }
+    .drawer {
+      position: fixed;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      width: min(88vw, 340px);
+      background: white;
+      z-index: 60;
+      transform: translateX(105%);
+      transition: transform .22s ease;
+      box-shadow: -20px 0 50px rgba(2,8,23,.22);
+      padding: 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .drawer.open { transform: translateX(0); }
+    .drawer-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
+    .drawer-head strong { font-size: 18px; font-weight: 950; }
+    .close-btn {
+      width: 42px;
+      height: 42px;
+      border-radius: 15px;
+      border: 1px solid var(--line);
+      background: #F8FAFC;
+      cursor: pointer;
+    }
+    .drawer-link {
+      border: 1px solid var(--line);
+      background: #FFFFFF;
+      border-radius: 16px;
+      padding: 14px 15px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 14px;
+      font-weight: 850;
+      cursor: pointer;
+      text-align: left;
+      color: var(--ink);
+      box-shadow: 0 8px 18px rgba(2, 8, 23, 0.04);
+    }
+    .drawer-link span:first-child { display: block; min-width: 0; }
+    .drawer-link small { display: block; color: var(--muted); margin-top: 3px; font-weight: 700; font-size: 12px; }
+    .drawer-arrow { color: var(--muted); font-weight: 950; flex: 0 0 auto; }
+    .drawer-note { margin-top: auto; color: var(--muted); font-size: 13px; line-height: 1.5; background: #F8FAFC; border-radius: 18px; padding: 14px; }
 
-    .share-status-body h3 {
-      margin: 0;
-      color: var(--navy);
-      font-size: 1.18rem;
-      line-height: 1.12;
-      letter-spacing: -0.045em;
+    .bottom-nav {
+      position: fixed;
+      left: 50%;
+      bottom: 0;
+      transform: translateX(-50%);
+      width: min(100%, 480px);
+      background: rgba(255,255,255,.92);
+      backdrop-filter: blur(16px);
+      border-top: 1px solid rgba(226,232,240,.88);
+      padding: 8px 12px calc(8px + var(--safe-bottom));
+      z-index: 30;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
     }
-
-    .share-status-body p {
-      margin: 8px 0 0;
-      color: var(--muted);
-      line-height: 1.45;
-      font-size: 0.9rem;
+    .nav-item {
+      border: 0;
+      background: transparent;
+      border-radius: 15px;
+      padding: 8px 6px;
+      display: grid;
+      gap: 3px;
+      place-items: center;
+      color: #64748B;
+      font-size: 11px;
+      font-weight: 850;
+      cursor: pointer;
     }
-
-    .share-url {
-      margin-top: 10px;
-      color: var(--teal);
-      font-weight: 900;
-      font-size: 0.88rem;
-    }
-
-    .status-note {
-      margin: 10px 0 0;
-      color: var(--muted);
-      text-align: center;
-      font-size: 0.83rem;
-      line-height: 1.45;
-    }
+    .nav-item .ico { font-size: 18px; }
+    .nav-item.active { color: var(--navy-900); background: #EAF7FF; }
 
     .toast {
       position: fixed;
       left: 50%;
-      bottom: 20px;
+      bottom: calc(92px + var(--safe-bottom));
       transform: translateX(-50%) translateY(20px);
-      width: min(calc(100% - 28px), 520px);
+      width: min(calc(100% - 32px), 420px);
+      background: #0F172A;
+      color: white;
       padding: 13px 15px;
-      border-radius: 18px;
-      background: rgba(3, 27, 66, 0.94);
-      color: #fff;
-      box-shadow: 0 18px 40px rgba(3,27,66,0.25);
+      border-radius: 16px;
+      box-shadow: 0 18px 38px rgba(15,23,42,.24);
+      z-index: 70;
       opacity: 0;
       pointer-events: none;
-      transition: opacity 0.22s ease, transform 0.22s ease;
-      z-index: 50;
+      transition: opacity .18s ease, transform .18s ease;
       text-align: center;
       font-weight: 800;
-      font-size: 0.92rem;
+      font-size: 13px;
     }
-
     .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
 
-    .error-box {
-      padding: 15px;
-      border: 1px solid rgba(209, 67, 53, 0.22);
-      border-radius: 18px;
-      background: var(--bad-soft);
-      color: #812019;
-      line-height: 1.55;
-      font-size: 0.94rem;
+    @media (min-width: 720px) {
+      body { background: linear-gradient(120deg, #EAF7FF, #F8FAFC); }
+      .app { margin-top: 22px; margin-bottom: 22px; border-radius: 34px; overflow: hidden; box-shadow: 0 28px 80px rgba(2,8,23,.18); min-height: calc(100vh - 44px); }
+      .bottom-nav { border-bottom-left-radius: 26px; border-bottom-right-radius: 26px; }
     }
-
-    .loading {
-      display: grid;
-      place-items: center;
-      gap: 10px;
-      min-height: 220px;
-      color: var(--muted);
-      text-align: center;
-      font-weight: 800;
-    }
-
-    .spinner {
-      width: 36px;
-      height: 36px;
-      border-radius: 50%;
-      border: 4px solid #dfeef4;
-      border-top-color: var(--teal);
-      animation: spin 0.85s linear infinite;
-    }
-
-    @keyframes spin { to { transform: rotate(360deg); } }
-
-    .footer {
-      margin-top: 22px;
-      padding: 18px 8px 0;
-      text-align: center;
-      color: var(--muted);
-      font-size: 0.86rem;
-      line-height: 1.6;
-    }
-
-    .footer a { color: var(--navy); font-weight: 900; }
-
-    @media (min-width: 760px) {
-      .app-shell { padding: 0 22px 48px; }
-      .hero-top { margin-left: -22px; margin-right: -22px; padding: 28px 34px 70px; min-height: 252px; }
-  
-
-    .nav-wrap {
-      position: relative;
-      z-index: 20;
-      flex: 0 0 auto;
-    }
-
-    .top-menu {
-      position: absolute;
-      top: 54px;
-      right: 0;
-      width: min(310px, calc(100vw - 32px));
-      display: none;
-      flex-direction: column;
-      gap: 8px;
-      padding: 10px;
-      border: 1px solid rgba(5, 46, 99, 0.10);
-      border-radius: 20px;
-      background: rgba(255, 255, 255, 0.98);
-      color: var(--ink);
-      box-shadow: 0 22px 50px rgba(5, 46, 99, 0.22);
-      backdrop-filter: blur(12px);
-    }
-
-    .top-menu.open {
-      display: flex;
-      animation: menuPop 150ms ease-out;
-    }
-
-    .top-menu::before {
-      content: "";
-      position: absolute;
-      top: -8px;
-      right: 16px;
-      width: 16px;
-      height: 16px;
-      background: rgba(255, 255, 255, 0.98);
-      border-left: 1px solid rgba(5, 46, 99, 0.08);
-      border-top: 1px solid rgba(5, 46, 99, 0.08);
-      transform: rotate(45deg);
-    }
-
-    .top-menu a,
-    .top-menu button {
-      width: 100%;
-      display: grid;
-      grid-template-columns: 34px 1fr;
-      align-items: center;
-      gap: 10px;
-      padding: 12px;
-      border: 0;
-      border-radius: 15px;
-      background: transparent;
-      color: var(--ink);
-      text-align: left;
-      cursor: pointer;
-    }
-
-    .top-menu a:hover,
-    .top-menu button:hover {
-      background: var(--surface-soft);
-    }
-
-    .top-menu a > span:first-child,
-    .top-menu button > span:first-child {
-      width: 34px;
-      height: 34px;
-      display: grid;
-      place-items: center;
-      border-radius: 12px;
-      background: var(--aqua);
-      font-size: 1rem;
-    }
-
-    .top-menu a > span:last-child,
-    .top-menu button > span:last-child {
-      display: block;
-      min-width: 0;
-      font-size: 0.92rem;
-      font-weight: 900;
-      line-height: 1.18;
-    }
-
-    .top-menu small {
-      display: block;
-      margin-top: 3px;
-      color: var(--muted);
-      font-size: 0.72rem;
-      font-weight: 700;
-      line-height: 1.25;
-      white-space: normal;
-    }
-
-    @keyframes menuPop {
-      from { opacity: 0; transform: translateY(-6px) scale(0.98); }
-      to { opacity: 1; transform: translateY(0) scale(1); }
-    }
-
-    .hero-copy { margin-top: 42px; }
-      .main-grid { display: grid; grid-template-columns: 0.92fr 1.08fr; gap: 18px; align-items: start; }
-      .section { padding: 24px; }
-      .track-list { gap: 14px; }
-      .dashboard-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-      .share-status-body { grid-template-columns: 140px 1fr; }
-      .share-mini-score { width: 132px; height: 132px; }
-      .share-mini-score strong { font-size: 2.35rem; }
-    }
-
-    @media (max-width: 420px) {
-      .hero-top { min-height: 178px; }
-  
-
-    .nav-wrap {
-      position: relative;
-      z-index: 20;
-      flex: 0 0 auto;
-    }
-
-    .top-menu {
-      position: absolute;
-      top: 54px;
-      right: 0;
-      width: min(310px, calc(100vw - 32px));
-      display: none;
-      flex-direction: column;
-      gap: 8px;
-      padding: 10px;
-      border: 1px solid rgba(5, 46, 99, 0.10);
-      border-radius: 20px;
-      background: rgba(255, 255, 255, 0.98);
-      color: var(--ink);
-      box-shadow: 0 22px 50px rgba(5, 46, 99, 0.22);
-      backdrop-filter: blur(12px);
-    }
-
-    .top-menu.open {
-      display: flex;
-      animation: menuPop 150ms ease-out;
-    }
-
-    .top-menu::before {
-      content: "";
-      position: absolute;
-      top: -8px;
-      right: 16px;
-      width: 16px;
-      height: 16px;
-      background: rgba(255, 255, 255, 0.98);
-      border-left: 1px solid rgba(5, 46, 99, 0.08);
-      border-top: 1px solid rgba(5, 46, 99, 0.08);
-      transform: rotate(45deg);
-    }
-
-    .top-menu a,
-    .top-menu button {
-      width: 100%;
-      display: grid;
-      grid-template-columns: 34px 1fr;
-      align-items: center;
-      gap: 10px;
-      padding: 12px;
-      border: 0;
-      border-radius: 15px;
-      background: transparent;
-      color: var(--ink);
-      text-align: left;
-      cursor: pointer;
-    }
-
-    .top-menu a:hover,
-    .top-menu button:hover {
-      background: var(--surface-soft);
-    }
-
-    .top-menu a > span:first-child,
-    .top-menu button > span:first-child {
-      width: 34px;
-      height: 34px;
-      display: grid;
-      place-items: center;
-      border-radius: 12px;
-      background: var(--aqua);
-      font-size: 1rem;
-    }
-
-    .top-menu a > span:last-child,
-    .top-menu button > span:last-child {
-      display: block;
-      min-width: 0;
-      font-size: 0.92rem;
-      font-weight: 900;
-      line-height: 1.18;
-    }
-
-    .top-menu small {
-      display: block;
-      margin-top: 3px;
-      color: var(--muted);
-      font-size: 0.72rem;
-      font-weight: 700;
-      line-height: 1.25;
-      white-space: normal;
-    }
-
-    @keyframes menuPop {
-      from { opacity: 0; transform: translateY(-6px) scale(0.98); }
-      to { opacity: 1; transform: translateY(0) scale(1); }
-    }
-
-    .hero-copy { margin-top: 22px; }
-      .hero-title { font-size: 1.95rem; }
-      .hero-text { display: none; }
-      .track-card { grid-template-columns: 54px 1fr 30px; padding: 12px; min-height: 88px; }
-      .track-icon { width: 52px; height: 52px; }
-      .dashboard-grid { grid-template-columns: 1fr; }
-      .activity-strip { gap: 5px; }
-      .day-item { border-radius: 13px; font-size: 0.62rem; }
-      .quiz-actions { grid-template-columns: 1fr; }
-      .score-ring { width: 172px; height: 172px; }
-      .share-status-body { grid-template-columns: 1fr; text-align: center; }
-      .share-mini-score { margin: 0 auto; }
-    }
-
-
-    /* Final mobile UX cleanup: better hamburger, compact topic chips, story card preview */
-    .hamburger {
-      width: 52px;
-      height: 52px;
-      border-radius: 18px;
-      font-size: 1.35rem;
-      font-weight: 950;
-      line-height: 1;
-      cursor: pointer;
-      touch-action: manipulation;
-      box-shadow: inset 0 0 0 1px rgba(255,255,255,0.10), 0 10px 22px rgba(3,27,66,0.16);
-    }
-
-    .top-menu {
-      top: 62px !important;
-      right: 0 !important;
-      width: min(286px, calc(100vw - 28px)) !important;
-      z-index: 80;
-      gap: 5px;
-      padding: 10px;
-      border-radius: 22px;
-      background: #ffffff;
-    }
-
-    .top-menu a,
-    .top-menu button {
-      min-height: 66px;
-      grid-template-columns: 42px 1fr !important;
-      gap: 12px !important;
-      padding: 13px 12px !important;
-      border-radius: 17px !important;
-    }
-
-    .top-menu a > span:first-child,
-    .top-menu button > span:first-child {
-      width: 42px !important;
-      height: 42px !important;
-      border-radius: 15px !important;
-      font-size: 1.1rem !important;
-    }
-
-    .top-menu a > span:last-child,
-    .top-menu button > span:last-child {
-      font-size: 1rem !important;
-      line-height: 1.15 !important;
-    }
-
-    .top-menu small {
-      margin-top: 4px !important;
-      font-size: 0.76rem !important;
-      line-height: 1.25 !important;
-      color: #657a90 !important;
-    }
-
-    .result-card .category-chips .pill {
-      max-width: 100%;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-
-    .btn-wa {
-      color: #fff;
-      background: linear-gradient(135deg, #0eb85f, #08a34f);
-      box-shadow: 0 14px 24px rgba(14, 184, 95, 0.22);
-    }
-
-    .story-card {
-      width: min(100%, 340px);
-      aspect-ratio: 9 / 16;
-      margin: 18px auto 0;
-      padding: 22px 20px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: space-between;
-      border: 0;
-      border-radius: 28px;
-      color: #fff;
-      text-align: center;
-      background:
-        radial-gradient(circle at 84% 14%, rgba(23,199,195,0.68), transparent 13rem),
-        radial-gradient(circle at 18% 88%, rgba(91,241,236,0.18), transparent 12rem),
-        linear-gradient(150deg, #031b42 0%, #063a79 48%, #05aeb8 100%);
-      box-shadow: 0 22px 48px rgba(5, 46, 99, 0.22);
-      position: relative;
-      overflow: hidden;
-    }
-
-    .story-card::before,
-    .story-card::after {
-      content: "";
-      position: absolute;
-      pointer-events: none;
-      opacity: 0.26;
-      background-repeat: no-repeat;
-      background-size: contain;
-    }
-
-    .story-card::before {
-      width: 160px;
-      height: 70px;
-      left: 18px;
-      top: 98px;
-      background-image: url("data:image/svg+xml,%3Csvg width='190' height='80' viewBox='0 0 190 80' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M35 48h84l-18 23H53L35 48Z' stroke='%23BFF9F8' stroke-width='3' stroke-linejoin='round'/%3E%3Cpath d='M68 48V24h32v24M79 24V10M60 39h50M78 37h8M96 37h8' stroke='%23BFF9F8' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'/%3E%3Cpath d='M2 70c18 0 18-8 36-8s18 8 36 8 18-8 36-8 18 8 36 8 18-8 36-8' stroke='%23BFF9F8' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E");
-    }
-
-    .story-card::after {
-      width: 120px;
-      height: 60px;
-      right: 14px;
-      bottom: 56px;
-      background-image: url("data:image/svg+xml,%3Csvg width='150' height='70' viewBox='0 0 150 70' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M6 48c18 0 18-8 36-8s18 8 36 8 18-8 36-8 18 8 36 8' stroke='%23BFF9F8' stroke-width='2' stroke-linecap='round'/%3E%3Cpath d='M25 24c5-6 13-6 18 0M86 20c7-7 18-7 25 0' stroke='%23BFF9F8' stroke-width='3' stroke-linecap='round'/%3E%3C/svg%3E");
-    }
-
-    .story-brand {
-      position: relative;
-      z-index: 1;
-      display: grid;
-      justify-items: center;
-      gap: 8px;
-      font-weight: 950;
-      line-height: 1.08;
-      letter-spacing: -0.04em;
-      font-size: 1.06rem;
-    }
-
-    .story-brand .story-logo {
-      width: 54px;
-      height: 54px;
-      display: grid;
-      place-items: center;
-      border-radius: 50%;
-      border: 2px solid rgba(255,255,255,0.72);
-      background: rgba(255,255,255,0.10);
-      font-size: 1.55rem;
-    }
-
-    .story-brand .accent { color: #5bf1ec; display: block; }
-
-    .story-score-wrap {
-      position: relative;
-      z-index: 1;
-      display: grid;
-      justify-items: center;
-      gap: 12px;
-    }
-
-    .story-score-ring {
-      width: 168px;
-      height: 168px;
-      display: grid;
-      place-items: center;
-      border-radius: 50%;
-      background: conic-gradient(#5bf1ec var(--score-deg, 0deg), rgba(255,255,255,0.28) 0deg);
-      box-shadow: 0 18px 38px rgba(0,0,0,0.20);
-      position: relative;
-    }
-
-    .story-score-ring::after {
-      content: "";
-      position: absolute;
-      inset: 14px;
-      border-radius: 50%;
-      background: rgba(255,255,255,0.96);
-    }
-
-    .story-score-ring strong {
-      position: relative;
-      z-index: 1;
-      color: var(--navy);
-      font-size: 3rem;
-      line-height: 1;
-      letter-spacing: -0.08em;
-    }
-
-    .story-score-ring span {
-      position: relative;
-      z-index: 1;
-      color: var(--teal);
-      font-size: 1.05rem;
-      font-weight: 950;
-    }
-
-    .story-score-text {
-      margin: 0;
-      color: rgba(255,255,255,0.94);
-      font-weight: 950;
-      font-size: 1.28rem;
-      line-height: 1.16;
-      letter-spacing: -0.045em;
-    }
-
-    .story-tags {
-      position: relative;
-      z-index: 1;
-      display: flex;
-      justify-content: center;
-      flex-wrap: wrap;
-      gap: 8px;
-    }
-
-    .story-tag {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      padding: 7px 10px;
-      border-radius: 999px;
-      background: rgba(255,255,255,0.16);
-      border: 1px solid rgba(255,255,255,0.14);
-      color: #fff;
-      font-weight: 900;
-      font-size: 0.82rem;
-    }
-
-    .story-motto {
-      position: relative;
-      z-index: 1;
-      margin: 0;
-      max-width: 240px;
-      color: #ffffff;
-      font-size: 1.2rem;
-      line-height: 1.28;
-      font-weight: 950;
-      letter-spacing: -0.035em;
-    }
-
-    .story-url-line {
-      position: relative;
-      z-index: 1;
-      color: #9ffafa;
-      font-size: 0.86rem;
-      font-weight: 900;
-    }
-
-    @media (max-width: 420px) {
-      .top-menu { width: min(280px, calc(100vw - 28px)) !important; }
-      .story-card { width: min(100%, 318px); }
-      .story-score-ring { width: 150px; height: 150px; }
-      .story-score-ring strong { font-size: 2.65rem; }
-    }
-
-
-
-    /* V2 revisions: smaller hero, scrollable menu, instant answer feedback, celebratory story card */
-    .hero-top { overflow: visible !important; }
-    .hero-title {
-      max-width: 520px;
-      font-size: clamp(1.34rem, 5.4vw, 2.35rem) !important;
-      line-height: 1.08 !important;
-      letter-spacing: -0.055em !important;
-    }
-    .hero-text {
-      max-width: 500px;
-      font-size: 0.9rem !important;
-      line-height: 1.55 !important;
-    }
-
-    .nav-wrap { z-index: 120 !important; }
-    .top-menu {
-      position: fixed !important;
-      top: calc(env(safe-area-inset-top, 0px) + 74px) !important;
-      right: 14px !important;
-      max-height: calc(100dvh - 96px) !important;
-      overflow-y: auto !important;
-      overscroll-behavior: contain;
-      -webkit-overflow-scrolling: touch;
-      scrollbar-width: thin;
-    }
-    .top-menu::before { display: none !important; }
-    .top-menu a,
-    .top-menu button { min-height: 72px !important; touch-action: manipulation; }
-    .top-menu a { cursor: pointer; }
-    .top-menu a:active,
-    .top-menu button:active { transform: scale(0.985); background: var(--surface-soft); }
-
-    .option-btn.pending {
-      border-color: rgba(5, 174, 184, 0.9) !important;
-      background: #effefe !important;
-      box-shadow: 0 10px 24px rgba(5, 174, 184, 0.12);
-    }
-    .option-btn.pending .option-letter {
-      color: #fff;
-      background: linear-gradient(135deg, var(--teal), var(--teal-2));
-    }
-    .option-btn.pending .option-state {
-      color: var(--teal);
-      width: 20px;
-      height: 20px;
-      border: 3px solid rgba(5,174,184,0.22);
-      border-top-color: var(--teal);
-      border-radius: 50%;
-      font-size: 0;
-      animation: spin 0.72s linear infinite;
-    }
-    .feedback.checking {
-      border-color: rgba(5, 174, 184, 0.34);
-      background: #f0ffff;
-    }
-    .feedback.checking h3 { color: var(--navy); }
-
-    .story-card {
-      background:
-        radial-gradient(circle at 50% 4%, rgba(255,255,255,0.26), transparent 8rem),
-        radial-gradient(circle at 84% 14%, rgba(23,199,195,0.72), transparent 13rem),
-        radial-gradient(circle at 18% 88%, rgba(255,138,42,0.16), transparent 12rem),
-        linear-gradient(150deg, #02183b 0%, #063a79 46%, #05aeb8 100%) !important;
-    }
-    .story-card .confetti-line {
-      position: absolute;
-      inset: 0;
-      pointer-events: none;
-      z-index: 0;
-      opacity: 0.9;
-      background-image:
-        radial-gradient(circle, #ffcf5a 0 3px, transparent 4px),
-        radial-gradient(circle, #5bf1ec 0 3px, transparent 4px),
-        radial-gradient(circle, rgba(255,255,255,0.85) 0 2px, transparent 3px);
-      background-size: 86px 110px, 120px 96px, 70px 80px;
-      background-position: 12px 30px, 54px 120px, 24px 210px;
-    }
-    .story-kicker {
-      position: relative;
-      z-index: 1;
-      padding: 7px 12px;
-      border-radius: 999px;
-      background: rgba(255,255,255,0.15);
-      border: 1px solid rgba(255,255,255,0.16);
-      color: #dffffe;
-      font-size: 0.76rem;
-      font-weight: 950;
-      letter-spacing: 0.05em;
-      text-transform: uppercase;
-    }
-    .story-score-text {
-      padding: 8px 14px;
-      border-radius: 999px;
-      background: rgba(255, 255, 255, 0.15);
-      border: 1px solid rgba(255,255,255,0.14);
-    }
-    .story-motto {
-      max-width: 270px !important;
-      padding: 12px 14px;
-      border-radius: 18px;
-      background: rgba(255,255,255,0.12);
-      border: 1px solid rgba(255,255,255,0.12);
-      box-shadow: inset 0 0 0 1px rgba(255,255,255,0.03);
-    }
-    .story-celebrate {
-      position: relative;
-      z-index: 1;
-      margin: 0;
-      color: #ffdc7b;
-      font-weight: 950;
-      font-size: 0.92rem;
-      letter-spacing: -0.02em;
-    }
-
-    @media (max-width: 420px) {
-      .hero-title { font-size: 1.42rem !important; }
-      .hero-copy { margin-top: 18px !important; }
-      .top-menu {
-        width: min(292px, calc(100vw - 24px)) !important;
-        right: 12px !important;
-      }
-    }
-
   </style>
 </head>
 <body>
-  <header class="hero-top">
-    <div class="brand-row">
-      <a class="brand" href="#" aria-label="Daily Loker Pelaut Academy">
-        <span class="brand-mark" aria-hidden="true">⚓</span>
-        <span><span class="brand-main">Daily Loker Pelaut</span><span class="brand-accent">Academy</span></span>
-      </a>
-      <div class="nav-wrap">
-        <button class="hamburger" id="menuBtn" type="button" aria-label="Menu" aria-expanded="false" aria-controls="topMenu">☰</button>
-        <nav class="top-menu" id="topMenu" aria-label="Menu utama academy">
-          <a id="menuHomeLink" href="https://dailylokerpelaut.com/">
-            <span aria-hidden="true">🏠</span>
-            <span>Menu Utama<small>Ke dailylokerpelaut.com</small></span>
+  <div class="app" id="app">
+    <section class="screen active" id="homeScreen">
+      <div class="top-shell">
+        <header class="topbar">
+          <a class="brand" href="#" aria-label="Daily Loker Pelaut Academy">
+            <div class="brand-mark">⚓</div>
+            <div class="brand-text">
+              <strong>Daily Loker</strong>
+              <strong>Pelaut</strong>
+              <span>Academy</span>
+            </div>
           </a>
-          <a id="menuVacancyLink" href="https://vacancy.dailylokerpelaut.com/">
-            <span aria-hidden="true">⚓</span>
-            <span>Loker Harian<small>Lowongan pelaut terbaru</small></span>
-          </a>
-          <button type="button" id="menuChangeTrack">
-            <span aria-hidden="true">🧭</span>
-            <span>Ubah Jalur<small>Deck Officer, Engineer, atau Rating</small></span>
-          </button>
-        </nav>
+          <button class="menu-btn" id="openMenuBtn" aria-label="Buka menu"><span class="hamb"><span></span></span></button>
+        </header>
+
+        <div class="hero">
+          <h1>5 soal hari ini.<span class="accent">Jaga ritme, naik kelas.</span></h1>
+          <p>Cuma 5 soal. Selesaikan sambil coffee break. Tidak perlu sempurna, yang penting tetap tajam.</p>
+          <div class="hero-actions">
+            <button class="btn btn-primary" id="heroStartBtn">Mulai Quiz Hari Ini <span class="circle">›</span></button>
+          </div>
+        </div>
+
+        <div class="selected-track-mini hidden" id="selectedTrackMini">
+          <div>
+            <small>Track kamu</small>
+            <strong id="selectedTrackText">Engineer Officer</strong>
+          </div>
+          <div class="lock" id="trackLockIcon">🔓</div>
+        </div>
+
+        <div class="streak-card" aria-live="polite">
+          <div class="streak-title">🔥 Streak kamu</div>
+          <div class="streak-number"><span id="streakCountHome">0</span> hari berturut-turut</div>
+          <div class="days-strip" id="homeDaysStrip"></div>
+          <p class="streak-note">Tidak harus sempurna. Yang penting balik lagi besok.</p>
+        </div>
       </div>
+
+      <main class="content">
+        <section id="trackSection">
+          <h2 class="section-title">Pilih track kamu</h2>
+          <p class="section-subtitle">Pilih sesuai departemen atau tujuan karirmu. Track bisa diganti sebelum quiz dimulai.</p>
+          <div class="track-grid" id="trackGrid">
+            <button class="track-card" data-track="Deck Officer">
+              <div class="track-icon">☸️</div>
+              <div>
+                <strong>Deck Officer</strong>
+                <span>COLREG • Watchkeeping • Cargo • PSC • Safety</span>
+              </div>
+            </button>
+            <button class="track-card" data-track="Engineer Officer">
+              <div class="track-icon">🛠️</div>
+              <div>
+                <strong>Engineer Officer</strong>
+                <span>Engine Room • PMS • MARPOL • Maintenance</span>
+              </div>
+            </button>
+            <button class="track-card" data-track="Rating">
+              <div class="track-icon">👥</div>
+              <div>
+                <strong>Rating</strong>
+                <span>Seamanship • Mooring • Safety • Daily Work</span>
+              </div>
+            </button>
+          </div>
+          <div class="hint-card">
+            <div class="hint-icon">🧭</div>
+            <div>Soal harian diambil dari track kamu + soal umum untuk semua pelaut.</div>
+          </div>
+        </section>
+
+        <section class="daily-card card">
+          <div class="coffee">☕</div>
+          <p>5 soal. 3–5 menit. Siap? Yuk mulai!</p>
+          <button class="btn btn-primary" id="startQuizBtn">Mulai Quiz <span class="circle">›</span></button>
+        </section>
+
+        <section class="loading-card card hidden" id="homeLoadingCard">
+          <div class="spinner"></div>
+          <h3>Menyiapkan quiz hari ini...</h3>
+          <p>Mengambil soal sesuai track kamu.</p>
+        </section>
+
+        <section class="error-card card hidden" id="homeErrorCard">
+          <h3>Quiz belum bisa dimuat</h3>
+          <p id="homeErrorText">Coba refresh halaman atau cek koneksi internet kamu.</p>
+          <div style="margin-top:14px"><button class="btn btn-dark" id="retryBtn">Coba Lagi</button></div>
+        </section>
+      </main>
+    </section>
+
+    <section class="screen" id="quizScreen">
+      <main class="quiz-wrap">
+        <div class="quiz-top">
+          <button class="quiz-back" id="quizBackBtn" aria-label="Kembali">‹</button>
+          <div class="quiz-count" id="quizCountText">Soal 1 dari 5</div>
+          <div class="timer-pill" id="quizTimer">00:00</div>
+        </div>
+        <div class="progress-track"><div class="progress-fill" id="quizProgressFill"></div></div>
+
+        <section class="question-card card" id="questionCard">
+          <div class="chips" id="questionChips"></div>
+          <h2 class="question-text" id="questionText">Memuat soal...</h2>
+          <div class="options" id="optionsWrap"></div>
+          <div class="explanation-card hidden" id="explanationCard">
+            <strong id="explanationTitle">Penjelasan</strong>
+            <p id="explanationText"></p>
+          </div>
+          <div class="quiz-actions">
+            <button class="btn btn-dark hidden" id="nextQuestionBtn">Soal Selanjutnya <span class="circle">›</span></button>
+          </div>
+        </section>
+      </main>
+    </section>
+
+    <section class="screen" id="resultScreen">
+      <div class="result-shell">
+        <div class="confetti" id="confettiLayer"></div>
+        <header class="topbar">
+          <a class="brand" href="#" aria-label="Daily Loker Pelaut Academy">
+            <div class="brand-mark">⚓</div>
+            <div class="brand-text">
+              <strong>Daily Loker</strong>
+              <strong>Pelaut</strong>
+              <span>Academy</span>
+            </div>
+          </a>
+          <button class="menu-btn" id="openMenuBtnResult" aria-label="Buka menu"><span class="hamb"><span></span></span></button>
+        </header>
+
+        <div class="result-content">
+          <h1 class="result-headline" id="resultHeadline">Perfect Watch!</h1>
+          <div class="score-ring" id="scoreRing">
+            <div class="score-ring-inner">
+              <div>
+                <div class="score-main"><span id="scoreValue">5</span>/5</div>
+                <span class="score-percent" id="scorePercent">100%</span>
+              </div>
+            </div>
+          </div>
+          <p class="result-message" id="resultMessage">Tajam hari ini. Besok pertahankan streak.</p>
+          <div class="result-stats">
+            <div class="result-row"><span>Track</span><strong id="resultTrack">Engineer Officer</strong></div>
+            <div class="result-row"><span>Streak</span><strong id="resultStreak">🔥 3 hari</strong></div>
+            <div class="result-row"><span>Topik</span><strong id="resultTopics">Safety • Engine • MARPOL</strong></div>
+          </div>
+
+          <div class="result-actions">
+            <button class="btn btn-primary" id="saveStatusBtn">Simpan Status ⬇</button>
+            <button class="btn btn-green" id="shareWhatsappBtn">Share WhatsApp</button>
+            <button class="btn btn-outline" id="copyShareBtn">Copy Teks Share</button>
+            <button class="btn btn-ghost" id="backTomorrowBtn">Coba lagi besok →</button>
+          </div>
+        </div>
+      </div>
+
+      <section class="status-preview-wrap">
+        <h2 class="section-title">Preview Status Card</h2>
+        <p class="section-subtitle">Format 9:16 untuk WhatsApp Status, Instagram Story, dan Facebook Story.</p>
+        <div class="status-preview" id="statusPreview">
+          <div class="status-brand">
+            <div class="brand-mark">⚓</div>
+            <div class="brand-text">
+              <strong>Daily Loker</strong>
+              <strong>Pelaut</strong>
+              <span>Academy</span>
+            </div>
+          </div>
+          <div class="status-title">Quiz Pelaut Hari Ini</div>
+          <div class="status-score" id="statusScore">5/5</div>
+          <div class="status-percent" id="statusPercent">100%</div>
+          <div class="status-banner" id="statusHeadline">PERFECT WATCH!</div>
+          <div class="status-lines">
+            <div>⚙️ <span id="statusTrack">Engineer Officer</span></div>
+            <div>🔥 <span id="statusStreak">3 Hari Streak</span></div>
+            <div>🧭 <span id="statusTopics">Safety • Engine • MARPOL</span></div>
+          </div>
+          <div class="status-footer"><strong>Siap layar, siap belajar.</strong>academy.dailylokerpelaut.com</div>
+        </div>
+      </section>
+
+      <section class="recap-section">
+        <div class="recap-card card">
+          <h2 class="section-title">Pembahasan</h2>
+          <p class="section-subtitle">Selesai untuk hari ini. Besok ada 5 soal baru.</p>
+          <div class="recap-list" id="recapList"></div>
+          <div class="share-text-card" id="shareTextPreview"></div>
+        </div>
+      </section>
+    </section>
+  </div>
+
+  <div class="drawer-backdrop" id="drawerBackdrop"></div>
+  <aside class="drawer" id="drawer" aria-hidden="true">
+    <div class="drawer-head">
+      <strong>Menu Academy</strong>
+      <button class="close-btn" id="closeMenuBtn" aria-label="Tutup menu">×</button>
     </div>
-    <div class="hero-copy" id="heroCopy">
-      <span class="hero-kicker">⚡ Quiz pelaut harian</span>
-      <h1 class="hero-title">5 soal hari ini. Jaga ritme, naik kelas.</h1>
-      <p class="hero-text">Latihan singkat untuk pelaut Indonesia. Pilih jalur, jawab 5 soal, baca pembahasan, lalu jaga streak harianmu.</p>
-    </div>
-  </header>
+    <button class="drawer-link" id="vacancyMenuLink">
+      <span>Loker Harian<small>Cek lowongan pelaut terbaru</small></span><span class="drawer-arrow">›</span>
+    </button>
+    <button class="drawer-link" id="mainMenuLink">
+      <span>Menu Utama<small>Kembali ke Daily Loker Pelaut</small></span><span class="drawer-arrow">›</span>
+    </button>
+    <button class="drawer-link" id="changeTrackLink">
+      <span>Ganti Track<small>Deck / Engineer / Rating</small></span><span class="drawer-arrow">›</span>
+    </button>
+  </aside>
 
-  <main class="app-shell">
-    <section id="compactTrack" class="compact-track panel hidden" aria-live="polite"></section>
+  <nav class="bottom-nav" aria-label="Navigasi bawah">
+    <button class="nav-item active" data-go="home"><span class="ico">⌂</span><span>Beranda</span></button>
+    <button class="nav-item" data-go="quiz"><span class="ico">□</span><span>Quiz</span></button>
+    <button class="nav-item" data-go="result"><span class="ico">▥</span><span>Hasil</span></button>
+  </nav>
 
-    <div id="mainContent" class="main-content"></div>
-
-    <footer class="footer">
-      <p><strong>Daily Loker Pelaut Academy</strong><br />Quiz edukasi harian. Tanpa login. Tanpa paywall.</p>
-      <p>
-        <a href="https://dailylokerpelaut.com/">Menu Utama</a>
-        &nbsp;•&nbsp;
-        <a href="https://vacancy.dailylokerpelaut.com/">Lihat lowongan pelaut harian</a>
-      </p>
-    </footer>
-  </main>
-
-  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  <div class="toast" id="toast"></div>
+  <canvas id="statusCanvas" class="hidden" width="1080" height="1920"></canvas>
 
   <script>
-    /**************************************************************
-     * Daily Loker Pelaut Academy — Option A Minimal Gradient UI
-     * Replace API_URL and GA_MEASUREMENT_ID before launch.
-     **************************************************************/
+    // =====================================================
+    // CONFIG: jangan ubah tanpa diminta
+    // =====================================================
+    const API_URL = 'https://script.google.com/macros/s/AKfycbyQBcRZntHA_vL-Gv9GJY43jAKVGc6uLhasbwvJE51rdExk1kRqVfjDmVYCT89A6DrfJQ/exec';
+    const GA_ID = 'G-G4YTZPWFCQ';
 
-    const API_URL = "https://script.google.com/macros/s/AKfycbyQBcRZntHA_vL-Gv9GJY43jAKVGc6uLhasbwvJE51rdExk1kRqVfjDmVYCT89A6DrfJQ/exec";
-    const GA_MEASUREMENT_ID = "G-G4YTZPWFCQ";
+    // localStorage keys: jangan diganti agar streak user lama tidak hilang
+    const LS_STREAK = 'dlpa_streak';
+    const LS_SELECTED_TRACK = 'dlpa_selected_track';
+    const LS_SELECTED_TRACK_DRAFT = 'dlpa_selected_track_draft';
 
-    const SITE_URL = "https://academy.dailylokerpelaut.com/";
-    const APP_VERSION = "academy-option-a-1.1.2-ga-pageview";
-
-    const TRACKS = [
-      {
-        id: "Deck Officer",
-        title: "Deck Officer",
-        desc: "Untuk Cadet Deck, 3/O, 2/O, C/O, Master",
-        icon: "helm"
-      },
-      {
-        id: "Engineer Officer",
-        title: "Engineer Officer",
-        desc: "Untuk Cadet Engine, 4/E, 3/E, 2/E, Chief Engineer",
-        icon: "engine"
-      },
-      {
-        id: "Rating",
-        title: "Rating",
-        desc: "Untuk AB, OS, Oiler, Fitter, Cook, Wiper, Bosun",
-        icon: "anchor"
-      }
-    ];
-
-    const STORAGE = {
-      selectedTrack: "dlpa_selected_track",
-      selectedTrackDraft: "dlpa_selected_track_draft",
-      streak: "dlpa_streak",
-      firstVisit: "dlpa_first_visit",
-      lastVisit: "dlpa_last_visit"
-    };
+    const TRACKS = ['Deck Officer', 'Engineer Officer', 'Rating'];
+    const TOTAL_QUESTIONS = 5;
 
     const state = {
       selectedTrack: null,
-      draftTrack: null,
-      quizDate: getLocalDateKey(),
-      progress: null,
-      loading: false,
-      activeQuestionIndex: 0
+      questions: [],
+      currentIndex: 0,
+      answers: {},
+      results: {},
+      completed: false,
+      startedAt: null,
+      elapsedTimer: null,
+      lastResult: null
     };
 
-    const $ = (selector) => document.querySelector(selector);
+    const $ = (id) => document.getElementById(id);
+    const qs = (sel, root = document) => root.querySelector(sel);
+    const qsa = (sel, root = document) => Array.from(root.querySelectorAll(sel));
 
-    function iconSvg(name) {
-      const common = "width='30' height='30' viewBox='0 0 32 32' fill='none' xmlns='http://www.w3.org/2000/svg'";
-      if (name === "helm") {
-        return `<svg ${common} aria-hidden="true"><circle cx="16" cy="16" r="8.5" stroke="currentColor" stroke-width="2.2"/><circle cx="16" cy="16" r="2.2" fill="currentColor"/><path d="M16 2.8v6M16 23.2v6M2.8 16h6M23.2 16h6M6.6 6.6l4.3 4.3M21.1 21.1l4.3 4.3M25.4 6.6l-4.3 4.3M10.9 21.1l-4.3 4.3" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg>`;
-      }
-      if (name === "engine") {
-        return `<svg ${common} aria-hidden="true"><path d="M7 14h4l2-3h6v3h3l3 3v6h-4l-2-3h-8v3H7v-9Z" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><path d="M13 8h7M16 8v3M25 19h3M4 17v4" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/><circle cx="13" cy="17" r="1.2" fill="currentColor"/><circle cx="18" cy="17" r="1.2" fill="currentColor"/></svg>`;
-      }
-      if (name === "anchor") {
-        return `<svg ${common} aria-hidden="true"><path d="M16 4v19" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/><circle cx="16" cy="6" r="3" stroke="currentColor" stroke-width="2.2"/><path d="M9 12h14M6 20c1.8 4.4 5.3 7 10 7s8.2-2.6 10-7M6 20l-3 2M26 20l3 2" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
-      }
-      if (name === "shield") {
-        return `<svg ${common} aria-hidden="true"><path d="M16 4 7 7v7c0 5.6 3.6 10.7 9 12 5.4-1.3 9-6.4 9-12V7l-9-3Z" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round"/><path d="m11.5 15.5 3 3 6-7" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
-      }
-      if (name === "book") {
-        return `<svg ${common} aria-hidden="true"><path d="M6 7.5h8c1.1 0 2 .9 2 2v17c0-1.1-.9-2-2-2H6V7.5ZM26 7.5h-8c-1.1 0-2 .9-2 2v17c0-1.1.9-2 2-2h8V7.5Z" stroke="currentColor" stroke-width="2.1" stroke-linejoin="round"/></svg>`;
-      }
-      return `<svg ${common} aria-hidden="true"><circle cx="16" cy="16" r="10" stroke="currentColor" stroke-width="2.2"/></svg>`;
-    }
-
-    function safeGet(key, fallback = null) {
+    function sendEvent(name, params = {}) {
       try {
-        const value = localStorage.getItem(key);
-        return value === null ? fallback : value;
-      } catch (error) {
-        return fallback;
-      }
+        if (typeof gtag === 'function') {
+          gtag('event', name, { app_version: 'academy-visual-v4.0.0', ...params });
+        }
+      } catch (error) {}
     }
 
-    function safeSet(key, value) {
-      try { localStorage.setItem(key, value); } catch (error) {}
+    function todayWIB() {
+      const parts = new Intl.DateTimeFormat('en-CA', {
+        timeZone: 'Asia/Jakarta', year: 'numeric', month: '2-digit', day: '2-digit'
+      }).formatToParts(new Date()).reduce((acc, p) => { acc[p.type] = p.value; return acc; }, {});
+      return `${parts.year}-${parts.month}-${parts.day}`;
     }
 
-    function safeGetJson(key, fallback) {
+    function parseDateUTC(dateStr) {
+      const [y, m, d] = dateStr.split('-').map(Number);
+      return Date.UTC(y, m - 1, d);
+    }
+
+    function diffDays(a, b) {
+      return Math.round((parseDateUTC(a) - parseDateUTC(b)) / 86400000);
+    }
+
+    function shiftDate(dateStr, offset) {
+      const [y, m, d] = dateStr.split('-').map(Number);
+      const dt = new Date(Date.UTC(y, m - 1, d + offset));
+      return dt.toISOString().slice(0, 10);
+    }
+
+    function dayLabel(dateStr) {
+      const labels = ['Min', 'Sen', 'Sel', 'Rab', 'Kam', 'Jum', 'Sab'];
+      const [y, m, d] = dateStr.split('-').map(Number);
+      return labels[new Date(Date.UTC(y, m - 1, d)).getUTCDay()];
+    }
+
+    function progressKey(date = todayWIB(), track = state.selectedTrack) {
+      return `dlpa_progress_${date}_${track || ''}`;
+    }
+
+    function readJSON(key, fallback) {
       try {
         const raw = localStorage.getItem(key);
-        return raw ? JSON.parse(raw) : fallback;
+        if (!raw) return fallback;
+        return JSON.parse(raw);
       } catch (error) {
         return fallback;
       }
     }
 
-    function safeSetJson(key, value) {
-      try { localStorage.setItem(key, JSON.stringify(value)); } catch (error) {}
+    function writeJSON(key, value) {
+      localStorage.setItem(key, JSON.stringify(value));
     }
 
-    function getLocalDateKey(date = new Date()) {
-      const year = date.getFullYear();
-      const month = String(date.getMonth() + 1).padStart(2, "0");
-      const day = String(date.getDate()).padStart(2, "0");
-      return `${year}-${month}-${day}`;
-    }
-
-    function addDays(dateKey, offset) {
-      const [year, month, day] = dateKey.split("-").map(Number);
-      const date = new Date(year, month - 1, day);
-      date.setDate(date.getDate() + offset);
-      return getLocalDateKey(date);
-    }
-
-    function getDayLabel(dateKey) {
-      const [year, month, day] = dateKey.split("-").map(Number);
-      const date = new Date(year, month - 1, day);
-      return ["Min", "Sen", "Sel", "Rab", "Kam", "Jum", "Sab"][date.getDay()];
-    }
-
-    function progressKey(dateKey, track) {
-      return `dlpa_progress_${dateKey}_${track}`;
-    }
-
-    function getProgress(dateKey = state.quizDate, track = state.selectedTrack) {
-      if (!track) return null;
-      return safeGetJson(progressKey(dateKey, track), null);
-    }
-
-    function saveProgress(progress) {
-      safeSetJson(progressKey(progress.quiz_date, progress.track), progress);
-      state.progress = progress;
-    }
-
-    function getStreak() {
-      return safeGetJson(STORAGE.streak, { current: 0, last_completed_date: null, completed_dates: [] });
+    function readStreak() {
+      const raw = localStorage.getItem(LS_STREAK);
+      if (!raw) return { count: 0, lastDate: null, history: {} };
+      try {
+        const parsed = JSON.parse(raw);
+        if (typeof parsed === 'number') return { count: parsed, lastDate: null, history: {} };
+        return {
+          count: Number(parsed.count || parsed.streak || 0),
+          lastDate: parsed.lastDate || parsed.date || null,
+          history: parsed.history || {}
+        };
+      } catch (error) {
+        const n = Number(raw);
+        if (!Number.isNaN(n)) return { count: n, lastDate: null, history: {} };
+        return { count: 0, lastDate: null, history: {} };
+      }
     }
 
     function saveStreak(streak) {
-      safeSetJson(STORAGE.streak, streak);
+      writeJSON(LS_STREAK, streak);
     }
 
-    function updateStreakOnComplete(dateKey) {
-      const streak = getStreak();
-      if (!Array.isArray(streak.completed_dates)) streak.completed_dates = [];
+    function applyStreakForCompletion() {
+      const today = todayWIB();
+      const streak = readStreak();
+      if (streak.history && streak.history[today]) return streak;
 
-      if (streak.completed_dates.includes(dateKey)) {
-        return { streak, changed: false, started: false, continued: false };
+      let newCount = 1;
+      if (streak.lastDate) {
+        const delta = diffDays(today, streak.lastDate);
+        if (delta === 0) newCount = streak.count || 1;
+        else if (delta === 1) newCount = (streak.count || 0) + 1;
+        else newCount = 1;
       }
 
-      const yesterday = addDays(dateKey, -1);
-      const continued = streak.last_completed_date === yesterday;
-      const started = !continued || !streak.current;
-      streak.current = continued ? Number(streak.current || 0) + 1 : 1;
-      streak.last_completed_date = dateKey;
-      streak.completed_dates.push(dateKey);
-      streak.completed_dates = [...new Set(streak.completed_dates)].sort().slice(-60);
-      saveStreak(streak);
-      return { streak, changed: true, started, continued };
+      const newStreak = {
+        count: newCount,
+        lastDate: today,
+        history: { ...(streak.history || {}), [today]: true }
+      };
+      saveStreak(newStreak);
+
+      if (newCount <= 1) sendEvent('streak_started', { track: state.selectedTrack });
+      if (newCount > 1) sendEvent('streak_continued', { track: state.selectedTrack, streak: newCount });
+      return newStreak;
     }
 
-    function fireEvent(eventName, params = {}) {
-      if (typeof window.gtag === "function") {
-        window.gtag("event", eventName, {
-          event_category: "Academy Quiz",
-          page_name: "academy_quiz",
-          page_title: document.title || "Daily Loker Pelaut Academy — Quiz Pelaut Harian",
-          page_location: window.location.href,
-          page_path: window.location.pathname,
-          hostname: window.location.hostname,
-          app_version: APP_VERSION,
-          quiz_date: state?.quizDate || getLocalDateKey(),
-          transport_type: "beacon",
-          ...params
-        });
+    function updateStreakUI() {
+      const streak = readStreak();
+      $('streakCountHome').textContent = streak.count || 0;
+      renderDaysStrip('homeDaysStrip', streak.history || {});
+    }
+
+    function renderDaysStrip(targetId, history) {
+      const root = $(targetId);
+      if (!root) return;
+      const today = todayWIB();
+      root.innerHTML = '';
+      for (let i = 6; i >= 0; i--) {
+        const date = shiftDate(today, -i);
+        const el = document.createElement('div');
+        el.className = 'day-dot';
+        el.innerHTML = `${dayLabel(date)}<div class="dot ${history[date] ? 'done' : ''}">${history[date] ? '✓' : ''}</div>`;
+        root.appendChild(el);
       }
-    }
-
-    function loadGA() {
-      if (!GA_MEASUREMENT_ID || GA_MEASUREMENT_ID === "G-XXXXXXXXXX") return;
-      if (window.__DLP_GA4_INSTALLED__) return;
-      window.__DLP_GA4_INSTALLED__ = true;
-
-      window.dataLayer = window.dataLayer || [];
-      window.gtag = window.gtag || function(){ window.dataLayer.push(arguments); };
-
-      const script = document.createElement("script");
-      script.async = true;
-      script.src = "https://www.googletagmanager.com/gtag/js?id=" + encodeURIComponent(GA_MEASUREMENT_ID);
-      document.head.appendChild(script);
-
-      window.gtag("js", new Date());
-      window.gtag("config", GA_MEASUREMENT_ID, {
-        page_title: document.title || "Daily Loker Pelaut Academy — Quiz Pelaut Harian",
-        page_location: window.location.href,
-        page_path: window.location.pathname,
-        send_page_view: true
-      });
-
-      fireEvent("dlp_academy_home_loaded", {
-        event_label: "Academy quiz page loaded"
-      });
-    }
-
-    function hasApiUrl() {
-      return API_URL && API_URL !== "PASTE_APPS_SCRIPT_WEB_APP_URL_HERE";
-    }
-
-    async function fetchJson(params) {
-      if (!hasApiUrl()) {
-        throw new Error("API_URL belum dipasang. Paste URL Web App Apps Script ke konstanta API_URL di index.html.");
-      }
-      const url = API_URL + "?" + new URLSearchParams(params).toString();
-      const response = await fetch(url, { method: "GET", cache: "no-store" });
-      const text = await response.text();
-      let json;
-      try { json = JSON.parse(text); }
-      catch (error) { throw new Error("Response API bukan JSON valid: " + text.slice(0, 160)); }
-      if (!response.ok || json.ok === false) {
-        throw new Error(json.error || json.message || "API gagal memproses request.");
-      }
-      return json;
     }
 
     function showToast(message) {
-      const toast = $("#toast");
+      const toast = $('toast');
       toast.textContent = message;
-      toast.classList.add("show");
+      toast.classList.add('show');
       clearTimeout(showToast._timer);
-      showToast._timer = setTimeout(() => toast.classList.remove("show"), 2200);
+      showToast._timer = setTimeout(() => toast.classList.remove('show'), 2400);
     }
 
-    function render() {
-      state.selectedTrack = safeGet(STORAGE.selectedTrack, null);
-      state.draftTrack = safeGet(STORAGE.selectedTrackDraft, state.selectedTrack || TRACKS[0].id);
-      const savedProgress = getProgress();
-      state.progress = savedProgress;
+    function setScreen(name) {
+      qsa('.screen').forEach(s => s.classList.remove('active'));
+      const target = name === 'quiz' ? 'quizScreen' : name === 'result' ? 'resultScreen' : 'homeScreen';
+      $(target).classList.add('active');
+      qsa('.nav-item').forEach(n => n.classList.toggle('active', n.dataset.go === name));
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
 
-      if (!state.selectedTrack) {
-        renderTrackSelection();
-        renderCompactTrack(false);
-        return;
+    function openDrawer() {
+      $('drawer').classList.add('open');
+      $('drawerBackdrop').classList.add('open');
+      $('drawer').setAttribute('aria-hidden', 'false');
+    }
+
+    function closeDrawer() {
+      $('drawer').classList.remove('open');
+      $('drawerBackdrop').classList.remove('open');
+      $('drawer').setAttribute('aria-hidden', 'true');
+    }
+
+    function normalizeTrack(track) {
+      return TRACKS.includes(track) ? track : null;
+    }
+
+    function setSelectedTrack(track, opts = {}) {
+      const valid = normalizeTrack(track);
+      if (!valid) return;
+      state.selectedTrack = valid;
+      localStorage.setItem(LS_SELECTED_TRACK_DRAFT, valid);
+      if (opts.commit) localStorage.setItem(LS_SELECTED_TRACK, valid);
+
+      $('selectedTrackText').textContent = valid;
+      $('selectedTrackMini').classList.remove('hidden');
+      $('trackLockIcon').textContent = state.questions.length ? '🔒' : '🔓';
+      qsa('.track-card').forEach(card => card.classList.toggle('selected', card.dataset.track === valid));
+      sendEvent('track_selected', { track: valid });
+    }
+
+    function getQuestionId(q) {
+      return getQuestionField(q, ['ID', 'id', 'question_id', 'Question_ID', 'QuestionId', 'questionId', 'Question ID'], '');
+    }
+
+    function getNestedValue(obj, path) {
+      if (!obj || !path) return undefined;
+      return path.split('.').reduce((acc, part) => {
+        if (acc === undefined || acc === null) return undefined;
+        return acc[part];
+      }, obj);
+    }
+
+    function isNonEmptyValue(value) {
+      return value !== undefined && value !== null && String(value).trim() !== '';
+    }
+
+    function getQuestionField(q, keys, fallback = '') {
+      for (const key of keys) {
+        const direct = q ? q[key] : undefined;
+        if (isNonEmptyValue(direct)) return direct;
+        if (String(key).includes('.')) {
+          const nested = getNestedValue(q, key);
+          if (isNonEmptyValue(nested)) return nested;
+        }
       }
-
-      renderCompactTrack(true);
-      if (savedProgress?.completed) {
-        renderResult(savedProgress);
-      } else if (savedProgress?.questions?.length) {
-        renderQuiz(savedProgress);
-      } else {
-        renderDashboard();
-      }
+      return fallback;
     }
 
-    function renderCompactTrack(visible) {
-      const node = $("#compactTrack");
-      if (!visible || !state.selectedTrack) {
-        node.classList.add("hidden");
-        node.innerHTML = "";
-        return;
-      }
-      const track = TRACKS.find(t => t.id === state.selectedTrack) || TRACKS[0];
-      const progress = getProgress();
-      const isLocked = Boolean(progress?.started_at || progress?.completed);
-      node.classList.remove("hidden");
-      node.innerHTML = `
-        <div class="compact-left">
-          <span class="compact-icon">${iconSvg(track.icon)}</span>
-          <span class="compact-meta"><small>Jalur kamu</small>${track.title}</span>
-        </div>
-        <button class="link-btn" type="button" id="changeTrackBtn" ${isLocked ? "disabled" : ""}>${isLocked ? "Terkunci hari ini" : "Ubah Jalur ✎"}</button>
-      `;
-      const btn = $("#changeTrackBtn");
-      if (btn && !isLocked) {
-        btn.addEventListener("click", () => {
-          safeSet(STORAGE.selectedTrackDraft, state.selectedTrack);
-          localStorage.removeItem(STORAGE.selectedTrack);
-          state.selectedTrack = null;
-          fireEvent("track_selected", { action_type: "change_track_open" });
-          render();
-        });
-      }
+    function getOptionValue(q, letter, index) {
+      const keys = [
+        `Option_${letter}`, `Option ${letter}`, `Option${letter}`,
+        `option_${letter.toLowerCase()}`, `option${letter}`, `option${letter.toLowerCase()}`,
+        letter, letter.toLowerCase(),
+        `Choice_${letter}`, `Choice ${letter}`, `choice_${letter.toLowerCase()}`, `choice${letter}`,
+        `Answer_${letter}`, `answer_${letter.toLowerCase()}`,
+        `options.${letter}`, `options.${letter.toLowerCase()}`,
+        `choices.${letter}`, `choices.${letter.toLowerCase()}`
+      ];
+      const value = getQuestionField(q, keys, '');
+      if (isNonEmptyValue(value)) return value;
+      if (Array.isArray(q?.options) && isNonEmptyValue(q.options[index])) return q.options[index];
+      if (Array.isArray(q?.choices) && isNonEmptyValue(q.choices[index])) return q.choices[index];
+      return '';
     }
 
-    function renderTrackSelection() {
-      const content = $("#mainContent");
-      const draft = state.draftTrack || TRACKS[0].id;
-      content.innerHTML = `
-        <section class="section panel" id="trackSection">
-          <h2 class="section-title">Pilih Jalur Quiz Kamu</h2>
-          <p class="section-copy">Agar soal lebih sesuai, pilih jalur yang paling cocok dengan posisi atau tujuan kariermu.</p>
-          <div class="track-list" role="radiogroup" aria-label="Pilih jalur quiz">
-            ${TRACKS.map(track => `
-              <button class="track-card ${draft === track.id ? "active" : ""}" type="button" data-track="${track.id}" role="radio" aria-checked="${draft === track.id}">
-                <span class="track-icon">${iconSvg(track.icon)}</span>
-                <span><span class="track-name">${track.title}</span><span class="track-desc">${track.desc}</span></span>
-                <span class="radio-indicator">✓</span>
-              </button>
-            `).join("")}
-          </div>
-          <div class="notice"><span class="notice-icon">${iconSvg("shield")}</span><span>Pilihan ini akan dipakai untuk quiz harian kamu. Setelah quiz dimulai, jalur akan terkunci untuk hari ini.</span></div>
-          <div class="btn-row">
-            <button class="btn btn-primary" type="button" id="startWithTrackBtn">➜ Lanjut Mulai Quiz</button>
-            <button class="btn btn-secondary" type="button" id="laterBtn">Nanti Saja</button>
-          </div>
-        </section>
-      `;
-
-      content.querySelectorAll(".track-card").forEach(btn => {
-        btn.addEventListener("click", () => {
-          const track = btn.dataset.track;
-          safeSet(STORAGE.selectedTrackDraft, track);
-          state.draftTrack = track;
-          fireEvent("track_selected", { track, selection_stage: "draft" });
-          renderTrackSelection();
-        });
-      });
-
-      $("#startWithTrackBtn").addEventListener("click", async () => {
-        const track = safeGet(STORAGE.selectedTrackDraft, TRACKS[0].id);
-        safeSet(STORAGE.selectedTrack, track);
-        state.selectedTrack = track;
-        fireEvent("track_selected", { track, selection_stage: "committed" });
-        await startQuiz();
-      });
-
-      $("#laterBtn").addEventListener("click", () => {
-        showToast("Siap. Kamu bisa mulai kapan saja hari ini.");
-      });
+    function normalizeQuestion(q) {
+      const raw = q && q.raw ? q.raw : q;
+      const fallbackOptions = q && q.options && !Array.isArray(q.options) ? q.options : {};
+      const normalized = {
+        raw: raw || q,
+        id: getQuestionId(raw) || getQuestionId(q),
+        category: getQuestionField(raw, ['Category', 'category', 'category_name', 'Category_Name'], getQuestionField(q, ['category'], 'Daily Drill')),
+        subcategory: getQuestionField(raw, ['Subcategory', 'subcategory', 'sub_category', 'Sub_Category'], getQuestionField(q, ['subcategory'], '')),
+        difficulty: getQuestionField(raw, ['Difficulty', 'difficulty', 'level', 'Level'], getQuestionField(q, ['difficulty'], 'Easy')),
+        audience: getQuestionField(raw, ['Audience_Level', 'audience_level', 'Audience', 'audience'], getQuestionField(q, ['audience'], '')),
+        track: getQuestionField(raw, ['Quiz_Track', 'Quiz Track', 'track', 'QuizTrack', 'quiz_track'], getQuestionField(q, ['track'], state.selectedTrack)),
+        question: getQuestionField(raw, ['Question', 'question', 'Question_Text', 'question_text', 'text', 'title'], getQuestionField(q, ['question'], '')),
+        options: {
+          A: getOptionValue(raw, 'A', 0) || fallbackOptions.A || fallbackOptions.a || '',
+          B: getOptionValue(raw, 'B', 1) || fallbackOptions.B || fallbackOptions.b || '',
+          C: getOptionValue(raw, 'C', 2) || fallbackOptions.C || fallbackOptions.c || '',
+          D: getOptionValue(raw, 'D', 3) || fallbackOptions.D || fallbackOptions.d || ''
+        },
+        correctAnswer: getQuestionField(raw, ['Correct_Answer', 'Correct Answer', 'CorrectAnswer', 'correct_answer', 'correctAnswer', 'correct_option', 'correctOption', 'answer', 'Answer', 'answer_key', 'Answer_Key'], getQuestionField(q, ['correctAnswer'], '')),
+        explanation: getQuestionField(raw, ['Explanation', 'explanation', 'Answer_Explanation', 'answer_explanation', 'feedback', 'Feedback', 'rationale'], getQuestionField(q, ['explanation'], ''))
+      };
+      normalized.correctAnswer = String(normalized.correctAnswer || '').trim().toUpperCase().slice(0, 1);
+      return normalized;
     }
 
-    function renderDashboard() {
-      const streak = getStreak();
-      const content = $("#mainContent");
-      const completedToday = streak.completed_dates?.includes(state.quizDate);
-      content.innerHTML = `
-        <section class="section panel">
-          <h2 class="section-title">Kabar Harian Kamu</h2>
-          <p class="section-copy">Mulai quiz 5 soal hari ini. Pilihan jalur sudah disimpan, jadi kamu tidak perlu pilih ulang.</p>
-
-          <div class="dashboard-grid">
-            <div class="dash-card">
-              <div class="dash-label">🔥 Streak</div>
-              <p class="dash-value">${Number(streak.current || 0)} hari</p>
-              <p class="dash-note">${Number(streak.current || 0) > 0 ? "Pertahankan ritmemu." : "Mulai streak pertamamu."}</p>
-            </div>
-            <div class="dash-card">
-              <div class="dash-label">📋 Quiz Hari Ini</div>
-              <p class="dash-value">${completedToday ? "Selesai" : "0/5"}</p>
-              <p class="dash-note">${completedToday ? "Balik lagi besok." : "Belum dikerjakan."}</p>
-            </div>
-          </div>
-
-          ${renderActivityStrip(streak)}
-
-          <div class="btn-row">
-            <button class="btn btn-primary" type="button" id="startQuizBtn">Mulai Quiz Hari Ini ➜</button>
-          </div>
-        </section>
-      `;
-      $("#startQuizBtn").addEventListener("click", startQuiz);
+    function extractQuestions(payload) {
+      const candidates = [payload?.questions, payload?.data, payload?.items, payload?.quiz, payload?.result?.questions, payload];
+      const arr = candidates.find(Array.isArray) || [];
+      return arr.map(normalizeQuestion).filter(q => q.id && q.question);
     }
 
-    function renderActivityStrip(streak = getStreak()) {
-      const days = Array.from({ length: 7 }, (_, i) => addDays(state.quizDate, i - 6));
-      const completedDates = new Set(streak.completed_dates || []);
-      return `
-        <div class="activity-wrap">
-          <div class="small-head"><span>Aktivitas 7 Hari Terakhir</span><span>${completedDates.has(state.quizDate) ? "Selesai" : "Hari ini"}</span></div>
-          <div class="activity-strip">
-            ${days.map(dateKey => `
-              <div class="day-item ${completedDates.has(dateKey) ? "done" : ""} ${dateKey === state.quizDate ? "today" : ""}">
-                <span>${getDayLabel(dateKey)}</span>
-                <span class="day-symbol">✓</span>
-              </div>
-            `).join("")}
-          </div>
-        </div>
-      `;
+    async function apiGet(params) {
+      const url = new URL(API_URL);
+      Object.entries(params).forEach(([key, value]) => url.searchParams.set(key, value));
+      url.searchParams.set('_', Date.now().toString());
+      const res = await fetch(url.toString(), { method: 'GET', cache: 'no-store' });
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      return await res.json();
+    }
+
+    function saveProgress(extra = {}) {
+      if (!state.selectedTrack) return;
+      const topics = getTopics();
+      const progress = {
+        date: todayWIB(),
+        track: state.selectedTrack,
+        currentIndex: state.currentIndex,
+        questionIds: state.questions.map(q => q.id),
+        questions: state.questions,
+        answers: state.answers,
+        results: state.results,
+        completed: state.completed,
+        score: calculateScore(),
+        topics,
+        updatedAt: new Date().toISOString(),
+        ...extra
+      };
+      writeJSON(progressKey(), progress);
+    }
+
+    function loadProgress() {
+      if (!state.selectedTrack) return null;
+      return readJSON(progressKey(), null);
     }
 
     async function startQuiz() {
-      if (state.loading) return;
-      state.selectedTrack = safeGet(STORAGE.selectedTrack, state.draftTrack || TRACKS[0].id);
-      if (!state.selectedTrack) return renderTrackSelection();
+      if (!state.selectedTrack) {
+        showToast('Pilih track dulu sebelum mulai quiz.');
+        $('trackSection').scrollIntoView({ behavior: 'smooth', block: 'start' });
+        return;
+      }
+      localStorage.setItem(LS_SELECTED_TRACK, state.selectedTrack);
 
-      const existing = getProgress();
-      if (existing?.completed) return renderResult(existing);
-      if (existing?.questions?.length) return renderQuiz(existing);
+      const existing = loadProgress();
+      if (existing && existing.completed && Array.isArray(existing.questions)) {
+        hydrateFromProgress(existing);
+        showResult();
+        return;
+      }
 
-      state.loading = true;
-      renderLoading("Menyiapkan 5 soal harian...");
-      fireEvent("quiz_start", { track: state.selectedTrack });
+      $('homeLoadingCard').classList.remove('hidden');
+      $('homeErrorCard').classList.add('hidden');
+      $('startQuizBtn').disabled = true;
+      $('heroStartBtn').disabled = true;
+      $('trackLockIcon').textContent = '🔒';
 
       try {
-        const data = await fetchJson({ action: "getTodayQuiz", track: state.selectedTrack });
-        const progress = {
-          quiz_date: data.quiz_date || state.quizDate,
-          track: data.track || state.selectedTrack,
-          category_mix: data.category_mix || [],
-          questions: data.questions || [],
-          answers: {},
-          current_index: 0,
-          started_at: new Date().toISOString(),
-          completed: false,
-          score: 0
-        };
-        state.quizDate = progress.quiz_date;
-        saveProgress(progress);
-        renderCompactTrack(true);
-        renderQuiz(progress);
-      } catch (error) {
-        renderError(error.message);
-      } finally {
-        state.loading = false;
-      }
-    }
-
-    function renderLoading(message) {
-      $("#mainContent").innerHTML = `<section class="section panel"><div class="loading"><div class="spinner"></div><div>${message}</div></div></section>`;
-    }
-
-    function renderError(message) {
-      $("#mainContent").innerHTML = `
-        <section class="section panel">
-          <h2 class="section-title">Belum bisa memuat quiz</h2>
-          <div class="error-box">${escapeHtml(message)}</div>
-          <div class="btn-row"><button class="btn btn-primary" type="button" id="retryBtn">Coba Lagi</button></div>
-        </section>
-      `;
-      $("#retryBtn").addEventListener("click", startQuiz);
-    }
-
-    function renderQuiz(progress) {
-      state.progress = progress;
-      state.activeQuestionIndex = Math.min(progress.current_index || 0, Math.max(progress.questions.length - 1, 0));
-      const q = progress.questions[state.activeQuestionIndex];
-      if (!q) return renderError("Soal tidak ditemukan dari API.");
-      const answer = progress.answers[q.id];
-      const answeredCount = Object.keys(progress.answers || {}).length;
-      const total = progress.questions.length || 5;
-      const percent = Math.round((answeredCount / total) * 100);
-      const categories = categoryList(progress);
-
-      $("#mainContent").innerHTML = `
-        <section class="section panel quiz-card">
-          <div class="quiz-head">
-            <div class="quiz-meta-line">
-              <span>Soal ${state.activeQuestionIndex + 1} dari ${total}</span>
-              <span class="pill">${escapeHtml(progress.track)} • ${answeredCount}/${total}</span>
-            </div>
-            <div class="progress-line"><div class="progress-fill" style="width:${percent}%"></div></div>
-            <div class="category-chips">${categories.map(cat => `<span class="pill">${topicIcon(cat)} ${escapeHtml(cat)}</span>`).join("")}</div>
-          </div>
-          <div class="quiz-body">
-            <div class="question-card">
-              <p class="question-label">${escapeHtml(q.category || "Quiz")}</p>
-              <h2 class="question-text">${escapeHtml(q.question || "")}</h2>
-              <div class="options">
-                ${["A", "B", "C", "D"].map(letter => renderOption(q, letter, answer)).join("")}
-              </div>
-              <div id="feedbackBox">${answer ? renderFeedback(answer) : ""}</div>
-              <div class="notice" style="margin-top:14px;"><span class="notice-icon">ⓘ</span><span>Pilihan jalur <strong>${escapeHtml(progress.track)}</strong> digunakan untuk quiz hari ini.</span></div>
-            </div>
-            <div class="quiz-actions">
-              <button class="btn btn-secondary" type="button" id="prevBtn" ${state.activeQuestionIndex === 0 ? "disabled" : ""}>← Sebelumnya</button>
-              <button class="btn btn-primary" type="button" id="nextBtn" ${answer ? "" : "disabled"}>${state.activeQuestionIndex + 1 >= total ? "Lihat Hasil" : "Soal Berikutnya →"}</button>
-            </div>
-          </div>
-        </section>
-      `;
-
-      document.querySelectorAll(".option-btn").forEach(btn => {
-        btn.addEventListener("click", () => submitAnswer(q.id, btn.dataset.answer));
-      });
-
-      $("#prevBtn").addEventListener("click", () => {
-        progress.current_index = Math.max(0, state.activeQuestionIndex - 1);
-        saveProgress(progress);
-        renderQuiz(progress);
-      });
-
-      $("#nextBtn").addEventListener("click", () => {
-        if (!progress.answers[q.id]) return;
-        if (state.activeQuestionIndex + 1 >= total) {
-          completeQuiz(progress);
+        let questions;
+        if (existing && Array.isArray(existing.questions) && existing.questions.length) {
+          hydrateFromProgress(existing);
+          questions = state.questions;
         } else {
-          progress.current_index = state.activeQuestionIndex + 1;
-          saveProgress(progress);
-          renderQuiz(progress);
+          const payload = await apiGet({ action: 'getTodayQuiz', track: state.selectedTrack });
+          questions = extractQuestions(payload).slice(0, TOTAL_QUESTIONS);
+          if (questions.length < TOTAL_QUESTIONS) throw new Error('Jumlah soal kurang dari 5');
+          state.questions = questions;
+          state.currentIndex = 0;
+          state.answers = {};
+          state.results = {};
+          state.completed = false;
+          saveProgress();
         }
-      });
+        state.startedAt = Date.now();
+        startTimer();
+        sendEvent('quiz_start', { track: state.selectedTrack });
+        setScreen('quiz');
+        renderQuestion();
+      } catch (error) {
+        $('homeErrorText').textContent = 'Quiz belum bisa dimuat. Coba refresh atau cek koneksi internet kamu.';
+        $('homeErrorCard').classList.remove('hidden');
+        showToast('Quiz belum bisa dimuat.');
+      } finally {
+        $('homeLoadingCard').classList.add('hidden');
+        $('startQuizBtn').disabled = false;
+        $('heroStartBtn').disabled = false;
+      }
     }
 
-    function renderOption(q, letter, answer) {
-      const text = q.options?.[letter] || "";
-      let cls = "option-btn";
-      let stateIcon = "";
-      const disabled = answer ? "disabled" : "";
+    function hydrateFromProgress(progress) {
+      // Re-normalize every time so old cached progress from previous preview does not keep blank options/explanations.
+      state.questions = (progress.questions || []).map(q => normalizeQuestion(q));
+      state.currentIndex = Math.min(progress.currentIndex || 0, Math.max(0, state.questions.length - 1));
+      state.answers = progress.answers || {};
+      state.results = progress.results || {};
+      state.completed = !!progress.completed;
+      state.lastResult = progress.completed ? progress : null;
+    }
 
-      if (answer) {
-        if (answer.selected_answer === letter) cls += " selected";
-        if (answer.correct_answer === letter) { cls += " correct"; stateIcon = "✓"; }
-        else if (answer.selected_answer === letter && !answer.is_correct) { cls += " wrong"; stateIcon = "×"; }
-      }
+    function startTimer() {
+      clearInterval(state.elapsedTimer);
+      state.startedAt = state.startedAt || Date.now();
+      state.elapsedTimer = setInterval(() => {
+        const elapsed = Math.floor((Date.now() - state.startedAt) / 1000);
+        const mm = String(Math.floor(elapsed / 60)).padStart(2, '0');
+        const ss = String(elapsed % 60).padStart(2, '0');
+        $('quizTimer').textContent = `${mm}:${ss}`;
+      }, 1000);
+    }
 
-      return `
-        <button class="${cls}" type="button" data-answer="${letter}" ${disabled}>
+    function renderQuestion() {
+      const q = state.questions[state.currentIndex];
+      if (!q) return;
+      const answered = state.answers[q.id];
+      const result = state.results[q.id];
+      const number = state.currentIndex + 1;
+
+      $('quizCountText').textContent = `Soal ${number} dari ${TOTAL_QUESTIONS}`;
+      $('quizProgressFill').style.width = `${((number - 1) / TOTAL_QUESTIONS) * 100}%`;
+      $('questionText').textContent = q.question;
+
+      const diffClass = String(q.difficulty || '').toLowerCase();
+      $('questionChips').innerHTML = `
+        <span class="chip">${escapeHTML(q.category || 'Daily Drill')}</span>
+        <span class="chip ${diffClass}">${escapeHTML(q.difficulty || 'Easy')}</span>
+      `;
+
+      $('optionsWrap').innerHTML = '';
+      ['A', 'B', 'C', 'D'].forEach(letter => {
+        const btn = document.createElement('button');
+        btn.className = 'option-btn';
+        btn.dataset.answer = letter;
+        btn.innerHTML = `
           <span class="option-letter">${letter}</span>
-          <span class="option-text">${escapeHtml(text)}</span>
-          <span class="option-state">${stateIcon}</span>
-        </button>
-      `;
-    }
-
-    function renderFeedback(answer) {
-      const cls = answer.is_correct ? "correct" : "wrong";
-      return `
-        <div class="feedback ${cls}">
-          <h3>${answer.is_correct ? "Benar. Mantap!" : "Belum tepat."}</h3>
-          <p>${escapeHtml(answer.explanation || "Pembahasan belum tersedia.")}</p>
-          ${answer.source_reference ? `<div class="source-note">Referensi: ${escapeHtml(answer.source_reference)}</div>` : ""}
-        </div>
-      `;
-    }
-
-    async function submitAnswer(questionId, selectedAnswer) {
-      const progress = state.progress;
-      if (!progress || progress.answers?.[questionId]) return;
-      fireEvent("quiz_answer_click", {
-        track: progress.track,
-        question_id: questionId,
-        selected_answer: selectedAnswer,
-        question_number: state.activeQuestionIndex + 1
+          <span class="option-text">${escapeHTML(q.options[letter] || '')}</span>
+          <span class="option-status"></span>
+        `;
+        btn.addEventListener('click', () => submitAnswer(letter));
+        if (answered) {
+          btn.disabled = true;
+          decorateAnsweredOption(btn, letter, result, answered);
+        }
+        $('optionsWrap').appendChild(btn);
       });
 
-      const options = Array.from(document.querySelectorAll(".option-btn"));
-      const selectedBtn = document.querySelector(`.option-btn[data-answer="${selectedAnswer}"]`);
-      options.forEach(btn => btn.disabled = true);
-      if (selectedBtn) {
-        selectedBtn.classList.add("selected", "pending");
-        const stateIcon = selectedBtn.querySelector(".option-state");
-        if (stateIcon) stateIcon.textContent = "";
+      if (answered && result) {
+        showExplanation(result, answered);
+        $('nextQuestionBtn').classList.remove('hidden');
+        $('nextQuestionBtn').textContent = number >= TOTAL_QUESTIONS ? 'Lihat Hasil' : 'Soal Selanjutnya ›';
+        $('quizProgressFill').style.width = `${(number / TOTAL_QUESTIONS) * 100}%`;
+      } else {
+        $('explanationCard').classList.add('hidden');
+        $('nextQuestionBtn').classList.add('hidden');
       }
-      const feedbackBox = document.querySelector("#feedbackBox");
-      if (feedbackBox) {
-        feedbackBox.innerHTML = `<div class="feedback checking"><h3>Mengecek jawaban...</h3><p>Pilihan kamu sudah diterima. Sebentar, pembahasan sedang dimuat.</p></div>`;
+    }
+
+    function decorateAnsweredOption(btn, letter, result, selected) {
+      const status = qs('.option-status', btn);
+      const correct = result?.correctAnswer;
+      if (letter === correct) {
+        btn.classList.add('correct');
+        status.textContent = '✓';
+      } else if (letter === selected) {
+        btn.classList.add('wrong');
+        status.textContent = '×';
       }
+    }
+
+    async function submitAnswer(letter) {
+      const q = state.questions[state.currentIndex];
+      if (!q || state.answers[q.id]) return;
+
+      qsa('.option-btn').forEach(btn => {
+        btn.disabled = true;
+        if (btn.dataset.answer === letter) btn.classList.add('selected');
+      });
+
+      sendEvent('quiz_answer_click', { track: state.selectedTrack, question_id: q.id, selected_answer: letter });
 
       try {
-        const data = await fetchJson({
-          action: "checkAnswer",
-          track: progress.track,
-          question_id: questionId,
-          selected_answer: selectedAnswer
+        const payload = await apiGet({
+          action: 'checkAnswer',
+          track: state.selectedTrack,
+          question_id: q.id,
+          selected_answer: letter
         });
-        progress.answers = progress.answers || {};
-        progress.answers[questionId] = {
-          question_id: questionId,
-          selected_answer: selectedAnswer,
-          correct_answer: data.correct_answer,
-          is_correct: Boolean(data.is_correct),
-          explanation: data.explanation || "",
-          source_reference: data.source_reference || "",
-          category: data.category || "",
-          subcategory: data.subcategory || ""
-        };
-        progress.score = Object.values(progress.answers).filter(a => a.is_correct).length;
-        saveProgress(progress);
-        renderQuiz(progress);
+        const result = normalizeAnswerResult(payload, q, letter);
+        storeAnswer(q, letter, result);
       } catch (error) {
-        showToast(error.message);
-        options.forEach(btn => btn.disabled = false);
+        const correctAnswer = String(q.correctAnswer || '').toUpperCase();
+        const result = {
+          isCorrect: correctAnswer ? letter === correctAnswer : false,
+          correctAnswer: correctAnswer || letter,
+          explanation: q.explanation || 'Jawaban tersimpan. Pembahasan belum tersedia dari server.'
+        };
+        storeAnswer(q, letter, result);
       }
     }
 
-    function completeQuiz(progress) {
-      const total = progress.questions.length || 5;
-      const score = Object.values(progress.answers || {}).filter(a => a.is_correct).length;
-      progress.completed = true;
-      progress.completed_at = new Date().toISOString();
-      progress.score = score;
-      progress.current_index = Math.max(0, total - 1);
+    function normalizeAnswerResult(payload, q, selected) {
+      const isCorrect = payload?.is_correct ?? payload?.correct ?? payload?.isCorrect ?? payload?.data?.is_correct;
+      const correctAnswer = payload?.correct_answer || payload?.correctAnswer || payload?.answer || payload?.data?.correct_answer || q.correctAnswer || selected;
+      const explanation = payload?.explanation || payload?.Explanation || payload?.data?.explanation || q.explanation || '';
+      return {
+        isCorrect: Boolean(isCorrect === true || isCorrect === 'true' || isCorrect === 1 || isCorrect === '1'),
+        correctAnswer: String(correctAnswer).toUpperCase().trim(),
+        explanation
+      };
+    }
 
-      const streakUpdate = updateStreakOnComplete(progress.quiz_date || state.quizDate);
-      progress.streak_after_complete = streakUpdate.streak.current;
-      saveProgress(progress);
+    function storeAnswer(q, selected, result) {
+      state.answers[q.id] = selected;
+      state.results[q.id] = result;
+      saveProgress();
+      qsa('.option-btn').forEach(btn => decorateAnsweredOption(btn, btn.dataset.answer, result, selected));
+      showExplanation(result, selected);
+      $('nextQuestionBtn').classList.remove('hidden');
+      $('nextQuestionBtn').textContent = state.currentIndex + 1 >= TOTAL_QUESTIONS ? 'Lihat Hasil' : 'Soal Selanjutnya ›';
+      $('quizProgressFill').style.width = `${((state.currentIndex + 1) / TOTAL_QUESTIONS) * 100}%`;
+    }
 
-      fireEvent("quiz_complete", {
-        track: progress.track,
+    function showExplanation(result, selected) {
+      const card = $('explanationCard');
+      card.classList.remove('hidden', 'wrong');
+      if (!result.isCorrect) card.classList.add('wrong');
+      $('explanationTitle').textContent = result.isCorrect ? 'Benar. Good watch.' : 'Belum tepat. Ini pembahasannya.';
+      $('explanationText').textContent = result.explanation || (result.isCorrect ? 'Jawaban kamu sudah tepat.' : 'Tidak apa-apa. Ini justru alasan latihan harian penting.');
+      sendEvent('explanation_view', { track: state.selectedTrack, correct: result.isCorrect });
+    }
+
+    function nextQuestion() {
+      if (state.currentIndex + 1 >= TOTAL_QUESTIONS) {
+        completeQuiz();
+      } else {
+        state.currentIndex += 1;
+        saveProgress();
+        renderQuestion();
+      }
+    }
+
+    function calculateScore() {
+      return Object.values(state.results).filter(r => r && r.isCorrect).length;
+    }
+
+    function getTopics() {
+      const unique = [...new Set(state.questions.map(q => q.category).filter(Boolean))];
+      return unique.slice(0, 3).join(' • ') || 'Safety • Interview • Maritime';
+    }
+
+    function resultCopy(score) {
+      if (score >= 5) return { headline: 'Perfect Watch!', short: 'PERFECT WATCH!', msg: 'Tajam hari ini. Besok pertahankan streak.' };
+      if (score === 4) return { headline: 'Solid Watch', short: 'SOLID WATCH', msg: 'Sudah bagus. Tinggal poles sedikit lagi.' };
+      if (score === 3) return { headline: 'Still On Track', short: 'STILL ON TRACK', msg: 'Cukup aman. Besok naik lagi.' };
+      return { headline: 'Warm Up Day', short: 'WARM UP DAY', msg: 'Tidak apa-apa. Hari ini latihan, besok balas.' };
+    }
+
+    function completeQuiz() {
+      clearInterval(state.elapsedTimer);
+      state.completed = true;
+      const score = calculateScore();
+      const streak = applyStreakForCompletion();
+      const progress = {
+        completed: true,
+        completedAt: new Date().toISOString(),
         score,
-        total,
-        streak: progress.streak_after_complete
-      });
-      if (score <= 2) fireEvent("score_0_2", { track: progress.track, score });
-      if (score === 3) fireEvent("score_3", { track: progress.track, score });
-      if (score === 4) fireEvent("score_4", { track: progress.track, score });
-      if (score === 5) fireEvent("score_5", { track: progress.track, score });
-      if (streakUpdate.changed && streakUpdate.started) fireEvent("streak_started", { streak: streakUpdate.streak.current });
-      if (streakUpdate.changed && streakUpdate.continued) fireEvent("streak_continued", { streak: streakUpdate.streak.current });
+        streak: streak.count,
+        topics: getTopics()
+      };
+      saveProgress(progress);
+      state.lastResult = { ...loadProgress(), ...progress };
 
-      submitStats(progress).catch(() => {});
-      renderCompactTrack(true);
-      renderResult(progress);
+      sendEvent('quiz_complete', { track: state.selectedTrack, score, total: TOTAL_QUESTIONS });
+      if (score <= 2) sendEvent('score_0_2', { track: state.selectedTrack, score });
+      if (score === 3) sendEvent('score_3', { track: state.selectedTrack });
+      if (score === 4) sendEvent('score_4', { track: state.selectedTrack });
+      if (score === 5) sendEvent('score_5', { track: state.selectedTrack });
+
+      updateStreakUI();
+      showResult();
     }
 
-    async function submitStats(progress) {
-      if (!hasApiUrl()) return;
-      const total = progress.questions.length || 5;
-      await fetchJson({
-        action: "submitQuizStats",
-        quiz_date: progress.quiz_date,
-        track: progress.track,
-        score: String(progress.score),
-        total: String(total),
-        streak: String(progress.streak_after_complete || getStreak().current || 0),
-        category_mix: categoryList(progress).join(", ")
-      });
+    function showResult() {
+      const progress = state.lastResult || loadProgress();
+      if (progress && progress.questions && !state.questions.length) hydrateFromProgress(progress);
+      const score = progress?.score ?? calculateScore();
+      const percent = Math.round((score / TOTAL_QUESTIONS) * 100);
+      const copy = resultCopy(score);
+      const streak = readStreak();
+      const topics = progress?.topics || getTopics();
+
+      $('resultHeadline').textContent = copy.headline;
+      $('scoreValue').textContent = score;
+      $('scorePercent').textContent = `${percent}%`;
+      $('resultMessage').textContent = copy.msg;
+      $('scoreRing').style.setProperty('--score-deg', `${Math.round((score / TOTAL_QUESTIONS) * 360)}deg`);
+      $('resultTrack').textContent = state.selectedTrack || progress?.track || '-';
+      $('resultStreak').textContent = `🔥 ${streak.count || progress?.streak || 1} hari`;
+      $('resultTopics').textContent = topics;
+
+      $('statusScore').textContent = `${score}/5`;
+      $('statusPercent').textContent = `${percent}%`;
+      $('statusHeadline').textContent = copy.short;
+      $('statusTrack').textContent = state.selectedTrack || progress?.track || '-';
+      $('statusStreak').textContent = `${streak.count || progress?.streak || 1} Hari Streak`;
+      $('statusTopics').textContent = topics;
+
+      renderRecap();
+      $('shareTextPreview').textContent = buildShareText(score, percent, copy.short, topics, streak.count || 1);
+      renderConfetti(score);
+      drawStatusCanvas(score, percent, copy.short, topics, streak.count || 1);
+      sendEvent('quiz_result_view', { track: state.selectedTrack, score });
+      setScreen('result');
     }
 
-    function renderResult(progress) {
-      const total = progress.questions.length || 5;
-      const score = Number(progress.score || 0);
-      const percent = Math.round((score / total) * 100);
-      const degree = Math.round((score / total) * 360);
-      const level = getLevel(score, total);
-      const streak = getStreak();
-      const categories = categoryList(progress);
-      const topicChips = topicPreviewList(categories);
-      const answers = Object.values(progress.answers || {});
-      const shareText = buildShareText(progress, streak.current);
-
-      $("#mainContent").innerHTML = `
-        <section class="section panel result-card" style="--score-deg:${degree}deg">
-          <h2 class="section-title" style="text-align:left;">Hasil Quiz Hari Ini</h2>
-          <div class="score-ring">
-            <div class="score-inner">
-              <span class="score-main">${score}/${total}</span>
-              <span class="score-percent">${percent}%</span>
-            </div>
+    function renderRecap() {
+      const root = $('recapList');
+      root.innerHTML = '';
+      state.questions.forEach((q, index) => {
+        const result = state.results[q.id] || {};
+        const selected = state.answers[q.id] || '-';
+        const correct = result.correctAnswer || q.correctAnswer || '-';
+        const selectedText = q.options?.[selected] || 'Tidak terbaca';
+        const correctText = q.options?.[correct] || 'Tidak terbaca';
+        const explanation = result.explanation || q.explanation || 'Pembahasan belum tersedia untuk soal ini.';
+        const item = document.createElement('div');
+        item.className = 'recap-item';
+        item.innerHTML = `
+          <div class="recap-head">
+            <div class="recap-num">${index + 1}</div>
+            <div class="recap-meta"><strong>${escapeHTML(q.category || 'Daily Drill')}</strong><small>${escapeHTML(q.difficulty || 'Easy')}</small></div>
+            <div class="recap-status ${result.isCorrect ? 'ok' : 'no'}">${result.isCorrect ? 'Benar' : 'Review'}</div>
           </div>
-          <h3 class="result-title">${level.title}</h3>
-          <p class="result-copy">${level.copy}</p>
-          <div class="category-chips" style="justify-content:center;">
-            <span class="pill">${trackMiniIcon(progress.track)} ${escapeHtml(progress.track)}</span>
-            <span class="pill" style="background:var(--warm-soft); color:#92430f;">🔥 Streak: ${Number(streak.current || 0)} hari</span>
-            ${topicChips.map(chip => `<span class="pill">${chip.startsWith("+") ? "" : "🛡️ "}${escapeHtml(chip)}</span>`).join("")}
+          <p class="recap-question">${escapeHTML(q.question || 'Pertanyaan tidak terbaca.')}</p>
+          <div class="recap-answer-grid">
+            <div class="recap-answer ${result.isCorrect ? 'correct' : 'wrong'}"><strong>Jawaban kamu:</strong> ${escapeHTML(selected)}. ${escapeHTML(selectedText)}</div>
+            <div class="recap-answer correct"><strong>Jawaban benar:</strong> ${escapeHTML(correct)}. ${escapeHTML(correctText)}</div>
           </div>
-        </section>
-
-        <section class="section panel">
-          <h2 class="section-title">Pembahasan Jawaban</h2>
-          <div class="explanation-list">
-            ${answers.map((answer, index) => `
-              <div class="explanation-item">
-                <span class="explanation-num">${index + 1}</span>
-                <div>
-                  <strong>${answer.is_correct ? "Benar" : "Belum tepat"} — Jawaban kamu: ${escapeHtml(answer.selected_answer)}${answer.correct_answer ? `, Kunci: ${escapeHtml(answer.correct_answer)}` : ""}</strong>
-                  <p>${escapeHtml(answer.explanation || "Pembahasan belum tersedia.")}</p>
-                </div>
-              </div>
-            `).join("")}
-          </div>
-        </section>
-
-        <section class="section panel">
-          <h2 class="section-title">Bagikan Score Card</h2>
-          <p class="section-copy">Simpan card untuk WhatsApp, Instagram, atau Facebook Story.</p>
-          <div class="story-card" id="statusPreview" style="--score-deg:${degree}deg">
-            <span class="confetti-line" aria-hidden="true"></span>
-            <div class="story-brand">
-              <span class="story-logo">⚓</span>
-              <span>Daily Loker Pelaut<span class="accent">Academy</span></span>
-            </div>
-            <div class="story-kicker">Quiz Pelaut Hari Ini</div>
-            <div class="story-score-wrap">
-              <div class="story-score-ring"><div><strong>${score}/${total}</strong><br><span>${percent}%</span></div></div>
-              <p class="story-score-text">🎉 ${level.short}</p>
-            </div>
-            <div class="story-tags">
-              <span class="story-tag">${trackMiniIcon(progress.track)} ${escapeHtml(progress.track)}</span>
-              <span class="story-tag">🔥 Streak: ${Number(streak.current || 0)} hari</span>
-              ${topicChips.slice(0,2).map(chip => `<span class="story-tag">${escapeHtml(chip)}</span>`).join("")}
-            </div>
-            <p class="story-motto">Siap layar, siap belajar.</p>
-            <p class="story-celebrate">Challenge teman pelautmu hari ini.</p>
-            <div class="story-url-line">academy.dailylokerpelaut.com</div>
-          </div>
-          <div class="btn-row">
-            <button class="btn btn-secondary" type="button" id="saveStatusBtn">⬇ Simpan Status</button>
-            <button class="btn btn-wa" type="button" id="shareWaBtn">🟢 Share ke WhatsApp</button>
-            <button class="btn btn-secondary" type="button" id="copyShareBtn">⧉ Copy Teks Share</button>
-            <button class="btn btn-secondary" type="button" id="tomorrowBtn">🗓 Balik Lagi Besok</button>
-          </div>
-        </section>
-      `;
-
-      $("#saveStatusBtn").addEventListener("click", () => {
-        fireEvent("status_card_save_click", { track: progress.track, score, total, streak: streak.current || 0 });
-        saveStatusImage(progress, level, streak.current || 0);
-      });
-
-      $("#shareWaBtn").addEventListener("click", () => {
-        fireEvent("whatsapp_share_click", { track: progress.track, score, total, streak: streak.current || 0 });
-        window.open("https://wa.me/?text=" + encodeURIComponent(shareText), "_blank", "noopener");
-      });
-
-      $("#copyShareBtn").addEventListener("click", async () => {
-        try {
-          await navigator.clipboard.writeText(shareText);
-          showToast("Teks share sudah dicopy.");
-        } catch (error) {
-          showToast("Browser tidak mengizinkan copy otomatis. Silakan copy manual dari WhatsApp share.");
-        }
-      });
-
-      $("#tomorrowBtn").addEventListener("click", () => {
-        showToast("Mantap. Balik lagi besok untuk jaga streak.");
+          <div class="recap-explanation"><strong>Pembahasan</strong>${escapeHTML(explanation)}</div>
+        `;
+        root.appendChild(item);
       });
     }
 
-
-    function shortTopicLabel(category) {
-      const raw = String(category || "").trim();
-      const text = raw.toLowerCase();
-      if (!raw) return "Quiz";
-      if (text.includes("psc")) return "PSC";
-      if (text.includes("anti") || text.includes("scam")) return "Anti-Scam";
-      if (text.includes("interview")) return "Interview";
-      if (text.includes("colreg")) return "COLREG";
-      if (text.includes("marpol")) return "MARPOL";
-      if (text.includes("safety")) return "Safety";
-      if (raw.length > 14) return raw.slice(0, 13).trim() + "…";
-      return raw;
+    function buildShareText(score, percent, headline, topics, streakCount) {
+      return `Quiz Pelaut Hari Ini\nScore: ${score}/5 (${percent}%)\n${headline} 🔥\n\nTrack: ${state.selectedTrack || '-'}\nStreak: 🔥 ${streakCount} Hari\nTopik: ${topics}\n\nSiap layar, siap belajar.\nhttps://academy.dailylokerpelaut.com/`;
     }
 
-    function topicPreviewList(categories) {
-      const unique = [];
-      (categories || []).forEach(category => {
-        const label = shortTopicLabel(category);
-        if (label && !unique.includes(label)) unique.push(label);
-      });
-      if (unique.length <= 2) return unique;
-      return [...unique.slice(0, 2), `+${unique.length - 2}`];
+    function renderConfetti(score) {
+      const root = $('confettiLayer');
+      root.innerHTML = '';
+      const count = score >= 4 ? 22 : 8;
+      const colors = ['#F59E0B', '#0EA5E9', '#10B981', '#F43F5E', '#FFFFFF'];
+      for (let i = 0; i < count; i++) {
+        const piece = document.createElement('i');
+        piece.style.left = `${Math.random() * 100}%`;
+        piece.style.top = `${Math.random() * 58}%`;
+        piece.style.background = colors[i % colors.length];
+        piece.style.transform = `rotate(${Math.random() * 180}deg)`;
+        root.appendChild(piece);
+      }
     }
 
-    function drawRoundRect(ctx, x, y, width, height, radius) {
-      const r = Math.min(radius, width / 2, height / 2);
+    function drawRoundRect(ctx, x, y, w, h, r) {
       ctx.beginPath();
       ctx.moveTo(x + r, y);
-      ctx.arcTo(x + width, y, x + width, y + height, r);
-      ctx.arcTo(x + width, y + height, x, y + height, r);
-      ctx.arcTo(x, y + height, x, y, r);
-      ctx.arcTo(x, y, x + width, y, r);
+      ctx.arcTo(x + w, y, x + w, y + h, r);
+      ctx.arcTo(x + w, y + h, x, y + h, r);
+      ctx.arcTo(x, y + h, x, y, r);
+      ctx.arcTo(x, y, x + w, y, r);
       ctx.closePath();
     }
 
-    function drawCenteredText(ctx, text, x, y, maxWidth, lineHeight) {
-      const words = String(text).split(" ");
-      const lines = [];
-      let line = "";
-      words.forEach(word => {
-        const test = line ? line + " " + word : word;
-        if (ctx.measureText(test).width > maxWidth && line) {
-          lines.push(line);
-          line = word;
-        } else {
-          line = test;
-        }
-      });
-      if (line) lines.push(line);
-      lines.forEach((item, index) => ctx.fillText(item, x, y + index * lineHeight));
-      return lines.length * lineHeight;
-    }
+    function drawStatusCanvas(score, percent, headline, topics, streakCount) {
+      const canvas = $('statusCanvas');
+      const ctx = canvas.getContext('2d');
+      const w = canvas.width;
+      const h = canvas.height;
+      const grad = ctx.createLinearGradient(0, 0, w, h);
+      grad.addColorStop(0, '#061622');
+      grad.addColorStop(.56, '#071D2A');
+      grad.addColorStop(1, '#0B3146');
+      ctx.fillStyle = grad;
+      ctx.fillRect(0, 0, w, h);
 
-    function saveStatusImage(progress, level, streakValue) {
-      const total = progress.questions.length || 5;
-      const score = Number(progress.score || 0);
-      const percent = Math.round((score / total) * 100);
-      const canvas = document.createElement("canvas");
-      canvas.width = 1080;
-      canvas.height = 1920;
-      const ctx = canvas.getContext("2d");
-
-      const bg = ctx.createLinearGradient(0, 0, 1080, 1920);
-      bg.addColorStop(0, "#f7fcff");
-      bg.addColorStop(0.52, "#e9fbfb");
-      bg.addColorStop(1, "#ffffff");
-      ctx.fillStyle = bg;
-      ctx.fillRect(0, 0, 1080, 1920);
-
-      const card = ctx.createLinearGradient(70, 80, 1010, 1840);
-      card.addColorStop(0, "#02183b");
-      card.addColorStop(0.48, "#063a79");
-      card.addColorStop(1, "#05aeb8");
-      ctx.fillStyle = card;
-      drawRoundRect(ctx, 70, 80, 940, 1760, 64);
-      ctx.fill();
-
-      // soft glows
-      const glow1 = ctx.createRadialGradient(840, 240, 10, 840, 240, 310);
-      glow1.addColorStop(0, "rgba(91,241,236,0.58)");
-      glow1.addColorStop(1, "rgba(91,241,236,0)");
-      ctx.fillStyle = glow1;
-      ctx.fillRect(520, 0, 560, 560);
-
-      const glow2 = ctx.createRadialGradient(230, 1660, 10, 230, 1660, 340);
-      glow2.addColorStop(0, "rgba(255,138,42,0.24)");
-      glow2.addColorStop(1, "rgba(255,138,42,0)");
-      ctx.fillStyle = glow2;
-      ctx.fillRect(0, 1300, 560, 620);
-
-      // waves
-      ctx.globalAlpha = 0.12;
-      ctx.strokeStyle = "#ffffff";
-      ctx.lineWidth = 5;
-      for (let i = 0; i < 6; i++) {
+      // subtle maritime rings/pattern
+      ctx.save();
+      ctx.globalAlpha = .12;
+      ctx.strokeStyle = '#FFFFFF';
+      ctx.lineWidth = 3;
+      for (let i = 0; i < 8; i++) {
         ctx.beginPath();
-        ctx.moveTo(90, 1450 + i * 42);
-        ctx.bezierCurveTo(300, 1390 + i * 42, 520, 1530 + i * 42, 990, 1420 + i * 42);
+        ctx.arc(860, 280, 70 + i * 52, 0, Math.PI * 2);
         ctx.stroke();
       }
-      ctx.globalAlpha = 1;
+      for (let i = 0; i < 6; i++) {
+        ctx.beginPath();
+        ctx.arc(160, 1520, 80 + i * 60, 0, Math.PI * 2);
+        ctx.stroke();
+      }
+      ctx.restore();
 
-      // confetti
-      const confetti = [
-        [160,230,"#ffcf5a"],[250,180,"#5bf1ec"],[840,420,"#ffffff"],[910,310,"#ff8a2a"],[760,170,"#5bf1ec"],
-        [180,760,"#ffffff"],[880,860,"#ffcf5a"],[140,1180,"#5bf1ec"],[900,1240,"#ffffff"],[260,1510,"#ff8a2a"]
+      // anchor logo block
+      ctx.fillStyle = '#FFFFFF';
+      ctx.font = '900 88px system-ui, -apple-system, Segoe UI, sans-serif';
+      ctx.textAlign = 'center';
+      ctx.fillText('⚓', w / 2, 190);
+      ctx.font = '900 42px system-ui, -apple-system, Segoe UI, sans-serif';
+      ctx.fillText('DAILY LOKER PELAUT', w / 2, 250);
+      ctx.fillStyle = '#F59E0B';
+      ctx.font = '950 48px system-ui, -apple-system, Segoe UI, sans-serif';
+      ctx.fillText('ACADEMY', w / 2, 310);
+
+      ctx.fillStyle = '#FFFFFF';
+      ctx.font = '850 52px system-ui, -apple-system, Segoe UI, sans-serif';
+      ctx.fillText('Quiz Pelaut Hari Ini', w / 2, 455);
+
+      ctx.fillStyle = '#F59E0B';
+      ctx.font = '950 190px system-ui, -apple-system, Segoe UI, sans-serif';
+      ctx.fillText(`${score}/5`, w / 2, 720);
+      ctx.fillStyle = '#FFFFFF';
+      ctx.font = '950 78px system-ui, -apple-system, Segoe UI, sans-serif';
+      ctx.fillText(`${percent}%`, w / 2, 820);
+
+      const bannerGrad = ctx.createLinearGradient(260, 880, 820, 880);
+      bannerGrad.addColorStop(0, '#EA580C');
+      bannerGrad.addColorStop(1, '#F59E0B');
+      ctx.fillStyle = bannerGrad;
+      drawRoundRect(ctx, 230, 890, 620, 106, 48);
+      ctx.fill();
+      ctx.fillStyle = '#FFFFFF';
+      ctx.font = '950 44px system-ui, -apple-system, Segoe UI, sans-serif';
+      ctx.fillText(headline, w / 2, 958);
+
+      const lines = [
+        ['⚙️', state.selectedTrack || '-'],
+        ['🔥', `${streakCount} Hari Streak`],
+        ['🧭', topics]
       ];
-      confetti.forEach(([x,y,color], i) => {
-        ctx.save();
-        ctx.translate(x,y);
-        ctx.rotate((i * 17) * Math.PI / 180);
-        ctx.fillStyle = color;
-        drawRoundRect(ctx, -12, -5, 24, 10, 5);
-        ctx.fill();
-        ctx.restore();
+      ctx.textAlign = 'left';
+      ctx.font = '850 46px system-ui, -apple-system, Segoe UI, sans-serif';
+      let y = 1130;
+      lines.forEach(([ico, text]) => {
+        ctx.fillStyle = '#FFFFFF';
+        ctx.fillText(ico, 190, y);
+        ctx.fillStyle = ico === '🔥' ? '#F59E0B' : '#FFFFFF';
+        wrapText(ctx, text, 270, y, 620, 54);
+        y += 128;
       });
 
-      // logo
-      ctx.fillStyle = "rgba(255,255,255,0.13)";
-      ctx.beginPath();
-      ctx.arc(540, 235, 74, 0, Math.PI * 2);
-      ctx.fill();
-      ctx.strokeStyle = "rgba(255,255,255,0.58)";
-      ctx.lineWidth = 4;
-      ctx.beginPath();
-      ctx.arc(540, 235, 74, 0, Math.PI * 2);
-      ctx.stroke();
-      ctx.fillStyle = "#ffffff";
-      ctx.font = "700 78px system-ui, -apple-system, Segoe UI, sans-serif";
-      ctx.textAlign = "center";
-      ctx.fillText("⚓", 540, 262);
+      ctx.textAlign = 'center';
+      ctx.fillStyle = '#FFFFFF';
+      ctx.font = '850 42px system-ui, -apple-system, Segoe UI, sans-serif';
+      ctx.fillText('Siap layar, siap belajar.', w / 2, 1700);
+      ctx.fillStyle = 'rgba(255,255,255,.78)';
+      ctx.font = '700 34px system-ui, -apple-system, Segoe UI, sans-serif';
+      ctx.fillText('academy.dailylokerpelaut.com', w / 2, 1765);
+    }
 
-      ctx.font = "950 62px system-ui, -apple-system, Segoe UI, sans-serif";
-      ctx.fillText("Daily Loker Pelaut", 540, 355);
-      ctx.fillStyle = "#5bf1ec";
-      ctx.fillText("Academy", 540, 425);
+    function wrapText(ctx, text, x, y, maxWidth, lineHeight) {
+      const words = String(text).split(' ');
+      let line = '';
+      for (let n = 0; n < words.length; n++) {
+        const testLine = line + words[n] + ' ';
+        const metrics = ctx.measureText(testLine);
+        if (metrics.width > maxWidth && n > 0) {
+          ctx.fillText(line.trim(), x, y);
+          line = words[n] + ' ';
+          y += lineHeight;
+        } else {
+          line = testLine;
+        }
+      }
+      ctx.fillText(line.trim(), x, y);
+    }
 
-      // kicker pill
-      ctx.fillStyle = "rgba(255,255,255,0.14)";
-      drawRoundRect(ctx, 308, 485, 464, 72, 36); ctx.fill();
-      ctx.strokeStyle = "rgba(255,255,255,0.16)";
-      ctx.stroke();
-      ctx.fillStyle = "#dffffe";
-      ctx.font = "950 30px system-ui, -apple-system, Segoe UI, sans-serif";
-      ctx.fillText("QUIZ PELAUT HARI INI", 540, 532);
+    function saveStatusCard() {
+      const progress = state.lastResult || loadProgress();
+      const score = progress?.score ?? calculateScore();
+      const percent = Math.round((score / TOTAL_QUESTIONS) * 100);
+      const copy = resultCopy(score);
+      const topics = progress?.topics || getTopics();
+      const streakCount = readStreak().count || progress?.streak || 1;
+      drawStatusCanvas(score, percent, copy.short, topics, streakCount);
+      const link = document.createElement('a');
+      link.download = `dlp-academy-status-${todayWIB()}.png`;
+      link.href = $('statusCanvas').toDataURL('image/png');
+      link.click();
+      sendEvent('status_card_save_click', { track: state.selectedTrack, score });
+      showToast('Status card disimpan.');
+    }
 
-      // score ring
-      const ringX = 540, ringY = 790, outer = 220, inner = 162;
-      ctx.lineWidth = 48;
-      ctx.strokeStyle = "rgba(255,255,255,0.22)";
-      ctx.beginPath();
-      ctx.arc(ringX, ringY, outer, 0, Math.PI * 2);
-      ctx.stroke();
-      ctx.strokeStyle = "#5bf1ec";
-      ctx.lineCap = "round";
-      ctx.beginPath();
-      ctx.arc(ringX, ringY, outer, -Math.PI / 2, -Math.PI / 2 + (Math.PI * 2 * score / total));
-      ctx.stroke();
-      ctx.lineCap = "butt";
-      ctx.fillStyle = "rgba(255,255,255,0.97)";
-      ctx.beginPath();
-      ctx.arc(ringX, ringY, inner, 0, Math.PI * 2);
-      ctx.fill();
+    function shareWhatsapp() {
+      const progress = state.lastResult || loadProgress();
+      const score = progress?.score ?? calculateScore();
+      const percent = Math.round((score / TOTAL_QUESTIONS) * 100);
+      const copy = resultCopy(score);
+      const streakCount = readStreak().count || progress?.streak || 1;
+      const text = buildShareText(score, percent, copy.short, progress?.topics || getTopics(), streakCount);
+      sendEvent('whatsapp_share_click', { track: state.selectedTrack, score });
+      window.location.href = `https://wa.me/?text=${encodeURIComponent(text)}`;
+    }
 
-      ctx.fillStyle = "#052e63";
-      ctx.font = "950 134px system-ui, -apple-system, Segoe UI, sans-serif";
-      ctx.textAlign = "center";
-      ctx.fillText(`${score}/${total}`, ringX, ringY + 8);
-      ctx.fillStyle = "#05aeb8";
-      ctx.font = "950 52px system-ui, -apple-system, Segoe UI, sans-serif";
-      ctx.fillText(`${percent}%`, ringX, ringY + 90);
+    async function copyShareText() {
+      const progress = state.lastResult || loadProgress();
+      const score = progress?.score ?? calculateScore();
+      const percent = Math.round((score / TOTAL_QUESTIONS) * 100);
+      const copy = resultCopy(score);
+      const streakCount = readStreak().count || progress?.streak || 1;
+      const text = buildShareText(score, percent, copy.short, progress?.topics || getTopics(), streakCount);
+      try {
+        await navigator.clipboard.writeText(text);
+        showToast('Teks share berhasil dicopy.');
+      } catch (error) {
+        showToast('Copy gagal. Tekan dan tahan teks share untuk salin manual.');
+      }
+    }
 
-      // celebration headline
-      ctx.fillStyle = "#ffdc7b";
-      ctx.font = "950 44px system-ui, -apple-system, Segoe UI, sans-serif";
-      ctx.fillText("🎉 HASIL QUIZ KAMU", 540, 1090);
-      ctx.fillStyle = "#ffffff";
-      ctx.font = "950 74px system-ui, -apple-system, Segoe UI, sans-serif";
-      drawCenteredText(ctx, level.short, 540, 1170, 760, 82);
+    function escapeHTML(value) {
+      return String(value ?? '').replace(/[&<>'"]/g, ch => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;' }[ch]));
+    }
 
-      // data pills
-      ctx.font = "900 34px system-ui, -apple-system, Segoe UI, sans-serif";
-      const leftText = `Jalur: ${progress.track}`;
-      const rightText = `🔥 Streak: ${Number(streakValue || 0)} hari`;
-      ctx.fillStyle = "rgba(255,255,255,0.15)";
-      drawRoundRect(ctx, 160, 1295, 760, 78, 39); ctx.fill();
-      ctx.fillStyle = "#ffffff";
-      ctx.fillText(leftText, 540, 1346);
-      ctx.fillStyle = "rgba(255,255,255,0.15)";
-      drawRoundRect(ctx, 250, 1395, 580, 78, 39); ctx.fill();
-      ctx.fillStyle = "#ffffff";
-      ctx.fillText(rightText, 540, 1446);
+    function init() {
+      sendEvent('academy_page_view', { page_location: window.location.href });
 
-      // motto card
-      ctx.fillStyle = "rgba(255,255,255,0.13)";
-      drawRoundRect(ctx, 170, 1535, 740, 150, 34); ctx.fill();
-      ctx.strokeStyle = "rgba(255,255,255,0.15)";
-      ctx.stroke();
-      ctx.fillStyle = "#ffffff";
-      ctx.font = "950 58px system-ui, -apple-system, Segoe UI, sans-serif";
-      drawCenteredText(ctx, "Siap layar, siap belajar.", 540, 1600, 660, 66);
-      ctx.fillStyle = "#dffffe";
-      ctx.font = "850 30px system-ui, -apple-system, Segoe UI, sans-serif";
-      ctx.fillText("Challenge teman pelautmu hari ini.", 540, 1716);
+      const savedTrack = normalizeTrack(localStorage.getItem(LS_SELECTED_TRACK)) || normalizeTrack(localStorage.getItem(LS_SELECTED_TRACK_DRAFT));
+      if (savedTrack) setSelectedTrack(savedTrack);
+      updateStreakUI();
 
-      ctx.fillStyle = "#9ffafa";
-      ctx.font = "900 32px system-ui, -apple-system, Segoe UI, sans-serif";
-      ctx.fillText("academy.dailylokerpelaut.com", 540, 1805);
+      const streak = readStreak();
+      if ((streak.count || 0) > 0 || savedTrack) sendEvent('return_user_detected', { track: savedTrack || undefined, streak: streak.count || 0 });
 
-      canvas.toBlob(blob => {
-        if (!blob) {
-          showToast("Gagal membuat gambar status.");
+      // If user already completed today's quiz, show mini track locked and allow result tab.
+      if (savedTrack) {
+        const progress = readJSON(progressKey(todayWIB(), savedTrack), null);
+        if (progress && progress.completed) {
+          state.selectedTrack = savedTrack;
+          hydrateFromProgress(progress);
+          state.lastResult = progress;
+          $('trackLockIcon').textContent = '🔒';
+        }
+      }
+
+      qsa('.track-card').forEach(card => card.addEventListener('click', () => {
+        if (state.questions.length && !state.completed) {
+          showToast('Track terkunci setelah quiz dimulai.');
           return;
         }
-        const url = URL.createObjectURL(blob);
-        const link = document.createElement("a");
-        link.href = url;
-        link.download = `daily-loker-pelaut-academy-${progress.quiz_date || state.quizDate}.png`;
-        document.body.appendChild(link);
-        link.click();
-        link.remove();
-        setTimeout(() => URL.revokeObjectURL(url), 1500);
-        showToast("Status card dibuat. Cek file download di browser kamu.");
-      }, "image/png", 0.95);
-    }
+        setSelectedTrack(card.dataset.track);
+      }));
 
-    function categoryList(progress) {
-      if (Array.isArray(progress.category_mix) && progress.category_mix.length) {
-        return progress.category_mix.map(item => item.category || item).filter(Boolean).slice(0, 4);
-      }
-      const set = new Set();
-      (progress.questions || []).forEach(q => { if (q.category) set.add(q.category); });
-      return [...set].slice(0, 4);
-    }
-
-    function topicIcon(category) {
-      const text = String(category || "").toLowerCase();
-      if (text.includes("marpol")) return "🌊";
-      if (text.includes("colreg")) return "⚓";
-      if (text.includes("psc")) return "🛡️";
-      if (text.includes("interview")) return "👤";
-      return "📚";
-    }
-
-    function trackMiniIcon(track) {
-      if (track === "Deck Officer") return "🧭";
-      if (track === "Engineer Officer") return "⚙️";
-      return "⭐";
-    }
-
-    function getLevel(score, total) {
-      if (score === total) return { title: "Siap Tantang Teman", short: "Score Sempurna", copy: "Mantap. Skor kamu sempurna hari ini." };
-      if (score === total - 1) return { title: "Bagus! Terus Tingkatkan", short: "Bagus Sekali", copy: "Pemahaman kamu kuat. Tinggal rapikan sedikit lagi." };
-      if (score >= Math.ceil(total * 0.6)) return { title: "Sudah On Track", short: "On Track", copy: "Hasilmu cukup baik. Baca pembahasan dan lanjutkan ritmenya." };
-      return { title: "Mulai Pelan, Tapi Konsisten", short: "Tetap Jalan", copy: "Tidak apa-apa. Yang penting kamu belajar dari pembahasan hari ini." };
-    }
-
-    function buildShareText(progress, streak) {
-      const total = progress.questions.length || 5;
-      const topics = topicPreviewList(categoryList(progress)).join(" • ") || "Quiz Pelaut";
-      return `Saya dapat skor ${progress.score}/${total} di Quiz Pelaut Hari Ini 🔥
-
-Jalur: ${progress.track}
-Topik: ${topics}
-Streak: ${Number(streak || 0)} hari
-
-Siap layar, siap belajar.
-
-${SITE_URL}`;
-    }
-
-    function escapeHtml(value) {
-      return String(value ?? "")
-        .replaceAll("&", "&amp;")
-        .replaceAll("<", "&lt;")
-        .replaceAll(">", "&gt;")
-        .replaceAll('"', "&quot;")
-        .replaceAll("'", "&#039;");
-    }
-
-    function setupVisitTracking() {
-      const today = getLocalDateKey();
-      const firstVisit = safeGet(STORAGE.firstVisit, null);
-      const lastVisit = safeGet(STORAGE.lastVisit, null);
-      if (!firstVisit) safeSet(STORAGE.firstVisit, today);
-      if (lastVisit && lastVisit !== today) fireEvent("return_user_detected", { last_visit: lastVisit });
-      safeSet(STORAGE.lastVisit, today);
-    }
-
-    function setupLinkTracking() {
-      document.addEventListener("click", function(event){
-        const link = event.target.closest("a");
-        if (!link) return;
-
-        const href = link.getAttribute("href") || "";
-        const text = (link.innerText || "").trim();
-
-        if (href.includes("vacancy.dailylokerpelaut.com")) {
-          fireEvent("academy_to_vacancy_click", {
-            event_label: text || "Vacancy link click",
-            link_url: href
-          });
-        }
-
-        if (href.includes("dailylokerpelaut.com") && !href.includes("academy.dailylokerpelaut.com") && !href.includes("vacancy.dailylokerpelaut.com")) {
-          fireEvent("academy_internal_link_click", {
-            event_label: text || "Internal DLP link click",
-            link_url: href
-          });
-        }
+      $('heroStartBtn').addEventListener('click', () => {
+        if (!state.selectedTrack) $('trackSection').scrollIntoView({ behavior: 'smooth' });
+        else startQuiz();
       });
-    }
+      $('startQuizBtn').addEventListener('click', startQuiz);
+      $('retryBtn').addEventListener('click', startQuiz);
+      $('quizBackBtn').addEventListener('click', () => setScreen('home'));
+      $('nextQuestionBtn').addEventListener('click', nextQuestion);
+      $('saveStatusBtn').addEventListener('click', saveStatusCard);
+      $('shareWhatsappBtn').addEventListener('click', shareWhatsapp);
+      $('copyShareBtn').addEventListener('click', copyShareText);
+      $('backTomorrowBtn').addEventListener('click', () => setScreen('home'));
 
-    document.addEventListener("DOMContentLoaded", () => {
-      loadGA();
-      setupVisitTracking();
-      setupLinkTracking();
-      fireEvent("academy_page_view", { page_type: "academy_home" });
-      render();
+      $('openMenuBtn').addEventListener('click', openDrawer);
+      $('openMenuBtnResult').addEventListener('click', openDrawer);
+      $('closeMenuBtn').addEventListener('click', closeDrawer);
+      $('drawerBackdrop').addEventListener('click', closeDrawer);
 
-      const menuBtn = $("#menuBtn");
-      const topMenu = $("#topMenu");
-      const closeMenu = () => {
-        topMenu.classList.remove("open");
-        menuBtn.setAttribute("aria-expanded", "false");
-        menuBtn.setAttribute("aria-label", "Menu");
-        menuBtn.textContent = "☰";
-      };
-      const toggleMenu = () => {
-        const willOpen = !topMenu.classList.contains("open");
-        topMenu.classList.toggle("open", willOpen);
-        menuBtn.setAttribute("aria-expanded", String(willOpen));
-        menuBtn.setAttribute("aria-label", willOpen ? "Tutup menu" : "Menu");
-        menuBtn.textContent = willOpen ? "×" : "☰";
-      };
-
-      menuBtn.addEventListener("click", (event) => {
-        event.stopPropagation();
-        toggleMenu();
+      $('mainMenuLink').addEventListener('click', () => {
+        sendEvent('main_menu_click');
+        window.location.href = 'https://dailylokerpelaut.com/';
       });
-
-      const menuHomeLink = $("#menuHomeLink");
-      const menuVacancyLink = $("#menuVacancyLink");
-
-      if (menuHomeLink) {
-        menuHomeLink.addEventListener("click", (event) => {
-          event.preventDefault();
-          event.stopPropagation();
-          closeMenu();
-          window.location.href = "https://dailylokerpelaut.com/";
-        });
-      }
-
-      if (menuVacancyLink) {
-        menuVacancyLink.addEventListener("click", (event) => {
-          event.preventDefault();
-          event.stopPropagation();
-          closeMenu();
-          window.location.href = "https://vacancy.dailylokerpelaut.com/";
-        });
-      }
-
-      $("#menuChangeTrack").addEventListener("click", () => {
-        closeMenu();
-        const todayProgress = getProgress();
-        if (todayProgress?.started_at || todayProgress?.completed) {
-          showToast("Jalur terkunci untuk quiz hari ini. Kamu bisa ubah jalur sebelum mulai quiz besok.");
+      $('vacancyMenuLink').addEventListener('click', () => {
+        sendEvent('vacancy_menu_click');
+        window.location.href = 'https://vacancy.dailylokerpelaut.com/';
+      });
+      $('changeTrackLink').addEventListener('click', () => {
+        sendEvent('change_track_click');
+        closeDrawer();
+        if (state.questions.length && !state.completed) showToast('Track terkunci setelah quiz dimulai.');
+        else setScreen('home');
+      });
+      qsa('.nav-item').forEach(btn => btn.addEventListener('click', () => {
+        const go = btn.dataset.go;
+        if (go === 'quiz') {
+          if (!state.questions.length) startQuiz();
+          else setScreen('quiz');
           return;
         }
-        if (state.selectedTrack) safeSet(STORAGE.selectedTrackDraft, state.selectedTrack);
-        localStorage.removeItem(STORAGE.selectedTrack);
-        state.selectedTrack = null;
-        state.progress = null;
-        render();
-        window.scrollTo({ top: 0, behavior: "smooth" });
-      });
+        if (go === 'result') {
+          const progress = state.selectedTrack ? loadProgress() : null;
+          if (progress && progress.completed) {
+            hydrateFromProgress(progress);
+            state.lastResult = progress;
+            showResult();
+          } else {
+            showToast('Selesaikan quiz hari ini dulu untuk melihat hasil.');
+          }
+          return;
+        }
+        setScreen('home');
+      }));
+    }
 
-      document.addEventListener("click", (event) => {
-        if (!topMenu.contains(event.target) && !menuBtn.contains(event.target)) closeMenu();
-      });
-
-      document.addEventListener("keydown", (event) => {
-        if (event.key === "Escape") closeMenu();
-      });
-    });
+    document.addEventListener('DOMContentLoaded', init);
   </script>
 </body>
 </html>
