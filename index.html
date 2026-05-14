@@ -884,7 +884,7 @@
         </header>
 
         <div class="hero">
-          <h1>5 soal hari ini.<span class="accent">Jaga ritme,  naik kelas.</span></h1>
+          <h1>5 soal hari ini.<span class="accent">Jaga ritme, naik kelas.</span></h1>
           <p>Cuma 5 soal. Selesaikan sambil coffee break. Tidak perlu sempurna, yang penting tetap tajam.</p>
           <div class="hero-actions">
             <button class="btn btn-primary" id="heroStartBtn">Mulai Quiz Hari Ini <span class="circle">›</span></button>
@@ -1121,7 +1121,7 @@
     function sendEvent(name, params = {}) {
       try {
         if (typeof gtag === 'function') {
-          gtag('event', name, { app_version: 'academy-visual-v4.0.0', ...params });
+          gtag('event', name, { app_version: 'academy-visual-v4.3.0', ...params });
         }
       } catch (error) {}
     }
@@ -1158,6 +1158,12 @@
       return `dlpa_progress_${date}_${track || ''}`;
     }
 
+    // Daily lock: mencegah user mengerjakan quiz berkali-kali di hari yang sama dengan track berbeda.
+    // Ini key tambahan, tidak mengganti key lama sehingga streak/progress lama tetap aman.
+    function dailyLockKey(date = todayWIB()) {
+      return `dlpa_daily_lock_${date}`;
+    }
+
     function readJSON(key, fallback) {
       try {
         const raw = localStorage.getItem(key);
@@ -1170,6 +1176,47 @@
 
     function writeJSON(key, value) {
       localStorage.setItem(key, JSON.stringify(value));
+    }
+
+    function getTodayLock() {
+      const today = todayWIB();
+      const explicitLock = readJSON(dailyLockKey(today), null);
+      if (explicitLock && normalizeTrack(explicitLock.track)) return explicitLock;
+
+      // Backward compatibility: kalau user sudah punya progress dari versi lama, anggap track itu terkunci hari ini.
+      for (const track of TRACKS) {
+        const progress = readJSON(progressKey(today, track), null);
+        if (progress && (progress.completed || (Array.isArray(progress.questions) && progress.questions.length))) {
+          return {
+            date: today,
+            track,
+            started: true,
+            completed: !!progress.completed,
+            score: progress.score ?? null,
+            source: 'progress'
+          };
+        }
+      }
+      return null;
+    }
+
+    function setTodayLock(track, extra = {}) {
+      const valid = normalizeTrack(track);
+      if (!valid) return null;
+      const lock = {
+        date: todayWIB(),
+        track: valid,
+        started: true,
+        updatedAt: new Date().toISOString(),
+        ...extra
+      };
+      writeJSON(dailyLockKey(), lock);
+      return lock;
+    }
+
+    function isDifferentTrackLocked(track) {
+      const lock = getTodayLock();
+      return lock && normalizeTrack(lock.track) && lock.track !== track;
     }
 
     function readStreak() {
@@ -1274,15 +1321,23 @@
     function setSelectedTrack(track, opts = {}) {
       const valid = normalizeTrack(track);
       if (!valid) return;
-      state.selectedTrack = valid;
-      localStorage.setItem(LS_SELECTED_TRACK_DRAFT, valid);
-      if (opts.commit) localStorage.setItem(LS_SELECTED_TRACK, valid);
 
-      $('selectedTrackText').textContent = valid;
+      const lock = getTodayLock();
+      if (!opts.force && lock && lock.track && lock.track !== valid) {
+        showToast(`Quiz hari ini sudah terkunci di track ${lock.track}.`);
+        track = lock.track;
+      }
+
+      const finalTrack = normalizeTrack(track);
+      state.selectedTrack = finalTrack;
+      localStorage.setItem(LS_SELECTED_TRACK_DRAFT, finalTrack);
+      if (opts.commit) localStorage.setItem(LS_SELECTED_TRACK, finalTrack);
+
+      $('selectedTrackText').textContent = finalTrack;
       $('selectedTrackMini').classList.remove('hidden');
-      $('trackLockIcon').textContent = state.questions.length ? '🔒' : '🔓';
-      qsa('.track-card').forEach(card => card.classList.toggle('selected', card.dataset.track === valid));
-      sendEvent('track_selected', { track: valid });
+      $('trackLockIcon').textContent = getTodayLock() || state.questions.length ? '🔒' : '🔓';
+      qsa('.track-card').forEach(card => card.classList.toggle('selected', card.dataset.track === finalTrack));
+      sendEvent('track_selected', { track: finalTrack });
     }
 
     function getQuestionId(q) {
@@ -1401,6 +1456,13 @@
         $('trackSection').scrollIntoView({ behavior: 'smooth', block: 'start' });
         return;
       }
+
+      const lock = getTodayLock();
+      if (lock && lock.track && lock.track !== state.selectedTrack) {
+        showToast(`Quiz hari ini sudah terkunci di track ${lock.track}.`);
+        setSelectedTrack(lock.track, { force: true, commit: true });
+      }
+
       localStorage.setItem(LS_SELECTED_TRACK, state.selectedTrack);
 
       const existing = loadProgress();
@@ -1421,6 +1483,7 @@
         if (existing && Array.isArray(existing.questions) && existing.questions.length) {
           hydrateFromProgress(existing);
           questions = state.questions;
+          if (!getTodayLock()) setTodayLock(state.selectedTrack, { completed: !!existing.completed });
         } else {
           const payload = await apiGet({ action: 'getTodayQuiz', track: state.selectedTrack });
           questions = extractQuestions(payload).slice(0, TOTAL_QUESTIONS);
@@ -1430,6 +1493,7 @@
           state.answers = {};
           state.results = {};
           state.completed = false;
+          setTodayLock(state.selectedTrack, { completed: false });
           saveProgress();
         }
         state.startedAt = Date.now();
@@ -1627,6 +1691,7 @@
         streak: streak.count,
         topics: getTopics()
       };
+      setTodayLock(state.selectedTrack, { completed: true, score });
       saveProgress(progress);
       state.lastResult = { ...loadProgress(), ...progress };
 
@@ -1883,8 +1948,9 @@
     function init() {
       sendEvent('academy_page_view', { page_location: window.location.href });
 
-      const savedTrack = normalizeTrack(localStorage.getItem(LS_SELECTED_TRACK)) || normalizeTrack(localStorage.getItem(LS_SELECTED_TRACK_DRAFT));
-      if (savedTrack) setSelectedTrack(savedTrack);
+      const todayLock = getTodayLock();
+      const savedTrack = normalizeTrack(todayLock?.track) || normalizeTrack(localStorage.getItem(LS_SELECTED_TRACK)) || normalizeTrack(localStorage.getItem(LS_SELECTED_TRACK_DRAFT));
+      if (savedTrack) setSelectedTrack(savedTrack, { force: !!todayLock });
       updateStreakUI();
 
       const streak = readStreak();
@@ -1902,6 +1968,12 @@
       }
 
       qsa('.track-card').forEach(card => card.addEventListener('click', () => {
+        const lock = getTodayLock();
+        if (lock && lock.track && lock.track !== card.dataset.track) {
+          showToast(`Quiz hari ini sudah terkunci di track ${lock.track}.`);
+          setSelectedTrack(lock.track, { force: true });
+          return;
+        }
         if (state.questions.length && !state.completed) {
           showToast('Track terkunci setelah quiz dimulai.');
           return;
@@ -1938,6 +2010,13 @@
       $('changeTrackLink').addEventListener('click', () => {
         sendEvent('change_track_click');
         closeDrawer();
+        const lock = getTodayLock();
+        if (lock && lock.track) {
+          showToast(`Track hari ini sudah terkunci di ${lock.track}.`);
+          setSelectedTrack(lock.track, { force: true });
+          setScreen('home');
+          return;
+        }
         if (state.questions.length && !state.completed) showToast('Track terkunci setelah quiz dimulai.');
         else setScreen('home');
       });
