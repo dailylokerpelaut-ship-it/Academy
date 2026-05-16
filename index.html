@@ -703,6 +703,133 @@
     }
     .recap-explanation strong { display: block; margin-bottom: 4px; color: #0F172A; }
 
+
+
+    .book-highlight-card {
+      margin-top: 16px;
+      position: relative;
+      overflow: hidden;
+      border-radius: 24px;
+      padding: 16px;
+      background:
+        radial-gradient(circle at 92% 8%, rgba(245, 158, 11, .22), transparent 30%),
+        radial-gradient(circle at 6% 96%, rgba(14, 165, 233, .16), transparent 30%),
+        linear-gradient(145deg, #FFFDF6 0%, #FFF7E6 44%, #FFFFFF 100%);
+      border: 1px solid rgba(245, 158, 11, .34);
+      box-shadow: 0 18px 42px rgba(7, 29, 42, .10);
+    }
+    .book-highlight-card::before {
+      content: "";
+      position: absolute;
+      right: -42px;
+      bottom: -54px;
+      width: 170px;
+      height: 170px;
+      border-radius: 50%;
+      background: rgba(245, 158, 11, .10);
+      box-shadow: 0 0 0 26px rgba(245, 158, 11, .055), 0 0 0 54px rgba(14, 165, 233, .045);
+      pointer-events: none;
+    }
+    .book-highlight-card > * { position: relative; z-index: 1; }
+    .book-eyebrow {
+      width: fit-content;
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      border-radius: 999px;
+      padding: 7px 10px;
+      background: #FFF7ED;
+      border: 1px solid #FED7AA;
+      color: #C2410C;
+      font-size: 11px;
+      font-weight: 950;
+      text-transform: uppercase;
+      letter-spacing: .04em;
+      margin-bottom: 12px;
+    }
+    .book-highlight-body {
+      display: grid;
+      grid-template-columns: 1fr 88px;
+      gap: 14px;
+      align-items: center;
+    }
+    .book-highlight-copy h3 {
+      margin: 0 0 8px;
+      color: var(--navy-900);
+      font-size: 22px;
+      line-height: 1.08;
+      letter-spacing: -.04em;
+      font-weight: 950;
+    }
+    .book-highlight-copy p {
+      margin: 0;
+      color: #334155;
+      font-size: 13.5px;
+      line-height: 1.52;
+      font-weight: 650;
+    }
+    .book-mock {
+      width: 84px;
+      height: 122px;
+      border-radius: 8px 12px 12px 8px;
+      background:
+        radial-gradient(circle at 50% 82%, rgba(245,158,11,.38), transparent 25%),
+        linear-gradient(160deg, #071D2A 0%, #0A3B5C 60%, #0EA5E9 100%);
+      box-shadow: 9px 12px 22px rgba(7, 29, 42, .26);
+      position: relative;
+      transform: rotate(-3deg);
+      border: 1px solid rgba(255,255,255,.22);
+      overflow: hidden;
+    }
+    .book-mock::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 12px;
+      height: 100%;
+      background: linear-gradient(90deg, rgba(255,255,255,.74), #FDE68A);
+      opacity: .95;
+    }
+    .book-mock::after {
+      content: "INTERVIEW\A MASTERY\A PELAUT";
+      white-space: pre;
+      position: absolute;
+      left: 10px;
+      top: 18px;
+      color: white;
+      font-size: 13px;
+      line-height: 1.05;
+      font-weight: 950;
+      letter-spacing: -.03em;
+    }
+    .book-cta-row {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 10px;
+      margin-top: 14px;
+    }
+    .btn-book {
+      min-height: 50px;
+      color: white;
+      background: linear-gradient(135deg, #EA580C 0%, #F59E0B 100%);
+      box-shadow: 0 15px 28px rgba(234, 88, 12, .28);
+    }
+    .book-soft-note {
+      color: #64748B;
+      font-size: 12px;
+      line-height: 1.45;
+      font-weight: 700;
+      margin: 10px 0 0;
+    }
+
+    @media (max-width: 370px) {
+      .book-highlight-body { grid-template-columns: 1fr 72px; gap: 10px; }
+      .book-mock { width: 72px; height: 106px; }
+      .book-mock::after { font-size: 11px; left: 8px; top: 16px; }
+      .book-highlight-copy h3 { font-size: 20px; }
+    }
+
     .share-text-card {
       margin-top: 16px;
       padding: 15px;
@@ -1055,6 +1182,21 @@
           <h2 class="section-title">Pembahasan</h2>
           <p class="section-subtitle">Selesai untuk hari ini. Besok ada 5 soal baru.</p>
           <div class="recap-list" id="recapList"></div>
+
+          <aside class="book-highlight-card" id="interviewBookHighlight" aria-label="Interview Mastery untuk Pelaut">
+            <div class="book-eyebrow">⭐ Tingkatkan diri</div>
+            <div class="book-highlight-body">
+              <div class="book-highlight-copy">
+                <h3>Interview Mastery untuk Pelaut</h3>
+                <p>Sedang persiapan interview? Academy bantu latihan 5 soal setiap hari. Kalau mau belajar lebih lengkap, panduan ini bantu kamu menyusun jawaban dengan lebih rapi dan percaya diri.</p>
+              </div>
+              <div class="book-mock" aria-hidden="true"></div>
+            </div>
+            <div class="book-cta-row">
+              <button class="btn btn-book" id="interviewBookBtn">Lihat Panduan Interview <span class="circle">›</span></button>
+            </div>
+            <p class="book-soft-note">Soft reminder: belajar harian di Academy, perdalam jawaban interview lewat panduan lengkap.</p>
+          </aside>
           <div class="share-text-card" id="shareTextPreview"></div>
         </div>
       </section>
@@ -1773,6 +1915,7 @@
       renderConfetti(score);
       drawStatusCanvas(score, percent, copy.short, topics, streak.count || 1);
       sendEvent('quiz_result_view', { track: state.selectedTrack, score });
+      sendEvent('interview_book_banner_view', { track: state.selectedTrack, score });
       setScreen('result');
     }
 
@@ -2031,6 +2174,10 @@
       $('saveStatusBtn').addEventListener('click', saveStatusCard);
       $('shareWhatsappBtn').addEventListener('click', shareWhatsapp);
       $('copyShareBtn').addEventListener('click', copyShareText);
+      $('interviewBookBtn').addEventListener('click', () => {
+        sendEvent('interview_book_banner_click', { track: state.selectedTrack || localStorage.getItem(LS_SELECTED_TRACK) || undefined });
+        window.location.href = 'https://pelaut.dailylokerpelaut.com/';
+      });
       $('backTomorrowBtn').addEventListener('click', () => setScreen('home'));
 
       $('openMenuBtn').addEventListener('click', openDrawer);
