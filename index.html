@@ -366,7 +366,8 @@
     }
     .track-card[data-track="Deck Officer"] { background: linear-gradient(135deg, #0A2B4C, #124B78); }
     .track-card[data-track="Engineer Officer"] { background: linear-gradient(135deg, #0E5132, #168452); }
-    .track-card[data-track="Rating"] { background: linear-gradient(135deg, #74420D, #A16207); }
+    .track-card[data-track="Deck Rating"] { background: linear-gradient(135deg, #74420D, #A16207); }
+    .track-card[data-track="Engine Rating"] { background: linear-gradient(135deg, #334155, #0F766E); }
     .track-icon {
       width: 52px;
       height: 52px;
@@ -397,6 +398,19 @@
       font-weight: 650;
     }
     .hint-card .hint-icon { width: 36px; height: 36px; border-radius: 13px; display: grid; place-items: center; background: white; flex: 0 0 auto; }
+
+    .split-notice {
+      margin: 0 0 14px;
+      padding: 13px 14px;
+      border-radius: 18px;
+      background: #FFF7ED;
+      color: #7C2D12;
+      border: 1px solid #FED7AA;
+      font-size: 13px;
+      line-height: 1.45;
+      font-weight: 750;
+    }
+    .split-notice strong { display: block; margin-bottom: 4px; color: #9A3412; }
 
     .daily-card {
       margin-top: 18px;
@@ -990,12 +1004,16 @@
         <section id="trackSection">
           <h2 class="section-title">Pilih track kamu</h2>
           <p class="section-subtitle">Pilih sesuai departemen atau tujuan karirmu. Track bisa diganti sebelum quiz dimulai.</p>
+          <div class="split-notice hidden" id="ratingSplitNotice">
+            <strong>Track Rating sekarang sudah dipisah.</strong>
+            Pilih Deck Rating atau Engine Rating agar soal lebih sesuai dengan pekerjaan kamu.
+          </div>
           <div class="track-grid" id="trackGrid">
             <button class="track-card" data-track="Deck Officer">
               <div class="track-icon">☸️</div>
               <div>
                 <strong>Deck Officer</strong>
-                <span>COLREG • Watchkeeping • Cargo • PSC • Safety</span>
+                <span>Navigasi • Cargo • PSC • Bridge Watch</span>
               </div>
             </button>
             <button class="track-card" data-track="Engineer Officer">
@@ -1005,17 +1023,24 @@
                 <span>Engine Room • PMS • MARPOL • Maintenance</span>
               </div>
             </button>
-            <button class="track-card" data-track="Rating">
-              <div class="track-icon">👥</div>
+            <button class="track-card" data-track="Deck Rating">
+              <div class="track-icon">⚓</div>
               <div>
-                <strong>Rating</strong>
-                <span>Seamanship • Mooring • Safety • Daily Work</span>
+                <strong>Deck Rating</strong>
+                <span>AB • OS • Bosun • Mooring • Gangway</span>
+              </div>
+            </button>
+            <button class="track-card" data-track="Engine Rating">
+              <div class="track-icon">⚙️</div>
+              <div>
+                <strong>Engine Rating</strong>
+                <span>Oiler • Wiper • Motorman • Machinery</span>
               </div>
             </button>
           </div>
           <div class="hint-card">
             <div class="hint-icon">🧭</div>
-            <div>Soal harian diambil dari track kamu + soal umum untuk semua pelaut.</div>
+            <div>Deck Rating dan Engine Rating sudah dipisah agar soal harian lebih relevan dengan kerja di kapal.</div>
           </div>
         </section>
 
@@ -1166,7 +1191,7 @@
       <span>Menu Utama<small>Kembali ke Daily Loker Pelaut</small></span><span class="drawer-arrow">›</span>
     </button>
     <button class="drawer-link" id="changeTrackLink">
-      <span>Ganti Track<small>Deck / Engineer / Rating</small></span><span class="drawer-arrow">›</span>
+      <span>Ganti Track<small>Officer / Deck Rating / Engine Rating</small></span><span class="drawer-arrow">›</span>
     </button>
   </aside>
 
@@ -1191,7 +1216,7 @@
     const LS_SELECTED_TRACK = 'dlpa_selected_track';
     const LS_SELECTED_TRACK_DRAFT = 'dlpa_selected_track_draft';
 
-    const TRACKS = ['Deck Officer', 'Engineer Officer', 'Rating'];
+    const TRACKS = ['Deck Officer', 'Engineer Officer', 'Deck Rating', 'Engine Rating'];
     const TOTAL_QUESTIONS = 5;
 
     const state = {
@@ -1274,6 +1299,7 @@
       const today = todayWIB();
       const explicitLock = readJSON(dailyLockKey(today), null);
       if (explicitLock && normalizeTrack(explicitLock.track)) return explicitLock;
+      // Legacy transition: abaikan lock lama "Rating" agar user bisa memilih Deck Rating / Engine Rating.
 
       // Backward compatibility: kalau user sudah punya progress dari versi lama, anggap track itu terkunci hari ini.
       for (const track of TRACKS) {
@@ -1443,6 +1469,15 @@
 
     function normalizeTrack(track) {
       return TRACKS.includes(track) ? track : null;
+    }
+
+    function isLegacyRatingTrack(track) {
+      return String(track || '').trim().toLowerCase() === 'rating';
+    }
+
+    function showRatingSplitNotice() {
+      const notice = $('ratingSplitNotice');
+      if (notice) notice.classList.remove('hidden');
     }
 
     function setSelectedTrack(track, opts = {}) {
@@ -2080,8 +2115,15 @@
       sendEvent('academy_page_view', { page_location: window.location.href });
 
       const todayLock = getTodayLock();
-      const savedTrack = normalizeTrack(todayLock?.track) || normalizeTrack(localStorage.getItem(LS_SELECTED_TRACK)) || normalizeTrack(localStorage.getItem(LS_SELECTED_TRACK_DRAFT));
-      if (savedTrack) setSelectedTrack(savedTrack, { force: !!todayLock });
+      const savedTrackRaw = localStorage.getItem(LS_SELECTED_TRACK) || localStorage.getItem(LS_SELECTED_TRACK_DRAFT) || '';
+      const savedTrack = normalizeTrack(todayLock?.track) || normalizeTrack(savedTrackRaw);
+      if (savedTrack) {
+        setSelectedTrack(savedTrack, { force: !!todayLock });
+      } else if (isLegacyRatingTrack(savedTrackRaw)) {
+        localStorage.removeItem(LS_SELECTED_TRACK);
+        localStorage.removeItem(LS_SELECTED_TRACK_DRAFT);
+        showRatingSplitNotice();
+      }
       updateStreakUI();
 
       const streak = readStreak();
