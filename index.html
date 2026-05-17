@@ -1218,7 +1218,7 @@
 
     const TRACKS = ['Deck Officer', 'Engineer Officer', 'Deck Rating', 'Engine Rating'];
     const TOTAL_QUESTIONS = 5;
-    const APP_VERSION = 'academy-visual-v4.9-stats-guard';
+    const APP_VERSION = 'academy-visual-v4.10-stats-dedupe';
 
     const state = {
       selectedTrack: null,
@@ -1231,6 +1231,9 @@
       elapsedTimer: null,
       lastResult: null
     };
+
+    // Guard runtime untuk mencegah submit QuizStats double dalam render yang sama.
+    const statsSubmitInFlight = new Set();
 
     const $ = (id) => document.getElementById(id);
     const qs = (sel, root = document) => root.querySelector(sel);
@@ -1601,11 +1604,29 @@
       localStorage.setItem(statsSubmittedKey(date, track), '1');
     }
 
+    function clearStatsSubmitted(date = todayWIB(), track = state.selectedTrack) {
+      localStorage.removeItem(statsSubmittedKey(date, track));
+    }
+
     async function submitQuizStatsToSheet(score, streakCount, topics, opts = {}) {
       const track = normalizeTrack(opts.track || state.selectedTrack);
       const quizDate = opts.quizDate || todayWIB();
       if (!track) return false;
+
+      const submitKey = statsSubmittedKey(quizDate, track);
+
+      // Dedupe 1: sudah pernah sukses submit di browser ini.
       if (!opts.force && hasSubmittedStats(quizDate, track)) return true;
+
+      // Dedupe 2: sedang proses submit. Ini mencegah double karena completeQuiz() memanggil showResult(),
+      // sementara showResult() juga punya fallback submit untuk progress lama.
+      if (statsSubmitInFlight.has(submitKey)) return true;
+
+      statsSubmitInFlight.add(submitKey);
+
+      // Tandai sebelum request dikirim agar fallback showResult tidak ikut submit di detik yang sama.
+      // Kalau request gagal, tanda ini akan dihapus lagi di catch.
+      markStatsSubmitted(quizDate, track);
 
       try {
         const payload = await apiGet({
@@ -1620,16 +1641,18 @@
         });
 
         if (payload && payload.ok) {
-          markStatsSubmitted(quizDate, track);
           sendEvent('quiz_stats_submit_success', { track, score: Number(score || 0) });
           return true;
         }
 
         throw new Error(payload && payload.error ? payload.error : 'submitQuizStats failed');
       } catch (error) {
+        clearStatsSubmitted(quizDate, track);
         console.warn('submitQuizStats failed:', error);
         sendEvent('quiz_stats_submit_failed', { track, error: String(error && error.message ? error.message : error).slice(0, 90) });
         return false;
+      } finally {
+        statsSubmitInFlight.delete(submitKey);
       }
     }
 
