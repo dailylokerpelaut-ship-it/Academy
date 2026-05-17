@@ -1218,6 +1218,7 @@
 
     const TRACKS = ['Deck Officer', 'Engineer Officer', 'Deck Rating', 'Engine Rating'];
     const TOTAL_QUESTIONS = 5;
+    const APP_VERSION = 'academy-visual-v4.9-stats-guard';
 
     const state = {
       selectedTrack: null,
@@ -1238,7 +1239,7 @@
     function sendEvent(name, params = {}) {
       try {
         if (typeof gtag === 'function') {
-          gtag('event', name, { app_version: 'academy-visual-v4.3.0', ...params });
+          gtag('event', name, { app_version: APP_VERSION, ...params });
         }
       } catch (error) {}
     }
@@ -1588,6 +1589,50 @@
       return await res.json();
     }
 
+    function statsSubmittedKey(date = todayWIB(), track = state.selectedTrack) {
+      return `dlpa_stats_submitted_${date}_${track || ''}`;
+    }
+
+    function hasSubmittedStats(date = todayWIB(), track = state.selectedTrack) {
+      return localStorage.getItem(statsSubmittedKey(date, track)) === '1';
+    }
+
+    function markStatsSubmitted(date = todayWIB(), track = state.selectedTrack) {
+      localStorage.setItem(statsSubmittedKey(date, track), '1');
+    }
+
+    async function submitQuizStatsToSheet(score, streakCount, topics, opts = {}) {
+      const track = normalizeTrack(opts.track || state.selectedTrack);
+      const quizDate = opts.quizDate || todayWIB();
+      if (!track) return false;
+      if (!opts.force && hasSubmittedStats(quizDate, track)) return true;
+
+      try {
+        const payload = await apiGet({
+          action: 'submitQuizStats',
+          quiz_date: quizDate,
+          track,
+          score: String(Number(score || 0)),
+          total: String(TOTAL_QUESTIONS),
+          streak: String(Number(streakCount || 0)),
+          categories: topics || getTopics(),
+          app_version: APP_VERSION
+        });
+
+        if (payload && payload.ok) {
+          markStatsSubmitted(quizDate, track);
+          sendEvent('quiz_stats_submit_success', { track, score: Number(score || 0) });
+          return true;
+        }
+
+        throw new Error(payload && payload.error ? payload.error : 'submitQuizStats failed');
+      } catch (error) {
+        console.warn('submitQuizStats failed:', error);
+        sendEvent('quiz_stats_submit_failed', { track, error: String(error && error.message ? error.message : error).slice(0, 90) });
+        return false;
+      }
+    }
+
     function saveProgress(extra = {}) {
       if (!state.selectedTrack) return;
       const topics = getTopics();
@@ -1848,12 +1893,13 @@
       state.completed = true;
       const score = calculateScore();
       const streak = applyStreakForCompletion();
+      const topics = getTopics();
       const progress = {
         completed: true,
         completedAt: new Date().toISOString(),
         score,
         streak: streak.count,
-        topics: getTopics()
+        topics
       };
       setTodayLock(state.selectedTrack, { completed: true, score });
       saveProgress(progress);
@@ -1864,6 +1910,9 @@
       if (score === 3) sendEvent('score_3', { track: state.selectedTrack });
       if (score === 4) sendEvent('score_4', { track: state.selectedTrack });
       if (score === 5) sendEvent('score_5', { track: state.selectedTrack });
+
+      // Kirim ringkasan quiz ke Google Sheet QuizStats. Non-blocking: result tetap tampil walau koneksi gagal.
+      submitQuizStatsToSheet(score, streak.count, topics);
 
       updateStreakUI();
       updateFooterState();
@@ -1878,6 +1927,14 @@
       const copy = resultCopy(score);
       const streak = readStreak();
       const topics = progress?.topics || getTopics();
+
+      // Fallback untuk user yang sudah selesai quiz sebelum stats patch aktif.
+      if (progress && progress.completed && progress.track && !hasSubmittedStats(progress.date || todayWIB(), progress.track)) {
+        submitQuizStatsToSheet(score, progress.streak || streak.count || 1, topics, {
+          track: progress.track,
+          quizDate: progress.date || todayWIB()
+        });
+      }
 
       $('resultHeadline').textContent = copy.headline;
       $('scoreValue').textContent = score;
