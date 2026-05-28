@@ -673,6 +673,7 @@
     .recap-status { font-weight: 950; font-size: 12px; }
     .recap-status.ok { color: var(--green-700); }
     .recap-status.no { color: #BE123C; }
+    .recap-status.pending { color: #64748B; }
     .recap-question {
       margin: 0 0 10px;
       font-size: 14px;
@@ -704,6 +705,11 @@
       background: #FFF1F2;
       border-color: #FECDD3;
       color: #881337;
+    }
+    .recap-answer.pending {
+      background: #F8FAFC;
+      border-color: #CBD5E1;
+      color: #334155;
     }
     .recap-explanation {
       border-radius: 14px;
@@ -1218,7 +1224,7 @@
 
     const TRACKS = ['Deck Officer', 'Engineer Officer', 'Deck Rating', 'Engine Rating'];
     const TOTAL_QUESTIONS = 5;
-    const APP_VERSION = 'academy-visual-v4.10-stats-dedupe';
+    const APP_VERSION = 'academy-visual-v4.11-answer-date-fix';
 
     const state = {
       selectedTrack: null,
@@ -1229,7 +1235,8 @@
       completed: false,
       startedAt: null,
       elapsedTimer: null,
-      lastResult: null
+      lastResult: null,
+      quizDate: null
     };
 
     // Guard runtime untuk mencegah submit QuizStats double dalam render yang sama.
@@ -1659,8 +1666,10 @@
     function saveProgress(extra = {}) {
       if (!state.selectedTrack) return;
       const topics = getTopics();
+      const quizDate = state.quizDate || todayWIB();
       const progress = {
-        date: todayWIB(),
+        date: quizDate,
+        quiz_date: quizDate,
         track: state.selectedTrack,
         currentIndex: state.currentIndex,
         questionIds: state.questions.map(q => q.id),
@@ -1717,6 +1726,7 @@
           if (!getTodayLock()) setTodayLock(state.selectedTrack, { completed: !!existing.completed });
         } else {
           const payload = await apiGet({ action: 'getTodayQuiz', track: state.selectedTrack });
+          state.quizDate = payload?.quiz_date || todayWIB();
           questions = extractQuestions(payload).slice(0, TOTAL_QUESTIONS);
           if (questions.length < TOTAL_QUESTIONS) throw new Error('Jumlah soal kurang dari 5');
           state.questions = questions;
@@ -1746,6 +1756,7 @@
 
     function hydrateFromProgress(progress) {
       // Re-normalize every time so old cached progress from previous preview does not keep blank options/explanations.
+      state.quizDate = progress.quiz_date || progress.quizDate || progress.date || todayWIB();
       state.questions = (progress.questions || []).map(q => normalizeQuestion(q));
       state.currentIndex = Math.min(progress.currentIndex || 0, Math.max(0, state.questions.length - 1));
       state.answers = progress.answers || {};
@@ -1814,6 +1825,13 @@
     function decorateAnsweredOption(btn, letter, result, selected) {
       const status = qs('.option-status', btn);
       const correct = result?.correctAnswer;
+      if (result?.checkFailed || result?.isCorrect === null) {
+        if (letter === selected) {
+          btn.classList.add('selected');
+          status.textContent = '•';
+        }
+        return;
+      }
       if (letter === correct) {
         btn.classList.add('correct');
         status.textContent = '✓';
@@ -1838,18 +1856,22 @@
         const payload = await apiGet({
           action: 'checkAnswer',
           track: state.selectedTrack,
+          quiz_date: state.quizDate || todayWIB(),
           question_id: q.id,
           selected_answer: letter
         });
         const result = normalizeAnswerResult(payload, q, letter);
         storeAnswer(q, letter, result);
       } catch (error) {
-        const correctAnswer = String(q.correctAnswer || '').toUpperCase();
+        const correctAnswer = String(q.correctAnswer || '').toUpperCase().trim();
         const result = {
-          isCorrect: correctAnswer ? letter === correctAnswer : false,
-          correctAnswer: correctAnswer || letter,
-          explanation: q.explanation || 'Jawaban tersimpan. Pembahasan belum tersedia dari server.'
+          isCorrect: correctAnswer ? letter === correctAnswer : null,
+          correctAnswer: correctAnswer || '',
+          explanation: q.explanation || 'Jawaban kamu sudah tersimpan, tapi pembahasan belum berhasil dimuat dari server. Coba refresh halaman atau cek koneksi internet.',
+          checkFailed: true
         };
+        console.warn('checkAnswer failed:', error);
+        sendEvent('quiz_answer_check_failed', { track: state.selectedTrack, question_id: q.id });
         storeAnswer(q, letter, result);
       }
     }
@@ -1860,8 +1882,9 @@
       const explanation = payload?.explanation || payload?.Explanation || payload?.data?.explanation || q.explanation || '';
       return {
         isCorrect: Boolean(isCorrect === true || isCorrect === 'true' || isCorrect === 1 || isCorrect === '1'),
-        correctAnswer: String(correctAnswer).toUpperCase().trim(),
-        explanation
+        correctAnswer: String(correctAnswer).toUpperCase().trim().slice(0, 1),
+        explanation,
+        checkFailed: false
       };
     }
 
@@ -1879,6 +1902,13 @@
     function showExplanation(result, selected) {
       const card = $('explanationCard');
       card.classList.remove('hidden', 'wrong');
+      if (result?.checkFailed || result?.isCorrect === null) {
+        card.classList.add('wrong');
+        $('explanationTitle').textContent = 'Jawaban tersimpan.';
+        $('explanationText').textContent = result.explanation || 'Pembahasan belum berhasil dimuat. Coba refresh halaman atau cek koneksi internet.';
+        sendEvent('explanation_view', { track: state.selectedTrack, correct: 'unknown' });
+        return;
+      }
       if (!result.isCorrect) card.classList.add('wrong');
       $('explanationTitle').textContent = result.isCorrect ? 'Benar. Good watch.' : 'Belum tepat. Ini pembahasannya.';
       $('explanationText').textContent = result.explanation || (result.isCorrect ? 'Jawaban kamu sudah tepat.' : 'Tidak apa-apa. Ini justru alasan latihan harian penting.');
@@ -1917,9 +1947,12 @@
       const score = calculateScore();
       const streak = applyStreakForCompletion();
       const topics = getTopics();
+      const quizDate = state.quizDate || todayWIB();
       const progress = {
         completed: true,
         completedAt: new Date().toISOString(),
+        date: quizDate,
+        quiz_date: quizDate,
         score,
         streak: streak.count,
         topics
@@ -1935,7 +1968,7 @@
       if (score === 5) sendEvent('score_5', { track: state.selectedTrack });
 
       // Kirim ringkasan quiz ke Google Sheet QuizStats. Non-blocking: result tetap tampil walau koneksi gagal.
-      submitQuizStatsToSheet(score, streak.count, topics);
+      submitQuizStatsToSheet(score, streak.count, topics, { quizDate });
 
       updateStreakUI();
       updateFooterState();
@@ -1990,22 +2023,26 @@
       state.questions.forEach((q, index) => {
         const result = state.results[q.id] || {};
         const selected = state.answers[q.id] || '-';
-        const correct = result.correctAnswer || q.correctAnswer || '-';
+        const isPending = result.checkFailed || result.isCorrect === null;
+        const correct = isPending ? '-' : (result.correctAnswer || q.correctAnswer || '-');
         const selectedText = q.options?.[selected] || 'Tidak terbaca';
-        const correctText = q.options?.[correct] || 'Tidak terbaca';
+        const correctText = correct !== '-' ? (q.options?.[correct] || 'Tidak terbaca') : 'Belum termuat';
         const explanation = result.explanation || q.explanation || 'Pembahasan belum tersedia untuk soal ini.';
+        const statusClass = isPending ? 'pending' : (result.isCorrect ? 'ok' : 'no');
+        const statusText = isPending ? 'Tersimpan' : (result.isCorrect ? 'Benar' : 'Review');
+        const answerClass = isPending ? 'pending' : (result.isCorrect ? 'correct' : 'wrong');
         const item = document.createElement('div');
         item.className = 'recap-item';
         item.innerHTML = `
           <div class="recap-head">
             <div class="recap-num">${index + 1}</div>
             <div class="recap-meta"><strong>${escapeHTML(q.category || 'Daily Drill')}</strong><small>${escapeHTML(q.difficulty || 'Easy')}</small></div>
-            <div class="recap-status ${result.isCorrect ? 'ok' : 'no'}">${result.isCorrect ? 'Benar' : 'Review'}</div>
+            <div class="recap-status ${statusClass}">${statusText}</div>
           </div>
           <p class="recap-question">${escapeHTML(q.question || 'Pertanyaan tidak terbaca.')}</p>
           <div class="recap-answer-grid">
-            <div class="recap-answer ${result.isCorrect ? 'correct' : 'wrong'}"><strong>Jawaban kamu:</strong> ${escapeHTML(selected)}. ${escapeHTML(selectedText)}</div>
-            <div class="recap-answer correct"><strong>Jawaban benar:</strong> ${escapeHTML(correct)}. ${escapeHTML(correctText)}</div>
+            <div class="recap-answer ${answerClass}"><strong>Jawaban kamu:</strong> ${escapeHTML(selected)}. ${escapeHTML(selectedText)}</div>
+            <div class="recap-answer ${isPending ? 'pending' : 'correct'}"><strong>Jawaban benar:</strong> ${escapeHTML(correct)}. ${escapeHTML(correctText)}</div>
           </div>
           <div class="recap-explanation"><strong>Pembahasan</strong>${escapeHTML(explanation)}</div>
         `;
