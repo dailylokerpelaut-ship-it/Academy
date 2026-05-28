@@ -513,6 +513,10 @@
     }
     .option-text { font-size: 14px; line-height: 1.38; font-weight: 700; }
     .option-btn.selected { border-color: var(--blue-600); box-shadow: 0 10px 22px rgba(14,165,233,.12); }
+    .option-btn.loading { background: #F0F9FF; border-color: var(--blue-600); box-shadow: 0 10px 22px rgba(14,165,233,.12); }
+    .option-btn.loading .option-letter { background: #DBEAFE; color: #0369A1; }
+    .option-btn.loading .option-text::after { content: "  Mengecek..."; color: var(--blue-600); font-size: 12px; font-weight: 900; }
+    .option-btn.loading .option-status { width: 22px; height: 22px; border-radius: 999px; border: 3px solid #BFDBFE; border-top-color: var(--blue-600); animation: spin .75s linear infinite; font-size: 0; min-width: 22px; }
     .option-btn.correct { background: linear-gradient(135deg, var(--green-700), var(--green-600)); color: white; border-color: transparent; }
     .option-btn.correct .option-letter { background: rgba(255,255,255,.18); color: white; }
     .option-btn.wrong { background: #FFF1F2; border-color: #FECACA; color: #881337; }
@@ -1044,10 +1048,6 @@
               </div>
             </button>
           </div>
-          <div class="hint-card">
-            <div class="hint-icon">🧭</div>
-            <div>Deck Rating dan Engine Rating sudah dipisah agar soal harian lebih relevan dengan kerja di kapal.</div>
-          </div>
         </section>
 
         <section class="daily-card card">
@@ -1193,6 +1193,9 @@
     <button class="drawer-link" id="vacancyMenuLink">
       <span>Loker Harian<small>Cek lowongan pelaut terbaru</small></span><span class="drawer-arrow">›</span>
     </button>
+    <button class="drawer-link" id="logbookMenuLink">
+      <span>Logbook<small>Artikel dan panduan pelaut</small></span><span class="drawer-arrow">›</span>
+    </button>
     <button class="drawer-link" id="mainMenuLink">
       <span>Menu Utama<small>Kembali ke Daily Loker Pelaut</small></span><span class="drawer-arrow">›</span>
     </button>
@@ -1224,7 +1227,7 @@
 
     const TRACKS = ['Deck Officer', 'Engineer Officer', 'Deck Rating', 'Engine Rating'];
     const TOTAL_QUESTIONS = 5;
-    const APP_VERSION = 'academy-visual-v4.11-answer-date-fix';
+    const APP_VERSION = 'academy-visual-v4.12-minor-ux-fix';
 
     const state = {
       selectedTrack: null,
@@ -1824,20 +1827,28 @@
 
     function decorateAnsweredOption(btn, letter, result, selected) {
       const status = qs('.option-status', btn);
-      const correct = result?.correctAnswer;
+      btn.classList.remove('loading');
+      if (status) {
+        status.textContent = '';
+        status.removeAttribute('aria-label');
+      }
+
+      // Kalau checkAnswer gagal karena koneksi/API, jangan tampilkan seolah-olah user salah.
       if (result?.checkFailed || result?.isCorrect === null) {
         if (letter === selected) {
           btn.classList.add('selected');
-          status.textContent = '•';
+          if (status) status.textContent = '!';
         }
         return;
       }
+
+      const correct = result?.correctAnswer;
       if (letter === correct) {
         btn.classList.add('correct');
-        status.textContent = '✓';
+        if (status) status.textContent = '✓';
       } else if (letter === selected) {
         btn.classList.add('wrong');
-        status.textContent = '×';
+        if (status) status.textContent = '×';
       }
     }
 
@@ -1847,7 +1858,11 @@
 
       qsa('.option-btn').forEach(btn => {
         btn.disabled = true;
-        if (btn.dataset.answer === letter) btn.classList.add('selected');
+        if (btn.dataset.answer === letter) {
+          btn.classList.add('selected', 'loading');
+          const status = qs('.option-status', btn);
+          if (status) status.setAttribute('aria-label', 'Mengecek jawaban');
+        }
       });
 
       sendEvent('quiz_answer_click', { track: state.selectedTrack, question_id: q.id, selected_answer: letter });
@@ -1892,7 +1907,15 @@
       state.answers[q.id] = selected;
       state.results[q.id] = result;
       saveProgress();
-      qsa('.option-btn').forEach(btn => decorateAnsweredOption(btn, btn.dataset.answer, result, selected));
+      qsa('.option-btn').forEach(btn => {
+        btn.classList.remove('loading', 'selected');
+        const status = qs('.option-status', btn);
+        if (status) {
+          status.textContent = '';
+          status.removeAttribute('aria-label');
+        }
+        decorateAnsweredOption(btn, btn.dataset.answer, result, selected);
+      });
       showExplanation(result, selected);
       $('nextQuestionBtn').classList.remove('hidden');
       $('nextQuestionBtn').textContent = state.currentIndex + 1 >= TOTAL_QUESTIONS ? 'Lihat Hasil' : 'Soal Selanjutnya ›';
@@ -2301,6 +2324,10 @@
       $('vacancyMenuLink').addEventListener('click', () => {
         sendEvent('vacancy_menu_click');
         window.location.href = 'https://vacancy.dailylokerpelaut.com/';
+      });
+      $('logbookMenuLink').addEventListener('click', () => {
+        sendEvent('logbook_menu_click');
+        window.location.href = 'https://logbook.dailylokerpelaut.com/';
       });
       $('changeTrackLink').addEventListener('click', () => {
         sendEvent('change_track_click');
